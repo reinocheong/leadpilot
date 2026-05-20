@@ -287,6 +287,10 @@
       text-align: center;
       margin-top: 0.6rem;
     }
+    #googleBtn {
+      margin: 0 auto;
+      display: flex; justify-content: center;
+    }
 
     /* ── Landing page elements ── */
     .landing-hero {
@@ -305,18 +309,18 @@
       line-height: 1.6; max-width: 300px; margin: 0 auto 0;
     }
     .landing-features {
-      display: flex; flex-direction: column; gap: 0.4rem;
-      margin: 0.8rem 0 0.5rem;
+      display: flex; gap: 0.5rem;
+      margin: 1rem 0 0.5rem;
     }
     .lfeat {
-      display: flex; align-items: center; gap: 0.6rem;
-      padding: 0.5rem 0.65rem;
+      flex: 1; text-align: center;
+      padding: 0.5rem 0.3rem;
       border-radius: 0.5rem;
       background: rgba(255,255,255,0.02);
       border: 1px solid var(--border);
     }
-    .lfeat-icon { font-size: 1.1rem; flex-shrink: 0; }
-    .lfeat-label { font-size: 0.7rem; color: var(--text-secondary); font-weight: 500; }
+    .lfeat-icon { font-size: 1.2rem; margin-bottom: 0.2rem; }
+    .lfeat-label { font-size: 0.6rem; color: var(--text-muted); font-weight: 500; }
     .landing-promo {
       text-align: center; margin-top: 1rem;
       font-size: 0.62rem; color: #334155;
@@ -536,7 +540,7 @@ function initGoogleSignIn() {
     use_fedcm_for_button: true,
   });
   google.accounts.id.renderButton(btnEl, {
-    type: 'standard', theme: 'filled_black', size: 'large',
+    type: 'standard', theme: 'outline', size: 'large',
     text: 'signin_with', shape: 'rectangular',
     width: btnEl.parentElement.offsetWidth - 48 || 280,
   });
