@@ -2,7 +2,7 @@
 
 > 项目：Smart Tenancy Pro — JB 房产数据 SaaS  
 > 根目录：`/home/user/jb-rental-intel/`  
-> 最后更新：2026-05-19
+> 最后更新：2026-05-20
 
 ---
 

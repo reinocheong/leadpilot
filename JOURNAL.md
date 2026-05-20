@@ -28,3 +28,7 @@
   - 启动 `AI_ARCHITECT_PROTOCOL` 规范化整改。
   - 补齐 SSOT 文档：`USER.md`, `JOURNAL.md`, `MEMORY.md`。
   - 建立 Git 版本控制安全基线。
+- **2026-05-20 [AI]**
+  - 重写 `rentals.html` 登录过渡：消除「加载过程中跳回登录页」的 bug。
+  - 新流程：登录后不切画面，在登录页上显示「验证中...」→「加载数据中...」动画 → 全部就绪后淡出到主界面。
+  - 修改 `load()` 的 401 处理从 `showLogin()` 改为 `throw`，让调用方统一控制 UI。
