@@ -333,6 +333,29 @@
       font-size: 0.68rem; color: #f87171;
       margin-top: 0.5rem; min-height: 1.2em;
     }
+
+    /* Loading indicator */
+    .login-loading {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0.35rem; margin-top: 1rem; min-height: 1.5rem;
+      transition: opacity 0.2s;
+    }
+    .login-loading.hidden { display: none; }
+    .login-loading .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent);
+      animation: loadBounce 1.2s ease-in-out infinite;
+    }
+    .login-loading .dot:nth-child(2) { animation-delay: 0.2s; }
+    .login-loading .dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes loadBounce {
+      0%,80%,100% { opacity: 0.25; transform: scale(0.8); }
+      40% { opacity: 1; transform: scale(1.2); }
+    }
+    .login-loading .label {
+      font-size: 0.72rem; color: var(--text-muted);
+      margin-left: 0.2rem;
+    }
     .login-foot {
       margin-top: 1.2rem;
       font-size: 0.62rem; color: #334155;
@@ -441,6 +464,12 @@
       <div class="login-title">免费试用 3 天</div>
       <div class="login-sub">Google 登录即开，不用填表</div>
       <div id="googleBtn"></div>
+      <div class="login-loading hidden" id="loginLoading">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="label">验证中...</span>
+      </div>
       <div class="login-error" id="loginError"></div>
     </div>
 
@@ -548,7 +577,10 @@ function initGoogleSignIn() {
 
 async function handleGoogleLogin(response) {
   const errEl = document.getElementById('loginError');
+  const loadingEl = document.getElementById('loginLoading');
   errEl.textContent = '';
+  loadingEl.classList.remove('hidden');
+  loadingEl.querySelector('.label').textContent = '验证中...';
 
   try {
     const r = await fetch(AUTH_URL + '/google-auth', {
@@ -557,35 +589,44 @@ async function handleGoogleLogin(response) {
       body: JSON.stringify({google_token: response.credential})
     });
     const data = await r.json();
-    if (data.error) { errEl.textContent = data.error; return; }
+    if (data.error) {
+      loadingEl.classList.add('hidden');
+      errEl.textContent = data.error;
+      return;
+    }
 
     saveAuth(data.token, data.name);
 
     if (data.status === 'expired') {
+      loadingEl.classList.add('hidden');
       document.getElementById('loginOverlay').style.display = 'none';
       document.getElementById('payOverlay').style.display = 'flex';
-      document.querySelector('.top-bar').style.display = 'none';
       return;
     }
 
-    // Step 1: fade login out (150ms), step 2: show skeleton/data area
-    const overlay = document.getElementById('loginOverlay');
-    overlay.style.transition = 'opacity 0.15s ease';
-    overlay.style.opacity = '0';
-    await new Promise(r => setTimeout(r, 180));
-
-    // Show data area (with skeletons), hide login
-    overlay.style.display = 'none';
-    document.querySelector('.top-bar').style.display = '';
-    document.getElementById('listings').style.display = '';
+    // Phase 2: loading data — stay on login page
+    loadingEl.querySelector('.label').textContent = '加载数据中...';
 
     try {
       await load();
     } catch(e) {
-      document.getElementById('listings').innerHTML = '<div class="empty">⚠ 数据加载失败</div>';
+      loadingEl.classList.add('hidden');
+      errEl.textContent = '数据加载失败，请重试';
+      return;
     }
+
+    // All done — fade login out, show main view
+    loadingEl.classList.add('hidden');
+    const overlay = document.getElementById('loginOverlay');
+    overlay.style.transition = 'opacity 0.15s ease';
+    overlay.style.opacity = '0';
+    await new Promise(r => setTimeout(r, 180));
+    overlay.style.display = 'none';
+    document.querySelector('.top-bar').style.display = '';
+    document.getElementById('listings').style.display = '';
     document.querySelector('.footnote').style.display = '';
   } catch(e) {
+    loadingEl.classList.add('hidden');
     errEl.textContent = '网络错误，请重试';
   }
 }
@@ -595,7 +636,7 @@ async function load() {
   const token = getToken();
   if (!token) { showLogin(); return; }
   const r = await fetch(AUTH_URL + '/data?token=' + encodeURIComponent(token));
-  if (r.status === 401) { clearAuth(); showLogin(); return; }
+  if (r.status === 401) { clearAuth(); throw new Error('会话已过期'); }
   DATA = await r.json();
   if (DATA.error) throw new Error(DATA.error);
   renderStats();
