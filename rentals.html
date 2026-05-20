@@ -305,18 +305,18 @@
       line-height: 1.6; max-width: 300px; margin: 0 auto 0;
     }
     .landing-features {
-      display: flex; gap: 0.5rem;
+      display: flex; flex-direction: column; gap: 0.4rem;
       margin: 1rem 0 0.5rem;
     }
     .lfeat {
-      flex: 1; text-align: center;
-      padding: 0.5rem 0.3rem;
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 0.5rem 0.65rem;
       border-radius: 0.5rem;
       background: rgba(255,255,255,0.02);
       border: 1px solid var(--border);
     }
-    .lfeat-icon { font-size: 1.2rem; margin-bottom: 0.2rem; }
-    .lfeat-label { font-size: 0.6rem; color: var(--text-muted); font-weight: 500; }
+    .lfeat-icon { font-size: 1rem; flex-shrink: 0; }
+    .lfeat-label { font-size: 0.68rem; color: var(--text-muted); font-weight: 500; }
     .landing-promo {
       text-align: center; margin-top: 1rem;
       font-size: 0.62rem; color: #334155;
@@ -420,15 +420,15 @@
     <div class="landing-features">
       <div class="lfeat">
         <div class="lfeat-icon">🔍</div>
-        <div class="lfeat-label">搜楼盘秒找</div>
+        <div class="lfeat-label">搜楼盘名秒找 agent</div>
       </div>
       <div class="lfeat">
         <div class="lfeat-icon">📞</div>
-        <div class="lfeat-label">电话全显示</div>
+        <div class="lfeat-label">agent 电话全显示</div>
       </div>
       <div class="lfeat">
         <div class="lfeat-icon">🔄</div>
-        <div class="lfeat-label">30分更新</div>
+        <div class="lfeat-label">每 30 分钟自动更新</div>
       </div>
     </div>
 
