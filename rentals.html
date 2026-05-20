@@ -325,39 +325,6 @@
     .login-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
     .login-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.3rem; }
     .login-sub { font-size: 0.7rem; color: var(--text-muted); margin-bottom: 1.5rem; }
-    .login-field {
-      width: 100%; padding: 0.7rem 0.85rem;
-      border-radius: 0.65rem;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.03);
-      color: var(--text-primary);
-      font-size: 0.82rem; outline: none;
-      margin-bottom: 0.6rem;
-      transition: border 0.2s;
-    }
-    .login-field:focus { border-color: rgba(245,158,11,0.4); }
-    .login-field::placeholder { color: var(--text-muted); }
-    .login-btn {
-      width: 100%; padding: 0.7rem;
-      border-radius: 0.65rem; border: none;
-      background: var(--accent);
-      color: #0f172a;
-      font-size: 0.85rem; font-weight: 600;
-      cursor: pointer;
-      margin-top: 0.3rem;
-      transition: opacity 0.15s;
-    }
-    .login-btn:active { opacity: 0.8; }
-    .login-btn:disabled { opacity: 0.4; }
-    .login-sep {
-      display: flex; align-items: center; gap: 0.5rem;
-      margin: 0.8rem 0;
-      color: var(--text-muted); font-size: 0.65rem;
-    }
-    .login-sep::before, .login-sep::after {
-      content: ''; flex: 1; height: 1px;
-      background: var(--border);
-    }
     .login-error {
       font-size: 0.68rem; color: #f87171;
       margin-top: 0.5rem; min-height: 1.2em;
@@ -470,10 +437,6 @@
       <div class="login-title">免费试用 3 天</div>
       <div class="login-sub">Google 登录即开，不用填表</div>
       <div id="googleBtn"></div>
-      <div class="login-sep"><span>或用邮箱登录</span></div>
-      <input class="login-field" type="email" id="loginEmail" placeholder="📧 邮箱" autocomplete="email">
-      <input class="login-field" type="password" id="loginPw" placeholder="🔒 密码" autocomplete="current-password">
-      <button class="login-btn" id="loginBtn" onclick="doLogin()">登 录</button>
       <div class="login-error" id="loginError"></div>
     </div>
 
@@ -521,7 +484,7 @@
 
 <script>
 // ── Auth Config ───────────────────────────────────────────
-const AUTH_URL = 'https://part-surrounding-discrimination-mystery.trycloudflare.com';
+const AUTH_URL = 'https://mattress-concerning-material-basically.trycloudflare.com';
 const GOOGLE_CLIENT_ID = '788231638010-v1k56qso1brtia2u9ddqghbbpes4pkm9.apps.googleusercontent.com';
 const TOKEN_KEY = 'jb_rentals_token';
 const NAME_KEY = 'jb_rentals_name';
@@ -582,37 +545,6 @@ function showPayWall() {
   document.querySelector('.top-bar').style.display = 'none';
   document.getElementById('listings').style.display = 'none';
   document.querySelector('.footnote').style.display = 'none';
-}
-
-async function doLogin() {
-  const email = document.getElementById('loginEmail').value.trim();
-  const pw = document.getElementById('loginPw').value;
-  const errEl = document.getElementById('loginError');
-  const btn = document.getElementById('loginBtn');
-
-  if (!email || !pw) { errEl.textContent = '请输入邮箱和密码'; return; }
-
-  btn.disabled = true; btn.textContent = '登录中…'; errEl.textContent = '';
-
-  try {
-    const r = await fetch(AUTH_URL + '/auth', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({email: email, password: pw})
-    });
-    const data = await r.json();
-    if (data.error) {
-      errEl.textContent = data.error;
-    } else {
-      saveAuth(data.token, data.name);
-      showLoading();
-      await load();
-      showApp();
-    }
-  } catch(e) {
-    errEl.textContent = '网络错误，请重试';
-  }
-  btn.disabled = false; btn.textContent = '登 录';
 }
 
 function doLogout() {
@@ -681,13 +613,6 @@ async function handleGoogleLogin(response) {
     errEl.textContent = '网络错误，请重试';
   }
 }
-
-// Allow Enter key to login
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('loginPw').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') doLogin();
-  });
-});
 
 // ── Data Loading ──────────────────────────────────────────
 async function load() {
