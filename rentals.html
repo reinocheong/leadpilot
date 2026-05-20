@@ -450,13 +450,6 @@
   </div>
 </div>
 
-<!-- Loading overlay -->
-<div class="login-overlay" id="loadingOverlay" style="display:none">
-  <div class="login-card">
-    <div class="skeleton"><div class="sk-line"></div><div class="sk-line w3"></div><div class="sk-line w2"></div></div>
-  </div>
-</div>
-
 <!-- Payment overlay -->
 <div class="login-overlay" id="payOverlay" style="display:none">
   <div class="pay-card">
@@ -504,54 +497,27 @@ function clearAuth() {
   localStorage.removeItem(NAME_KEY);
 }
 
-async function checkAuth() {
-  const token = getToken();
-  if (!token) { showLogin(); return false; }
-  // Quick validate
-  try {
-    const r = await fetch(AUTH_URL + '/data?token=' + encodeURIComponent(token));
-    if (r.status === 401) { clearAuth(); showLogin(); return false; }
-    return true;
-  } catch(e) { return !!token; } // offline fallback
-}
-
+// ── Login Transition ──────────────────────────────────────
 function showLogin() {
   document.getElementById('loginOverlay').style.display = 'flex';
-  document.getElementById('loadingOverlay').style.display = 'none';
+  document.getElementById('payOverlay').style.display = 'none';
   document.querySelector('.top-bar').style.display = 'none';
   document.getElementById('listings').style.display = 'none';
   document.querySelector('.footnote').style.display = 'none';
-}
-
-function showLoading() {
-  document.getElementById('loginOverlay').style.display = 'none';
-  document.getElementById('loadingOverlay').style.display = 'flex';
-  document.querySelector('.top-bar').style.display = 'none';
-}
-
-function showApp() {
-  document.getElementById('loginOverlay').style.display = 'none';
-  document.getElementById('loadingOverlay').style.display = 'none';
-  document.getElementById('payOverlay').style.display = 'none';
-  document.querySelector('.top-bar').style.display = '';
-  document.getElementById('listings').style.display = '';
-  document.querySelector('.footnote').style.display = '';
+  // Reset opacity for next transition
+  document.getElementById('loginOverlay').style.opacity = '1';
+  document.getElementById('loginOverlay').style.transition = '';
 }
 
 function showPayWall() {
   document.getElementById('loginOverlay').style.display = 'none';
-  document.getElementById('loadingOverlay').style.display = 'none';
   document.getElementById('payOverlay').style.display = 'flex';
   document.querySelector('.top-bar').style.display = 'none';
   document.getElementById('listings').style.display = 'none';
-  document.querySelector('.footnote').style.display = 'none';
 }
 
 function doLogout() {
-  // Also revoke Google session if applicable
-  if (window.google && google.accounts) {
-    google.accounts.id.disableAutoSelect();
-  }
+  if (window.google && google.accounts) google.accounts.id.disableAutoSelect();
   clearAuth();
   showLogin();
   initGoogleSignIn();
@@ -561,11 +527,7 @@ function doLogout() {
 function initGoogleSignIn() {
   const btnEl = document.getElementById('googleBtn');
   if (!btnEl) return;
-  if (!window.google) {
-    // Google SDK not loaded yet, retry
-    setTimeout(initGoogleSignIn, 500);
-    return;
-  }
+  if (!window.google) { setTimeout(initGoogleSignIn, 500); return; }
   btnEl.innerHTML = '';
   google.accounts.id.initialize({
     client_id: GOOGLE_CLIENT_ID,
@@ -574,11 +536,8 @@ function initGoogleSignIn() {
     use_fedcm_for_button: true,
   });
   google.accounts.id.renderButton(btnEl, {
-    type: 'standard',
-    theme: 'filled_black',
-    size: 'large',
-    text: 'signin_with',
-    shape: 'rectangular',
+    type: 'standard', theme: 'filled_black', size: 'large',
+    text: 'signin_with', shape: 'rectangular',
     width: btnEl.parentElement.offsetWidth - 48 || 280,
   });
 }
@@ -594,21 +553,34 @@ async function handleGoogleLogin(response) {
       body: JSON.stringify({google_token: response.credential})
     });
     const data = await r.json();
-    if (data.error) {
-      errEl.textContent = data.error;
-      return;
-    }
+    if (data.error) { errEl.textContent = data.error; return; }
 
     saveAuth(data.token, data.name);
 
-    // Check status: expired → payment page, active → data
-    if (data.status === 'expired' || data.status === '🔴 已过期') {
-      showPayWall();
-    } else {
-      showLoading();
-      await load();
-      showApp();
+    if (data.status === 'expired') {
+      document.getElementById('loginOverlay').style.display = 'none';
+      document.getElementById('payOverlay').style.display = 'flex';
+      document.querySelector('.top-bar').style.display = 'none';
+      return;
     }
+
+    // Step 1: fade login out (150ms), step 2: show skeleton/data area
+    const overlay = document.getElementById('loginOverlay');
+    overlay.style.transition = 'opacity 0.15s ease';
+    overlay.style.opacity = '0';
+    await new Promise(r => setTimeout(r, 180));
+
+    // Show data area (with skeletons), hide login
+    overlay.style.display = 'none';
+    document.querySelector('.top-bar').style.display = '';
+    document.getElementById('listings').style.display = '';
+
+    try {
+      await load();
+    } catch(e) {
+      document.getElementById('listings').innerHTML = '<div class="empty">⚠ 数据加载失败</div>';
+    }
+    document.querySelector('.footnote').style.display = '';
   } catch(e) {
     errEl.textContent = '网络错误，请重试';
   }
@@ -618,41 +590,30 @@ async function handleGoogleLogin(response) {
 async function load() {
   const token = getToken();
   if (!token) { showLogin(); return; }
-
-  try {
-    const r = await fetch(AUTH_URL + '/data?token=' + encodeURIComponent(token));
-    if (r.status === 401) { clearAuth(); showLogin(); return; }
-    DATA = await r.json();
-    if (DATA.error) { throw new Error(DATA.error); }
-    renderStats();
-    renderTags();
-    filter();
-  } catch(e) {
-    document.getElementById('listings').innerHTML = '<div class="empty">⚠ 数据加载失败，请刷新重试</div>';
-  }
+  const r = await fetch(AUTH_URL + '/data?token=' + encodeURIComponent(token));
+  if (r.status === 401) { clearAuth(); showLogin(); return; }
+  DATA = await r.json();
+  if (DATA.error) throw new Error(DATA.error);
+  renderStats();
+  renderTags();
+  filter();
 }
 
 function renderStats() {
-  const t = new Date(DATA.updated_at);
-  const now = new Date();
-  const min = Math.floor((now - t) / 60000);
-  let ago = min < 1 ? '刚刚' : min < 60 ? min + '分前' : Math.floor(min/60) + '时前';
   const name = localStorage.getItem(NAME_KEY) || '';
   document.getElementById('statPills').innerHTML =
     `<a class="nav-link" href="https://t.me/smarttenancypro_bot" target="_blank">📄 合同Bot</a>` +
     `<span class="stat-pill"><b>${DATA.total}</b> 套房源</span>` +
-    `<span class="stat-pill">🆕 <b>${DATA.today_new}</b> 今日</span>` +
-    `<span class="stat-pill">${ago}</span>` +
+    `<span class="stat-pill">🆕 <b>${DATA.today_new || 0}</b> 今日</span>` +
     (name ? `<button class="logout-btn" onclick="doLogout()">👤 ${esc(name)}</button>` : '');
 }
 
 function renderTags() {
   const row = document.getElementById('tagRow');
   row.innerHTML = '<span class="tag active" onclick="selectTag(\'\', this)">全部</span>';
-  DATA.top_properties.slice(0, 10).forEach(p => {
+  (DATA.top_properties || []).slice(0, 10).forEach(p => {
     const s = document.createElement('span');
-    s.className = 'tag';
-    s.textContent = p;
+    s.className = 'tag'; s.textContent = p;
     s.onclick = () => selectTag(p, s);
     row.appendChild(s);
   });
@@ -790,15 +751,17 @@ function togglePost(el) {
 
 // ── Init ──────────────────────────────────────────────────
 (async function init() {
-  showLoading();
-  const ok = await checkAuth();
-  if (ok) {
-    await load();
-    showApp();
-  } else {
-    showLogin();
-    initGoogleSignIn();
+  const token = getToken();
+  if (token) {
+    try {
+      await load();
+      return;
+    } catch(e) {
+      clearAuth();
+    }
   }
+  showLogin();
+  initGoogleSignIn();
 })();
 </script>
 </body>
