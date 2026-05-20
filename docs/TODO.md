@@ -12,7 +12,7 @@
 |:----|:----|:----:|:----|
 | **0** | Git 版本基线 | ✅ | Tag: `pre-refactor-v1` |
 | **1** | SSOT 文档补齐 | [-] | USER/JOURNAL/MEMORY 已建，TODO 更新中 |
-| **2** | Mermaid 架构图 | [ ] | 待重写 ARCHITECTURE.md |
+| **2** | Mermaid 架构图 | ✅ | `ARCHITECTURE.md` 已创建 |
 | **3** | 核心模块化拆分 | [ ] | 涉及 fb_parser, sub_mgr 等 |
 | **4** | 日志系统标准化 | [ ] | 待建 error.log 与统一格式 |
 | **5** | 最终审计校验 | [ ] | 待完成 |
@@ -34,7 +34,6 @@
 ## 📝 待办事项清单
 
 ### 🔴 高优先级 (近期执行)
-- [ ] **Mermaid 架构可视化：** 在 `docs/ARCHITECTURE.md` 中绘制全景图。
 - [ ] **日志系统升级：** 实现 `.logs/error.log` 并审计所有 catch 块。
 - [ ] **超大文件拆分：**
     - `fb_parser.py` (1065行) 拆分为字段提取、Sheet 写入等模块。
