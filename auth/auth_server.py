@@ -81,9 +81,26 @@ def get_rentals_data():
             'rent': d.get('rent (rm)'),
             'phone': d.get('phone'),
             'link': d.get('link'),
+            'property_type': d.get('property type'),
+            'type': d.get('listing type'),
+            'furnishing': d.get('furnishing'),
+            'rooms': d.get('rooms'),
+            'remark': d.get('remark'),
+            'post_text': d.get('post text'),
             'scraped_at': d.get('scraped at')
         })
-    return {'listings': listings, 'total': len(listings)}
+    # Top properties by frequency
+    from collections import Counter
+    props = [l.get('property') for l in listings if l.get('property')]
+    top = [p for p, _ in Counter(props).most_common(15)]
+    now = datetime.now().strftime('%Y-%m-%dT%H:%M:%S+08:00')
+    return {
+        'updated_at': now,
+        'total': len(listings),
+        'today_new': 0,
+        'top_properties': top,
+        'listings': listings
+    }
 
 class AuthHandler(BaseHTTPRequestHandler):
     def _json(self, data, status=200):
