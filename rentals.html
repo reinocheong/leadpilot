@@ -852,7 +852,7 @@ function renderListings(q) {
   if (activeTag) items = items.filter(l => (l.property || '').includes(activeTag));
   if (q) {
     items = items.filter(l => {
-      const blob = [l.property, l.agent, l.property_type, l.type, l.remark, l.furnishing].join('|').toLowerCase();
+      const blob = [l.property, l.agent, l.property_type, l.type, l.remark, l.furnishing, l.post_text].join('|').toLowerCase();
       return blob.includes(q);
     });
   }
