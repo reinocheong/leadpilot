@@ -524,7 +524,7 @@
 </div>
 
 <!-- Login overlay -->
-<div class="login-overlay" id="loginOverlay">
+<div class="login-overlay" id="loginOverlay" style="display:none">
   <div class="login-scroll">
     <!-- Hero -->
     <div class="landing-hero">
@@ -942,13 +942,9 @@ function togglePost(el) {
       clearAuth();
     }
   }
-  // Preview mode: show sample listings without login
+  // No token — show preview listings immediately
   try {
     await loadPreview();
-    document.getElementById('loginOverlay').style.display = 'none';
-    document.querySelector('.top-bar').style.display = '';
-    document.getElementById('listings').style.display = '';
-    document.querySelector('.footnote').style.display = '';
     document.getElementById('previewBar').classList.remove('hidden');
     document.getElementById('previewCount').textContent = DATA.total + ' 套房源';
     return;
