@@ -72,6 +72,12 @@ KNOWN_PROPERTIES = [
     "East Ledang",
     "Teega Residence", "Teega Suites",
     "PARC Regency", "Parc Regency",
+    "Meridin Bayvue",
+    "Horizon Hills",
+    "Jalan Hang Jebat",
+    "Mutiara Rini Terrace",
+    "JP Perdana",
+    "Taman Baiduri",
     # ── Taman 系列 ──
     "Taman Universiti", "大学城",
     "Taman Pelangi", "Pelangi", "彩虹",
@@ -200,6 +206,13 @@ PROPERTY_NORMALIZE = {
     "ponderosa": "Ponderosa", "east ledang": "East Ledang",
     "teega residence": "Teega Residence", "teega suites": "Teega Suites",
     "parc regency": "PARC Regency", "parc": "PARC Regency",
+    "meridin bayvue": "Meridin Bayvue",
+    "horizon hills": "Horizon Hills",
+    "jalan hang jebat": "Jalan Hang Jebat",
+    "jp perdana": "Taman JP Perdana",
+    "taman baiduri": "Taman Baiduri",
+    "rini residence": "Mutiara Rini Terrace",
+    "mutiara rini terrace": "Mutiara Rini Terrace",
 }
 
 PROPERTY_NAME_BLACKLIST = {
