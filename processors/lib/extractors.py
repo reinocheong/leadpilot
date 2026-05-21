@@ -39,15 +39,24 @@ def extract_listing_type(text):
 
 def extract_property_name(text):
     """Extract property location/name from post text."""
-    # Normalize Unicode mathematical bold/italic to ASCII
-    text = ''.join(
-        chr(ord(c) - 0x1D3BF) if 0x1D400 <= ord(c) <= 0x1D419 else  # Bold A-Z
-        chr(ord(c) - 0x1D3B9) if 0x1D41A <= ord(c) <= 0x1D433 else  # Bold a-z
-        chr(ord(c) - 0x1D3A5) if 0x1D434 <= ord(c) <= 0x1D44D else  # Italic A-Z
-        chr(ord(c) - 0x1D39F) if 0x1D44E <= ord(c) <= 0x1D467 else  # Italic a-z
-        c
-        for c in text
-    )
+    # Normalize Unicode mathematical alphanumeric to ASCII (all common fonts)
+    _math_to_ascii = {}
+    _blocks = [
+        (0x1D400, 0x1D419, 0x1D41A, 0x1D433),  # Bold
+        (0x1D434, 0x1D44D, 0x1D44E, 0x1D467),  # Italic
+        (0x1D468, 0x1D481, 0x1D482, 0x1D49B),  # Bold Italic
+        (0x1D5A0, 0x1D5B9, 0x1D5BA, 0x1D5D3),  # Sans-Serif
+        (0x1D5D4, 0x1D5ED, 0x1D5EE, 0x1D607),  # Sans-Serif Bold
+        (0x1D608, 0x1D621, 0x1D622, 0x1D63B),  # Sans-Serif Italic
+        (0x1D63C, 0x1D655, 0x1D656, 0x1D66F),  # Sans-Serif Bold Italic
+        (0x1D670, 0x1D689, 0x1D68A, 0x1D6A3),  # Monospace
+    ]
+    for a, b, c, d in _blocks:
+        for i in range(b - a + 1):
+            _math_to_ascii[a + i] = chr(ord('A') + i)
+        for i in range(d - c + 1):
+            _math_to_ascii[c + i] = chr(ord('a') + i)
+    text = ''.join(_math_to_ascii.get(ord(c), c) for c in text)
     text_lower = text.lower()
     _agent_first_names = {
         'angela', 'crystal', 'jacelyn', 'sally', 'sandra', 'jac', 'kedy',

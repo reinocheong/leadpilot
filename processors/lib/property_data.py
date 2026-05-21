@@ -78,6 +78,7 @@ KNOWN_PROPERTIES = [
     "Mutiara Rini Terrace",
     "JP Perdana",
     "Taman Baiduri",
+    "Polo Park",
     # ── Taman 系列 ──
     "Taman Universiti", "大学城",
     "Taman Pelangi", "Pelangi", "彩虹",
@@ -213,6 +214,7 @@ PROPERTY_NORMALIZE = {
     "taman baiduri": "Taman Baiduri",
     "rini residence": "Mutiara Rini Terrace",
     "mutiara rini terrace": "Mutiara Rini Terrace",
+    "polo park": "Polo Park",
 }
 
 PROPERTY_NAME_BLACKLIST = {
