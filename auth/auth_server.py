@@ -89,8 +89,9 @@ def get_rentals_data():
             'post_text': d.get('post text'),
             'scraped_at': d.get('scraped at')
         })
-    # Top properties by frequency
+    # Sort by scraped_at descending (newest first)
     from collections import Counter
+    listings.sort(key=lambda l: l.get('scraped_at') or '', reverse=True)
     props = [l.get('property') for l in listings if l.get('property')]
     top = [p for p, _ in Counter(props).most_common(15)]
     now = datetime.now().strftime('%Y-%m-%dT%H:%M:%S+08:00')
