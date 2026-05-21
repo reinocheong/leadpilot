@@ -70,6 +70,7 @@ KNOWN_PROPERTIES = [
     "Eco Spring",
     "Eco Palladium",
     "East Ledang",
+    "Teega Residence", "Teega Suites",
     # ── Taman 系列 ──
     "Taman Universiti", "大学城",
     "Taman Pelangi", "Pelangi", "彩虹",
@@ -196,6 +197,7 @@ PROPERTY_NORMALIZE = {
     "rini residence": "Rini Residence", "rini hills": "Rini Hills",
     "lagenda putra": "Lagenda Putra", "nusa idaman": "Nusa Idaman",
     "ponderosa": "Ponderosa", "east ledang": "East Ledang",
+    "teega residence": "Teega Residence", "teega suites": "Teega Suites",
 }
 
 PROPERTY_NAME_BLACKLIST = {
