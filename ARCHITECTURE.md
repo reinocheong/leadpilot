@@ -63,16 +63,20 @@ graph TD
     %% ==================== 阶段④⑤：登录 + 订阅 ====================
     subgraph Stage4["④ 登录认证 (Python + Cloudflare)"]
         HTML["rentals.html<br/>GitHub Pages 托管"]:::frontend
-        AuthSrv["auth_server.py<br/>:8777 /google-auth /data"]:::module
+        AuthSrv["auth_server.py<br/>:8777 /preview /google-auth /data"]:::module
         CFTunnel["Cloudflare Tunnel<br/>HTTPS 公网暴露"]:::infra
     end
-    User -->|HTTPS| HTML
-    HTML -->|Google ID token| CFTunnel
+    User -->|① 打开页面| HTML
+    HTML -->|② 无token→GET /preview| CFTunnel
     CFTunnel -->|reverse proxy| AuthSrv
-    GoogleOAuth -->|verify token| AuthSrv
+    AuthSrv -->|③ 返回最新8条房源| HTML
+    User -->|④ 点击登录→Google OAuth| GoogleOAuth
+    GoogleOAuth -->|ID token| HTML
+    HTML -->|⑤ POST /google-auth| CFTunnel
+    CFTunnel -->|reverse proxy| AuthSrv
     AuthSrv -->|read/write| SheetInternal
     AuthSrv -->|read| SheetSub
-    AuthSrv -->|return listing JSON| HTML
+    AuthSrv -->|⑥ 返回完整数据| HTML
 
     subgraph Stage5["⑤ 订阅续费 (Python + SQLite)"]
         SubMgr["sub_mgr/<br/>DB · 逻辑 · 通知"]:::module
@@ -133,7 +137,7 @@ FB群帖 → 爬虫 → JSON → 解析 → Google Sheets(客户可见)
                                     ↓
                               推广引擎 → WhatsApp → Agent
                                     ↓
-                              Google 登录 → 3天试用 → Stripe → 续费
+                            预览模式(8条) → Google登录 → 全文 → Stripe → 续费
                                     ↓
                               每天3次推送 → 订阅用户
 ```

@@ -54,7 +54,7 @@
 │   ├── lib/sheet_ops.py            # Sheets 读取封装
 │   └── start_auth.sh               # 启动脚本
 │
-├── 🌐 rentals.html                 ← 房源浏览页（Google登录 + 3天试用 + Stripe付款墙）
+├── 🌐 rentals.html                 ← 房源浏览页（预览模式 + Google登录 + 3天试用 + Stripe付款墙）
 │
 ├── 📱 wa/                           ← WhatsApp 通信栈
     ├── wa_daemon.js                 # 常驻进程入口

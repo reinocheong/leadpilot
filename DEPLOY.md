@@ -2,7 +2,7 @@
 
 > 项目：Smart Tenancy Pro — JB 房产数据 SaaS  
 > 根目录：`/home/user/jb-rental-intel/`  
-> 最后更新：2026-05-18
+> 最后更新：2026-05-21
 
 ---
 
@@ -143,12 +143,15 @@ python3 scripts/export_rentals_json.py
 Cron 每 30 分钟跑 `scripts/export_rentals_json.py`，仅导出到本地 `data/rentals.json`（不再公开推送）。
 数据通过 auth_server 按需提供 — 用户登录后动态获取。
 
-### 登录机制（2026-05-15 新增）
+### 登录机制（2026-05-15 新增，2026-05-21 重构）
 
-- **登录页**：打开 URL 先看到登录页（暗色主题卡片式），输入邮箱+密码
-- **后端**：`auth/auth_server.py`（Python HTTP）验证凭据 → 查内部运营 Sheet「授权用户」tab
-- **隧道**：通过 Cloudflare Tunnel 暴露公网 HTTPS
+- **预览模式**：未登录用户直接看到8条最新完整房源（楼盘名+agent+电话），骨架屏加载 → 卡片填充，零等待零跳转
+- **登录页**：仅在用户点击「Google 登录查看全部」或预览加载失败时出现，默认隐藏
+- **登录方式**：Google 一键登录（OAuth），自动创建3天试用
+- **后端**：`auth/auth_server.py`（Python HTTP）验证 Google ID token → 查/建内部运营 Sheet「授权用户」tab
+- **隧道**：通过 Cloudflare Tunnel 暴露公网 HTTPS，URL 变化由 `scripts/auto_sync_tunnel.sh` 每5分钟自动同步
 - **Token**：24h 有效，存 localStorage，登录后无需重复输入
+- **预览数据源**：auth_server 的 `GET /preview` 端点从 Sheet 实时读取，按 `scraped_at` 倒序展示最新8条完整房源
 - **用户管理**：在内部运营 Sheet →「授权用户」tab 加行即可
 
 ### 页面特性

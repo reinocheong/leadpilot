@@ -1,1 +1,28 @@
 [2026-05-19 21:44:30] [SYSTEM] Log initialized
+[2026-05-19T14:02:04.327Z] [scraper/fb_scraper.js] [L120] [Group:Group5-租屋] -> page.waitForTimeout: Target page, context or browser has been closed
+    at scrapeGroup (/home/user/jb-rental-intel/scraper/fb_scraper.js:87:18)
+    at async /home/user/jb-rental-intel/scraper/fb_scraper.js:164:26
+[2026-05-19T23:31:23.406Z] [scraper/fb_scraper.js] [L22] -> page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/801784763175081", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/jb-rental-intel/scraper/fb_scraper.js:17:16)
+    at async /home/user/jb-rental-intel/scraper/fb_scraper.js:40:17
+[2026-05-20T02:00:46.144Z] [scraper/fb_scraper.js] [L22] -> page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/290627785937141", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/jb-rental-intel/scraper/fb_scraper.js:17:16)
+    at async /home/user/jb-rental-intel/scraper/fb_scraper.js:40:17
+[2026-05-20T07:31:23.650Z] [scraper/fb_scraper.js] [L22] -> page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/1313487628797877", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/jb-rental-intel/scraper/fb_scraper.js:17:16)
+    at async /home/user/jb-rental-intel/scraper/fb_scraper.js:40:17
+[2026-05-21T02:00:52.832Z] [scraper/fb_scraper.js] [L22] -> page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/290627785937141", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/jb-rental-intel/scraper/fb_scraper.js:17:16)
+    at async /home/user/jb-rental-intel/scraper/fb_scraper.js:40:17
