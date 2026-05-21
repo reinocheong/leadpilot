@@ -39,6 +39,15 @@ def extract_listing_type(text):
 
 def extract_property_name(text):
     """Extract property location/name from post text."""
+    # Normalize Unicode mathematical bold/italic to ASCII
+    text = ''.join(
+        chr(ord(c) - 0x1D3BF) if 0x1D400 <= ord(c) <= 0x1D419 else  # Bold A-Z
+        chr(ord(c) - 0x1D3B9) if 0x1D41A <= ord(c) <= 0x1D433 else  # Bold a-z
+        chr(ord(c) - 0x1D3A5) if 0x1D434 <= ord(c) <= 0x1D44D else  # Italic A-Z
+        chr(ord(c) - 0x1D39F) if 0x1D44E <= ord(c) <= 0x1D467 else  # Italic a-z
+        c
+        for c in text
+    )
     text_lower = text.lower()
     _agent_first_names = {
         'angela', 'crystal', 'jacelyn', 'sally', 'sandra', 'jac', 'kedy',
@@ -72,13 +81,7 @@ def extract_property_name(text):
         name = m.group(1).strip()
         if is_valid_name(name): return normalize_property_name(name)
 
-    # ── Check 2: Capital word before bracket ──
-    m = re.search(r'([A-Z][a-zA-Z0-9\s\-]{1,30}?)(?:[（(])', text)
-    if m:
-        name = m.group(1).strip()
-        if re.search(r'[A-Z]', name) and len(name) >= 3 and is_valid_name(name): return normalize_property_name(name)
-
-    # ── Check 3: Full KNOWN_PROPERTIES substring match (位置越靠前越可能是主楼盘) ──
+    # ── Check 2: KNOWN_PROPERTIES（可靠优先于正则）──
     best_prop, best_pos = None, len(text)
     for prop in KNOWN_PROPERTIES:
         key = prop.lower()
@@ -87,6 +90,12 @@ def extract_property_name(text):
             best_prop, best_pos = prop, pos
     if best_prop:
         return normalize_property_name(best_prop)
+
+    # ── Check 3: Capital word before bracket ──
+    m = re.search(r'([A-Z][a-zA-Z0-9\s\-]{1,30}?)(?:[（(])', text)
+    if m:
+        name = m.group(1).strip()
+        if re.search(r'[A-Z]', name) and len(name) >= 3 and is_valid_name(name): return normalize_property_name(name)
 
     # ── Check 4: Capital word before Residence/Apartment/Condo/Suites/Villa/Tower/Court ──
     m = re.search(r'([A-Z][A-Za-z0-9\s\-]{1,30}?)\s*(?:Residence|Residensi|Apartment|Condo|Resort|Tower|Villa|Court|Suites|Factory)', text, re.IGNORECASE)
