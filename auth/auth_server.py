@@ -103,20 +103,24 @@ def get_rentals_data():
     }
 
 def get_preview_data():
-    """Return 15 sample listings for unauthenticated preview."""
+    """Return quality listings for unauthenticated preview (only clean entries)."""
     rows = read_sheet(RENTALS_SHEET_ID, 'JB Rentals!A:L')
     if len(rows) < 2:
         return {'error': '暂无数据', 'preview': True, 'total': 0, 'listings': [], 'top_properties': []}
     headers = [h.strip().lower() for h in rows[0]]
-    listings = []
+    all_listings = []
+    quality = []
     for row in rows[1:]:
         d = dict(zip(headers, row + ['']*(len(headers)-len(row))))
-        if not d.get('phone'): continue
-        listings.append({
-            'agent': d.get('agent name'),
-            'property': d.get('property name'),
+        phone = d.get('phone', '').strip()
+        prop = (d.get('property name') or '').strip()
+        agent = (d.get('agent name') or '').strip()
+        if not phone: continue
+        entry = {
+            'agent': agent or None,
+            'property': prop or None,
             'rent': d.get('rent (rm)'),
-            'phone': d.get('phone'),
+            'phone': phone,
             'link': d.get('link'),
             'property_type': d.get('property type'),
             'type': d.get('listing type'),
@@ -125,15 +129,25 @@ def get_preview_data():
             'remark': d.get('remark'),
             'post_text': d.get('post text'),
             'scraped_at': d.get('scraped at')
-        })
+        }
+        all_listings.append(entry)
+        # Quality: has property name + agent name
+        if prop and agent:
+            quality.append(entry)
     from collections import Counter
-    props = [l.get('property') for l in listings if l.get('property')]
+    props = [l.get('property') for l in all_listings if l.get('property')]
     top = [p for p, _ in Counter(props).most_common(15)]
-    total = len(listings)
+    # Show quality listings first, up to 8
+    samples = quality[:8]
+    # If not enough quality, fill with entries that have at least a property name
+    if len(samples) < 8:
+        partial = [l for l in all_listings if l.get('property') and not (l.get('agent') and l.get('property'))]
+        samples += [l for l in partial if l not in samples]
+        samples = samples[:8]
     return {
         'preview': True,
-        'total': total,
-        'listings': listings[:15],
+        'total': len(all_listings),
+        'listings': samples,
         'top_properties': top
     }
 
