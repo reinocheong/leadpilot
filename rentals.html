@@ -945,6 +945,7 @@ function togglePost(el) {
   // Preview mode: show sample listings without login
   try {
     await loadPreview();
+    document.getElementById('loginOverlay').style.display = 'none';
     document.querySelector('.top-bar').style.display = '';
     document.getElementById('listings').style.display = '';
     document.querySelector('.footnote').style.display = '';
