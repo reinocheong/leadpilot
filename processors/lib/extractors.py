@@ -52,36 +52,76 @@ def extract_property_name(text):
         'ke', 'bright', 'may', 'bee', 'beng', 'jane', 'jason', 'joyce',
         'john', 'ck', 'day', 'jocelyn', 'yong', 'long', 'mystical',
         'sabrina', 'dawn', 'four', 'anne', 'ost', 'matthew', 'lim',
-        'sim', 'yvonne', 'kc',
+        'sim', 'yvonne', 'kc', '原丰', '惠文',
+    }
+    _skip_first_words = {
+        'for', 'the', 'rm', 'per', 'new', 'brand', 'fully', 'partial',
+        'semi', 'high', 'nice', 'good', 'call', 'whatsapp', 'contact',
+        'rent', 'rental', 'sale', 'selling', 'property', 'double', 'single',
+        'master', 'common', 'middle', 'small', 'medium', 'large',
+        'studio', 'room', 'rooms', 'bedroom', 'bathroom', 'toilet',
+        'welcome', 'available', 'looking', 'need', 'want',
     }
     def is_valid_name(name):
         if not name or len(name) < 2: return False
-        if name.lower().strip() in _agent_first_names: return False
-        return True
+        return name.lower().strip() not in _agent_first_names
 
-    m = re.search(r'(?:地点|location)\s*[：:]\s*([^（(\n，,]{2,40})', text, re.IGNORECASE)
+    # ── Check 1: Explicit location markers ──
+    m = re.search(r'(?:地点|location|area|项目|地盘)\s*[：:]\s*([^(（\n，,]{2,40})', text, re.IGNORECASE)
     if m:
         name = m.group(1).strip()
         if is_valid_name(name): return normalize_property_name(name)
 
-    m = re.search(r'([A-Z][a-zA-Z0-9\s\-]{2,30}?)(?:[（(])', text)
+    # ── Check 2: Capital word before bracket ──
+    m = re.search(r'([A-Z][a-zA-Z0-9\s\-]{1,30}?)(?:[（(])', text)
     if m:
         name = m.group(1).strip()
         if re.search(r'[A-Z]', name) and len(name) >= 3 and is_valid_name(name): return normalize_property_name(name)
 
-    m = re.search(r'([A-Z][A-Za-z0-9\s\-]{2,30}?)\s*(?:Residence|Residensi|Apartment|Condo|Resort|Tower|Villa|Court|Suites)', text, re.IGNORECASE)
+    # ── Check 3: Capital word before Residence/Apartment/Condo/Suites/Villa/Tower/Court ──
+    m = re.search(r'([A-Z][A-Za-z0-9\s\-]{1,30}?)\s*(?:Residence|Residensi|Apartment|Condo|Resort|Tower|Villa|Court|Suites|Factory)', text, re.IGNORECASE)
     if m:
         name = m.group(0).strip()
-        if len(name) >= 3 and is_valid_name(name) and not name.lower().startswith(('fully', 'partial', 'semi', 'un')):
+        first = name.split()[0]
+        if len(name) >= 3 and is_valid_name(name) and first.lower() not in _skip_first_words:
             return normalize_property_name(name)
 
+    # ── Check 4: Full KNOWN_PROPERTIES substring match ──
     for prop in KNOWN_PROPERTIES:
-        if prop.lower() in text_lower: return normalize_property_name(prop)
+        if prop.lower() in text_lower:
+            return normalize_property_name(prop)
 
-    addr_patterns = [r'(?:Taman|Tmn\.?)\s+([A-Za-z\s]+)', r'Jalan\s+([A-Za-z\s]+\d*)']
+    # ── Check 5: First-word partial match (e.g. "Ksl" → "KSL Residence") ──
+    punct = '*-\u2013\u2014.,!?'
+    words = [w.strip(punct) for w in text.split() if len(w.strip(punct)) >= 2]
+    checked = set()
+    for w in words:
+        key = w.lower()
+        if key in checked or key in _skip_first_words or key in _agent_first_names:
+            continue
+        checked.add(key)
+        for prop in KNOWN_PROPERTIES:
+            prop_first = prop.split()[0].lower().strip('*"\'')
+            if not prop_first or len(prop_first) < 2:
+                continue
+            if key == prop_first or (len(key) >= 4 and key in prop_first) or (len(prop_first) >= 4 and prop_first in key):
+                result = normalize_property_name(prop)
+                if result and is_valid_name(result):
+                    return result
+
+    # ── Check 6: Address patterns (Taman/Jalan) ──
+    addr_patterns = [
+        r'(?:Taman|Tmn\.?)\s+([A-Za-z\s]+)',
+        r'Jalan\s+([A-Za-z\s]+\d*)',
+        r'(?:Kampong?|Kg\.?)\s+([A-Za-z\s]+)',
+    ]
     for pat in addr_patterns:
         m = re.search(pat, text, re.IGNORECASE)
-        if m: return normalize_property_name(m.group(0).strip())
+        if m:
+            full = m.group(0).strip()
+            name = m.group(1).strip()
+            if name and len(full) >= 5:
+                return normalize_property_name(full)
     return ""
 
 def extract_property_type(text):
