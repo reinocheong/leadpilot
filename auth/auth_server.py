@@ -102,6 +102,41 @@ def get_rentals_data():
         'listings': listings
     }
 
+def get_preview_data():
+    """Return 15 sample listings for unauthenticated preview."""
+    rows = read_sheet(RENTALS_SHEET_ID, 'JB Rentals!A:L')
+    if len(rows) < 2:
+        return {'error': '暂无数据', 'preview': True, 'total': 0, 'listings': [], 'top_properties': []}
+    headers = [h.strip().lower() for h in rows[0]]
+    listings = []
+    for row in rows[1:]:
+        d = dict(zip(headers, row + ['']*(len(headers)-len(row))))
+        if not d.get('phone'): continue
+        listings.append({
+            'agent': d.get('agent name'),
+            'property': d.get('property name'),
+            'rent': d.get('rent (rm)'),
+            'phone': d.get('phone'),
+            'link': d.get('link'),
+            'property_type': d.get('property type'),
+            'type': d.get('listing type'),
+            'furnishing': d.get('furnishing'),
+            'rooms': d.get('rooms'),
+            'remark': d.get('remark'),
+            'post_text': d.get('post text'),
+            'scraped_at': d.get('scraped at')
+        })
+    from collections import Counter
+    props = [l.get('property') for l in listings if l.get('property')]
+    top = [p for p, _ in Counter(props).most_common(15)]
+    total = len(listings)
+    return {
+        'preview': True,
+        'total': total,
+        'listings': listings[:15],
+        'top_properties': top
+    }
+
 class AuthHandler(BaseHTTPRequestHandler):
     def _json(self, data, status=200):
         body = json.dumps(data).encode('utf-8')
@@ -127,6 +162,10 @@ class AuthHandler(BaseHTTPRequestHandler):
 
         if path == '/health':
             self._json({'ok': True})
+
+        elif path == '/preview':
+            data = get_preview_data()
+            self._json(data)
 
         elif path == '/data':
             token = params.get('token', [None])[0]

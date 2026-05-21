@@ -438,6 +438,29 @@
       white-space: nowrap;
     }
 
+    /* Preview bar */
+    .preview-bar {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0.4rem; flex-wrap: wrap;
+      padding: 0.5rem 0.75rem;
+      background: rgba(245,158,11,0.08);
+      border-bottom: 1px solid rgba(245,158,11,0.12);
+      font-size: 0.68rem; color: var(--text-secondary);
+      cursor: pointer;
+      transition: background 0.15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .preview-bar:active { background: rgba(245,158,11,0.15); }
+    .preview-bar.hidden { display: none; }
+    .preview-bar .lock-icon { font-size: 0.8rem; }
+    .preview-bar .preview-action {
+      color: var(--accent); font-weight: 600;
+      white-space: nowrap;
+    }
+    .preview-bar .preview-count {
+      color: var(--text-muted);
+    }
+
     /* ── Payment Overlay ── */
     .pay-card {
       width: 100%; max-width: 340px;
@@ -490,6 +513,14 @@
     <input class="search-input" type="text" placeholder="搜楼盘 / agent / 房型 / 备注…" oninput="filter()" id="search">
   </div>
   <div class="tag-row" id="tagRow"></div>
+</div>
+
+<!-- Preview bar (hidden by default, shown when in preview mode) -->
+<div class="preview-bar hidden" id="previewBar" onclick="showLoginFromPreview()">
+  <span class="lock-icon">🔓</span>
+  <span>预览</span>
+  <span class="preview-count" id="previewCount">15 套房源</span>
+  <span class="preview-action">Google 登录查看全部 →</span>
 </div>
 
 <!-- Login overlay -->
@@ -632,6 +663,24 @@ function showPayWall() {
   document.getElementById('listings').style.display = 'none';
 }
 
+// ── Preview mode ──────────────────────────────────────────
+async function loadPreview() {
+  const r = await fetch(AUTH_URL + '/preview');
+  DATA = await r.json();
+  if (DATA.error) throw new Error(DATA.error);
+  DATA.preview = true;
+  renderStats();
+  renderTags();
+  filter();
+}
+
+function showLoginFromPreview() {
+  document.getElementById('previewBar').classList.add('hidden');
+  document.getElementById('loginOverlay').style.display = 'flex';
+  document.getElementById('loginOverlay').style.opacity = '1';
+  initGoogleSignIn();
+}
+
 function doLogout() {
   if (window.google && google.accounts) google.accounts.id.disableAutoSelect();
   clearAuth();
@@ -698,6 +747,9 @@ async function handleGoogleLogin(response) {
       return;
     }
 
+    // Hide preview bar if user logged in from preview
+    document.getElementById('previewBar').classList.add('hidden');
+
     // All done — fade login out, show main view
     loadingEl.classList.add('hidden');
     const overlay = document.getElementById('loginOverlay');
@@ -729,10 +781,12 @@ async function load() {
 
 function renderStats() {
   const name = localStorage.getItem(NAME_KEY) || '';
+  const previewTag = DATA.preview ? '<span class="stat-pill" style="color:var(--accent)">🔓 预览</span>' : '';
   document.getElementById('statPills').innerHTML =
     `<a class="nav-link" href="https://t.me/smarttenancypro_bot" target="_blank">📄 合同Bot</a>` +
     `<span class="stat-pill"><b>${DATA.total}</b> 套房源</span>` +
     `<span class="stat-pill">🆕 <b>${DATA.today_new || 0}</b> 今日</span>` +
+    previewTag +
     (name ? `<button class="logout-btn" onclick="doLogout()">👤 ${esc(name)}</button>` : '');
 }
 
@@ -887,6 +941,18 @@ function togglePost(el) {
     } catch(e) {
       clearAuth();
     }
+  }
+  // Preview mode: show sample listings without login
+  try {
+    await loadPreview();
+    document.querySelector('.top-bar').style.display = '';
+    document.getElementById('listings').style.display = '';
+    document.querySelector('.footnote').style.display = '';
+    document.getElementById('previewBar').classList.remove('hidden');
+    document.getElementById('previewCount').textContent = DATA.total + ' 套房源';
+    return;
+  } catch(e) {
+    // Preview unavailable — fallback to login page
   }
   showLogin();
   initGoogleSignIn();
