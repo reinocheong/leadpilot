@@ -9,6 +9,11 @@ async function startSock() {
   sock.ev.on('messages.upsert', m => handleIncomingMessage(sock, m));
 
   http.createServer((req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    if (req.url === '/health') {
+      res.end(JSON.stringify({ ok: true, pid: process.pid }));
+      return;
+    }
     if (req.url.startsWith('/send')) {
       // Logic to parse params and sock.sendMessage
       res.end('ok');
