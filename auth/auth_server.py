@@ -103,7 +103,7 @@ def get_rentals_data():
     }
 
 def get_preview_data():
-    """Return quality listings for unauthenticated preview (only clean entries)."""
+    """Return quality listings for unauthenticated preview (only clean entries, newest first)."""
     rows = read_sheet(RENTALS_SHEET_ID, 'JB Rentals!A:L')
     if len(rows) < 2:
         return {'error': '暂无数据', 'preview': True, 'total': 0, 'listings': [], 'top_properties': []}
@@ -115,6 +115,7 @@ def get_preview_data():
         phone = d.get('phone', '').strip()
         prop = (d.get('property name') or '').strip()
         agent = (d.get('agent name') or '').strip()
+        scraped = (d.get('scraped at') or '').strip()
         if not phone: continue
         entry = {
             'agent': agent or None,
@@ -128,7 +129,7 @@ def get_preview_data():
             'rooms': d.get('rooms'),
             'remark': d.get('remark'),
             'post_text': d.get('post text'),
-            'scraped_at': d.get('scraped at')
+            'scraped_at': scraped or None
         }
         all_listings.append(entry)
         # Quality: has property name + agent name
@@ -137,11 +138,17 @@ def get_preview_data():
     from collections import Counter
     props = [l.get('property') for l in all_listings if l.get('property')]
     top = [p for p, _ in Counter(props).most_common(15)]
-    # Show quality listings first, up to 8
+    # Sort quality by scraped_at descending (newest first)
+    def sort_key(e):
+        ts = e.get('scraped_at') or ''
+        return ts
+    quality.sort(key=sort_key, reverse=True)
+    # Show newest quality listings, up to 8
     samples = quality[:8]
-    # If not enough quality, fill with entries that have at least a property name
+    # If not enough quality, fill with newest entries that have at least a property name
     if len(samples) < 8:
         partial = [l for l in all_listings if l.get('property') and not (l.get('agent') and l.get('property'))]
+        partial.sort(key=sort_key, reverse=True)
         samples += [l for l in partial if l not in samples]
         samples = samples[:8]
     return {

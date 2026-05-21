@@ -908,7 +908,7 @@ function renderListings(q) {
           ${postHtml}
           <div class="card-foot">
             <span class="time">${timeAgo(l.scraped_at)}</span>
-            ${l.link ? '<a class="fb-link" href="' + esc(l.link) + '" target="_blank">FB 原文 ↗</a>' : '<span></span>'}
+            ${!DATA.preview && l.link ? '<a class="fb-link" href="' + esc(l.link) + '" target="_blank">FB 原文 ↗</a>' : '<span></span>'}
           </div>
         </div>
       </div>`;
