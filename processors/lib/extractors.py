@@ -78,18 +78,22 @@ def extract_property_name(text):
         name = m.group(1).strip()
         if re.search(r'[A-Z]', name) and len(name) >= 3 and is_valid_name(name): return normalize_property_name(name)
 
-    # ── Check 3: Capital word before Residence/Apartment/Condo/Suites/Villa/Tower/Court ──
+    # ── Check 3: Full KNOWN_PROPERTIES substring match (位置越靠前越可能是主楼盘) ──
+    best_prop, best_pos = None, len(text)
+    for prop in KNOWN_PROPERTIES:
+        key = prop.lower()
+        pos = text_lower.find(key)
+        if pos != -1 and pos < best_pos:
+            best_prop, best_pos = prop, pos
+    if best_prop:
+        return normalize_property_name(best_prop)
+
+    # ── Check 4: Capital word before Residence/Apartment/Condo/Suites/Villa/Tower/Court ──
     m = re.search(r'([A-Z][A-Za-z0-9\s\-]{1,30}?)\s*(?:Residence|Residensi|Apartment|Condo|Resort|Tower|Villa|Court|Suites|Factory)', text, re.IGNORECASE)
     if m:
-        name = m.group(0).strip()
-        first = name.split()[0]
-        if len(name) >= 3 and is_valid_name(name) and first.lower() not in _skip_first_words:
+        name = m.group(1).strip()
+        if len(name) >= 3 and is_valid_name(name) and name.lower().split()[0] not in _skip_first_words:
             return normalize_property_name(name)
-
-    # ── Check 4: Full KNOWN_PROPERTIES substring match ──
-    for prop in KNOWN_PROPERTIES:
-        if prop.lower() in text_lower:
-            return normalize_property_name(prop)
 
     # ── Check 5: First-word partial match (e.g. "Ksl" → "KSL Residence") ──
     punct = '*-\u2013\u2014.,!?'

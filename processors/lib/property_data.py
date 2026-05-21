@@ -254,7 +254,7 @@ def is_valid_property_name(name):
         return False
     if re.match(r'^[A-Z][a-z]+\s+(?:Chong|Lee|Goh|Loh|Tan|Wong|Lim|Chen)$', name):
         return False
-    if re.match(r'^[A-Z0-9]{3,}$', name):
+    if re.match(r'^[A-Z0-9]{3,}$', name) and name not in ('CIQ', 'R&F', 'RNF'):
         return False
     if re.match(r'^[A-Z]{2,4}\s+[A-Z]{3,}$', name):
         return False
