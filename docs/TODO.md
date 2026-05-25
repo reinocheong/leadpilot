@@ -1,21 +1,29 @@
 # TODO.md — 进度表
 
-> 项目：Smart Tenancy Pro — JB 房产数据 SaaS  
-> 根目录：`/home/user/leadpilot/`  
-> 最后更新：2026-05-20
+> 项目：Smart Tenancy Pro — LeadPilot（原名 JB Rental Intel）
+> 根目录：`/home/user/leadpilot/`
+> 最后更新：2026-05-25
 
 ---
 
-## 🎯 规范化整改进度 (AI_ARCHITECT_PROTOCOL)
+## 🎯 规范化整改进度
 
 | 阶段 | 描述 | 状态 | 备注 |
 |:----|:----|:----:|:----|
 | **0** | Git 版本基线 | ✅ | Tag: `pre-refactor-v1` |
-| **1** | SSOT 文档补齐 | [-] | USER/JOURNAL/MEMORY 已建，TODO 更新中 |
-| **2** | Mermaid 架构图 | ✅ | `ARCHITECTURE.md` 已创建 |
-| **3** | 核心模块化拆分 | [ ] | 涉及 fb_parser, sub_mgr 等 |
+| **1** | SSOT 文档补齐 | ✅ | 7 份文档全部到位 |
+| **2** | Mermaid 架构图 | ✅ | `ARCHITECTURE.md` |
+| **3** | 核心模块化拆分 | [-] | 已拆 `sub_mgr/`，`fb_parser`（1065行）待拆 |
 | **4** | 日志系统标准化 | [ ] | 待建 error.log 与统一格式 |
 | **5** | 最终审计校验 | [ ] | 待完成 |
+
+---
+
+## ✅ 近期完成
+
+| 日期 | 事项 |
+|:---|:----|
+| 2026-05-25 | **LeadPilot 改名** — GitHub 仓库/Pages/本地目录/路径/cron/skill/memory/wiki 全部迁移完成 |
 
 ---
 
@@ -28,23 +36,20 @@
 | ③ 推广触达 | WhatsApp 推广 | ✅ | `outreach/outreach_engine.py` |
 | ④ 试用管理 | 登录/试用/回收 | ✅ | `sub_mgr.py` + `auth/auth_server.py` |
 | ⑤ 付费续费 | Stripe 自动续费 | ✅ | `stripe_checker.py` |
+| ⑥ 订阅推送 | 每天3次主动推送 | ✅ | `notify_subscribers.py` |
 
 ---
 
 ## 📝 待办事项清单
 
-### 🔴 高优先级 (近期执行)
-- [ ] **日志系统升级：** 实现 `.logs/error.log` 并审计所有 catch 块。
-- [ ] **超大文件拆分：**
-    - `fb_parser.py` (1065行) 拆分为字段提取、Sheet 写入等模块。
-    - `sub_mgr.py` (754行) 拆分为 DB、命令处理、通知等模块。
+### 🔴 高优先级
+- [ ] **`fb_parser.py` (1065行) 拆分** — 字段提取、Sheet 写入等模块化
+- [ ] **日志系统升级** — 标准化 `.logs/error.log`，审计所有 catch 块
 
-### 🟡 中优先级 (稳定性)
-- [x] **登录过渡修复：** 消除 fade 后再加载数据导致跳回登录页的问题。改为「登录页显示加载动画→全部就绪→统一切画面」。
-- [x] **登录页视觉美化：** 背景渐变+光晕、毛玻璃卡片、SVG图标替换emoji、功能卡文案改痛点→方案、入场动画。
-- [ ] **`wa_listener.js` 闭环：** 完善 agent 回复识别逻辑，自动更新推广记录状态。
-- [ ] **Cookie 过期告警：** 爬虫检测到登录失败时发送 WhatsApp/Telegram 告警。
+### 🟡 中优先级
+- [ ] **`wa_listener.js` 闭环** — agent 回复识别，自动更新推广记录
+- [ ] **Cookie 过期告警** — 爬虫检测登录失败时推送告警
 
-### 🟢 低优先级 (长期维护)
-- [ ] **前端代码分离：** 将 `rentals.html` 中的 CSS/JS 抽离到独立文件。
-- [ ] **清理冗余脚本：** 审计并移除 `archived/` 和 `scripts/` 中的过期工具。
+### 🟢 低优先级
+- [ ] **前端代码分离** — `rentals.html` CSS/JS 抽离独立文件
+- [ ] **清理冗余脚本** — 审计 `archived/` 和 `scripts/` 中的过期工具

@@ -47,3 +47,12 @@
   - 预览模式去掉FB原文链接：避免未登录用户点击后跳转到FB登录页，只留电话直接WhatsApp。
   - 登录页默认隐藏：页面打开直接显示骨架加载，消除「先看到登录页」的体验断层。
   - 修复auth_server重启后隧道URL自动同步。
+- **2026-05-25 [AI]**
+  - **LeadPilot 改名**：项目 `jb-rental-intel` → `leadpilot`。
+  - GitHub 仓库重命名、Pages 重建为新 URL。
+  - 本地目录迁移 `/home/user/leadpilot/`，git remote 更新。
+  - 全局路径替换 27+ 文件 + 18 个 cron wrapper + crontab。
+  - 修复 wa_daemon EADDRINUSE bug（HTTP server 移出 startSock）。
+  - 配置 Windows Git Credential Manager 解决 git push 认证。
+  - 更新 skill/memory/wiki 全部引用。
+  - 全面巡检确认：Pages/Auth/Tunnel/Preview/Parser/AgentList 全部正常。
