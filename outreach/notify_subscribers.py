@@ -15,7 +15,7 @@ from googleapiclient.discovery import build
 from google.oauth2.service_account import Credentials
 
 # ── Config ──
-PROJECT_ROOT = "/home/user/jb-rental-intel"
+PROJECT_ROOT = "/home/user/leadpilot"
 SA_KEY_FILE = "/home/user/.hermes/google_sa_key.json"
 DB_PATH = os.path.join(PROJECT_ROOT, "subscribers.db")
 SHEET_ID = "1QgWjlUEvFf9auZzptbYI2EEDAeWnKAZcxsXhcCgjJYM"
@@ -23,7 +23,7 @@ SHEET_NAME = "JB Rentals"
 NOTIFY_CMD = ["node", os.path.join(PROJECT_ROOT, "wa", "wa_notify.js"), "send"]
 MY_TZ_OFFSET = timedelta(hours=8)
 
-SHEET_URL = "https://reinocheong.github.io/jb-rental-intel/rentals.html"
+SHEET_URL = "https://reinocheong.github.io/leadpilot/rentals.html"
 BOT_LINK = "→ @smarttenancypro_bot"
 
 BOT_PITCH = "需要做租约合同或 stamping？试试我们的 Telegram Bot → @smarttenancypro_bot"

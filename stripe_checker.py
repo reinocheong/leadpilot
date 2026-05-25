@@ -15,7 +15,7 @@ with open(ENV_FILE) as f:
             secrets[k.strip()] = v.strip()
 
 stripe.api_key = secrets.get("STRIPE_SECRET_KEY", "")
-TRACKING_FILE = "/home/user/jb-rental-intel/processed_payments.txt"
+TRACKING_FILE = "/home/user/leadpilot/processed_payments.txt"
 MY_TZ = timedelta(hours=8)
 
 def load_processed():

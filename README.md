@@ -9,7 +9,7 @@
 本项目遵循 [`AI_ARCHITECT_PROTOCOL.md`](AI_ARCHITECT_PROTOCOL.md) 规范，采用高度模块化的架构，单文件行数严格控制在 150 行以内。
 
 ```
-/home/user/jb-rental-intel/          ← ★ 项目根目录
+/home/user/leadpilot/          ← ★ 项目根目录
 │
 ├── 📄 核心 SSOT 文档
 │   ├── USER.md                      ← 用户画像与业务价值

@@ -5,7 +5,7 @@ from .google_ops import share_sheet, revoke_sheet, check_shared, get_sheets_serv
 from .notifications import wa_send, wa_lid
 
 MY_TZ_OFFSET = timedelta(hours=8)
-PROCESSED_FILE = "/home/user/jb-rental-intel/.form_processed.json"
+PROCESSED_FILE = "/home/user/leadpilot/.form_processed.json"
 FORM_ID = "1oZTQNl3PF8TOu7RsG2SZeGjx5goT-o2Jy0TL7RlBiIQ"
 FORM_SHEET_ID = "1zLOyuRbZnycvD0tc4UPLSoR3mfClwkiDOPw3W-v-gXg"
 SHEET_ID = "1QgWjlUEvFf9auZzptbYI2EEDAeWnKAZcxsXhcCgjJYM"

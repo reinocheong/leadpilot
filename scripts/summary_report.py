@@ -8,7 +8,7 @@ now = datetime.now(MYT)
 today = now.strftime("%Y-%m-%d")
 hour = now.hour
 
-PROJECT = "/home/user/jb-rental-intel"
+PROJECT = "/home/user/leadpilot"
 DATA_DIR = "/home/user/fb_data"
 DB_PATH = os.path.join(PROJECT, "subscribers.db")
 

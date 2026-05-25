@@ -26,7 +26,7 @@ def share_sheet(email):
             emailMessage=f"🎉 感谢订阅 JB Rental Intel！\n\n你的数据表已开通：\nhttps://docs.google.com/spreadsheets/d/{SHEET_ID}/edit").execute()
         return result.get("id")
     except Exception as e:
-        with open("/home/user/jb-rental-intel/.logs/error.log", "a") as f:
+        with open("/home/user/leadpilot/.logs/error.log", "a") as f:
             f.write(f"[{datetime.now().isoformat()}] [sub_mgr/google_ops.py] [L22] [Share] -> {e}\n")
         return None
 
@@ -40,7 +40,7 @@ def revoke_sheet(email):
                 drive.permissions().delete(fileId=SHEET_ID, permissionId=p["id"]).execute()
                 return p["id"]
     except Exception as e:
-        with open("/home/user/jb-rental-intel/.logs/error.log", "a") as f:
+        with open("/home/user/leadpilot/.logs/error.log", "a") as f:
             f.write(f"[{datetime.now().isoformat()}] [sub_mgr/google_ops.py] [L35] [Revoke] -> {e}\n")
     return None
 

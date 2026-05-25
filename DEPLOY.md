@@ -1,7 +1,7 @@
 # DEPLOY.md — 部署与环境手册
 
 > 项目：Smart Tenancy Pro — JB 房产数据 SaaS  
-> 根目录：`/home/user/jb-rental-intel/`  
+> 根目录：`/home/user/leadpilot/`  
 > 最后更新：2026-05-21
 
 ---
@@ -15,7 +15,7 @@
 | Python | 3.11 (Hermes Agent venv) / 3.12 (系统) |
 | Playwright | chromium headless shell 已安装 |
 | Baileys | `@whiskeysockets/baileys` 已安装 |
-| 工作目录 | `/home/user/jb-rental-intel/` |
+| 工作目录 | `/home/user/leadpilot/` |
 
 ---
 
@@ -32,7 +32,7 @@ STRIPE_SECRET_KEY=sk_live_...
 ## 依赖安装
 
 ```bash
-cd /home/user/jb-rental-intel
+cd /home/user/leadpilot
 
 # Node.js 依赖（scraper + WhatsApp）
 npm install
@@ -66,14 +66,14 @@ bash wa/start_daemon.sh
 ### @reboot 自启（已配置）
 
 ```bash
-@reboot bash /home/user/jb-rental-intel/auth/start_auth.sh
-@reboot bash /home/user/jb-rental-intel/wa/start_daemon.sh
+@reboot bash /home/user/leadpilot/auth/start_auth.sh
+@reboot bash /home/user/leadpilot/wa/start_daemon.sh
 ```
 
 ### 1. WhatsApp Daemon（必须 24/7 常驻）
 
 ```bash
-cd /home/user/jb-rental-intel
+cd /home/user/leadpilot
 
 # 启动（首次会生成 QR 码扫码登录）
 node wa/wa_daemon.js
@@ -85,7 +85,7 @@ nohup node wa/wa_daemon.js > .logs/wa_daemon.log 2>&1 &
 ### 2. FB 爬虫（手动运行）
 
 ```bash
-cd /home/user/jb-rental-intel/scraper
+cd /home/user/leadpilot/scraper
 node fb_scraper.js
 ```
 
@@ -94,7 +94,7 @@ node fb_scraper.js
 ### 3. 解析器（手动运行）
 
 ```bash
-cd /home/user/jb-rental-intel/processors
+cd /home/user/leadpilot/processors
 python3 fb_parser.py
 ```
 
@@ -112,7 +112,7 @@ outreach_engine 奇偶交替发送文案A/B，推广记录 Sheet「模板」列�
 ### 手动运行（需 wa_daemon 在线）
 
 ```bash
-cd /home/user/jb-rental-intel
+cd /home/user/leadpilot
 
 # 干跑验证（不发送）
 python3 outreach/outreach_engine.py
@@ -131,7 +131,7 @@ python3 outreach/outreach_engine.py --send --limit 3
 ### 数据导出脚本
 
 ```bash
-cd /home/user/jb-rental-intel
+cd /home/user/leadpilot
 
 # 手动导出（从 JB Rentals Sheet 读数据→JSON，只读不写）
 python3 scripts/export_rentals_json.py
@@ -175,23 +175,23 @@ Cron 每 30 分钟跑 `scripts/export_rentals_json.py`，仅导出到本地 `dat
 
 | 时间 | 命令 | 工作目录 | 职责 |
 |------|------|----------|------|
-| 每 5 分钟 | `auto_sync_tunnel.sh` | `/home/user/jb-rental-intel` | 🔐 检测 Cloudflare Tunnel URL 变化 → 自动同步 `rentals.html` + commit + push |
-| 每 30 分钟 (:00/:30) | `node scraper/fb_scraper.js` | `/home/user/jb-rental-intel` | ① 采集 FB 帖子（5 群组） |
-| 每 30 分钟 (:03/:33) | `python3 processors/fb_parser.py` | `/home/user/jb-rental-intel` | ② 解析入 Google Sheets |
-| 每天 10:29 | `python3 outreach/lib/maintain_agents.py` | `/home/user/jb-rental-intel` | ③ 更新 Agent List（去重） |
-| 每天 10:30 | `python3 outreach/outreach_engine.py --send --slot 1 --total-slots 5` | `/home/user/jb-rental-intel` | ③ 推广时段①（1人） |
-| 每天 11:30 | `python3 outreach/outreach_engine.py --send --slot 2 --total-slots 5` | `/home/user/jb-rental-intel` | ③ 推广时段②（1人） |
-| 每天 12:30 | `python3 outreach/outreach_engine.py --send --slot 3 --total-slots 5` | `/home/user/jb-rental-intel` | ③ 推广时段③（1人） |
-| 每天 13:30 | `python3 outreach/outreach_engine.py --send --slot 4 --total-slots 5` | `/home/user/jb-rental-intel` | ③ 推广时段④（1人） |
-| 每天 14:30 | `python3 outreach/outreach_engine.py --send --slot 5 --total-slots 5` | `/home/user/jb-rental-intel` | ③ 推广时段⑤（1人） |
-| 每 30 分钟 | 导出房源 JSON → git push | `/home/user/jb-rental-intel` | 📋 房源浏览页数据刷新（唯一入口，已去重） |
-| 每 5 分钟 | `python3 sub_mgr.py form-process` | `/home/user/jb-rental-intel` | ④ 新注册 → 自动开试用 |
-| 每天 9:00 | `python3 sub_mgr.py remind` | `/home/user/jb-rental-intel` | ④ 试用到期提醒 |
-| 每天 0:00 | `python3 sub_mgr.py check` | `/home/user/jb-rental-intel` | ④ 到期回收权限 |
-| 每 30 分钟 | `python3 sub_mgr.py stripe-check` | `/home/user/jb-rental-intel` | ⑤ Stripe 付款 → 自动续费 |
-| **每天 9:00** | `python3 outreach/notify_subscribers.py morning` | `/home/user/jb-rental-intel` | 订阅早报推送 |
-| **每天 13:00** | `python3 outreach/notify_subscribers.py afternoon` | `/home/user/jb-rental-intel` | 订阅午间推送 |
-| **每天 18:00** | `python3 outreach/notify_subscribers.py evening` | `/home/user/jb-rental-intel` | 订阅日报推送 |
+| 每 5 分钟 | `auto_sync_tunnel.sh` | `/home/user/leadpilot` | 🔐 检测 Cloudflare Tunnel URL 变化 → 自动同步 `rentals.html` + commit + push |
+| 每 30 分钟 (:00/:30) | `node scraper/fb_scraper.js` | `/home/user/leadpilot` | ① 采集 FB 帖子（5 群组） |
+| 每 30 分钟 (:03/:33) | `python3 processors/fb_parser.py` | `/home/user/leadpilot` | ② 解析入 Google Sheets |
+| 每天 10:29 | `python3 outreach/lib/maintain_agents.py` | `/home/user/leadpilot` | ③ 更新 Agent List（去重） |
+| 每天 10:30 | `python3 outreach/outreach_engine.py --send --slot 1 --total-slots 5` | `/home/user/leadpilot` | ③ 推广时段①（1人） |
+| 每天 11:30 | `python3 outreach/outreach_engine.py --send --slot 2 --total-slots 5` | `/home/user/leadpilot` | ③ 推广时段②（1人） |
+| 每天 12:30 | `python3 outreach/outreach_engine.py --send --slot 3 --total-slots 5` | `/home/user/leadpilot` | ③ 推广时段③（1人） |
+| 每天 13:30 | `python3 outreach/outreach_engine.py --send --slot 4 --total-slots 5` | `/home/user/leadpilot` | ③ 推广时段④（1人） |
+| 每天 14:30 | `python3 outreach/outreach_engine.py --send --slot 5 --total-slots 5` | `/home/user/leadpilot` | ③ 推广时段⑤（1人） |
+| 每 30 分钟 | 导出房源 JSON → git push | `/home/user/leadpilot` | 📋 房源浏览页数据刷新（唯一入口，已去重） |
+| 每 5 分钟 | `python3 sub_mgr.py form-process` | `/home/user/leadpilot` | ④ 新注册 → 自动开试用 |
+| 每天 9:00 | `python3 sub_mgr.py remind` | `/home/user/leadpilot` | ④ 试用到期提醒 |
+| 每天 0:00 | `python3 sub_mgr.py check` | `/home/user/leadpilot` | ④ 到期回收权限 |
+| 每 30 分钟 | `python3 sub_mgr.py stripe-check` | `/home/user/leadpilot` | ⑤ Stripe 付款 → 自动续费 |
+| **每天 9:00** | `python3 outreach/notify_subscribers.py morning` | `/home/user/leadpilot` | 订阅早报推送 |
+| **每天 13:00** | `python3 outreach/notify_subscribers.py afternoon` | `/home/user/leadpilot` | 订阅午间推送 |
+| **每天 18:00** | `python3 outreach/notify_subscribers.py evening` | `/home/user/leadpilot` | 订阅日报推送 |
 
 ---
 
@@ -256,7 +256,7 @@ $GAPI drive download 1zLOyuRbZnycvD0tc4UPLSoR3mfClwkiDOPw3W-v-gXg --output $BACK
 ### 认证检查
 
 ```bash
-cd /home/user/jb-rental-intel
+cd /home/user/leadpilot
 python3 -c "
 from processors.fb_parser import get_sheets_service
 svc = get_sheets_service()
@@ -270,7 +270,7 @@ print('✅ SA 认证正常:', r.get('properties',{}).get('title','?'))
 ## sub_mgr.py 常用命令
 
 ```bash
-cd /home/user/jb-rental-intel
+cd /home/user/leadpilot
 
 # 查所有订阅者
 python3 sub_mgr.py list
@@ -319,7 +319,7 @@ tail -f .logs/wa_daemon.log
 ### 电话号格式化
 
 ```bash
-cd /home/user/jb-rental-intel
+cd /home/user/leadpilot
 
 # 干跑（预览变更）
 python3 scripts/clean_phones.py
@@ -334,7 +334,7 @@ Parser 已集成 `normalize_phone()`，新数据自动标准。
 ### 楼盘名标准化
 
 ```bash
-cd /home/user/jb-rental-intel
+cd /home/user/leadpilot
 
 # 干跑
 python3 scripts/clean_property_names.py
@@ -366,7 +366,7 @@ Parser 已集成 `normalize_property_name()` + `_is_valid_property_name()`，新
 | Phone 列格式混乱 | ① 旧数据未清洗 ② 新帖 Parser 未规范化 | ① `python3 scripts/clean_phones.py` ② Parser 已集成（2026-05-14） |
 | Sheet 美化后想还原 | 格式太花/不合口味 | `python3 scripts/reset_sheet_format.py` 一键清回裸数据 |
 | rentals.html 登录报错 | auth_server 或 Cloudflare Tunnel 挂了 | `bash auth/start_auth.sh` 重启，检查 `curl .../health`；隧道 URL 变化由 `auto_sync_tunnel.sh` 自动同步，无需手动更新 |
-| 隧道 URL 变了但 rentals.html 仍指向旧地址 | auto_sync 脚本未运行或失败 | 检查 cron `f508f32bed96` 状态；手动执行 `bash /home/user/jb-rental-intel/scripts/auto_sync_tunnel.sh` |
+| 隧道 URL 变了但 rentals.html 仍指向旧地址 | auto_sync 脚本未运行或失败 | 检查 cron `f508f32bed96` 状态；手动执行 `bash /home/user/leadpilot/scripts/auto_sync_tunnel.sh` |
 
 ---
 
@@ -382,4 +382,4 @@ Parser 已集成 `normalize_property_name()` + `_is_valid_property_name()`，新
 | Agent 名清理 | `/tmp/clean_agent_only.py` | 清掉FB随机用户名（一次性的） |
 | 🔐 Auth 服务 | `auth/start_auth.sh` | 启动 auth_server + Cloudflare Tunnel（@reboot cron） |
 | 🔐 隧道同步 | `scripts/auto_sync_tunnel.sh` | 每5分钟检测 Tunnel URL 变化 → 自动更新 `rentals.html` + push（cron 静默） |
-| 🔐 手动登录测试 | 打开 `https://reinocheong.github.io/jb-rental-intel/rentals.html` | 测试用户: test@example.com / test123 |
+| 🔐 手动登录测试 | 打开 `https://reinocheong.github.io/leadpilot/rentals.html` | 测试用户: test@example.com / test123 |

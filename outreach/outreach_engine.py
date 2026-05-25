@@ -2,7 +2,7 @@
 import sys, os, json
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
-sys.path.insert(0, "/home/user/jb-rental-intel")
+sys.path.insert(0, "/home/user/leadpilot")
 
 from outreach.lib.wa_sender import send_whatsapp, check_daemon_alive
 from outreach.lib.sheets_tracker import get_agents_from_sheet, get_outreach_records, append_outreach_record, get_subscribed_phones

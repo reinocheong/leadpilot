@@ -1,7 +1,7 @@
 # WORKFLOW.md — 完整业务自动化工作流
 
 > Smart Tenancy Pro — 从 FB 抓取 → WhatsApp 推广 → 试用 → 付费 → 续费，全链路自动化。  
-> 项目根目录：`/home/user/jb-rental-intel/`  
+> 项目根目录：`/home/user/leadpilot/`  
 > 最后更新：2026-05-11
 
 ---
@@ -27,7 +27,7 @@
 
 ## 统一项目结构
 
-所有代码已合并到 `/home/user/jb-rental-intel/`，不再跨两个目录。
+所有代码已合并到 `/home/user/leadpilot/`，不再跨两个目录。
 
 ---
 
@@ -36,7 +36,7 @@
 ### 脚本
 
 ```
-jb-rental-intel/scraper/
+leadpilot/scraper/
 ├── fb_scraper.js        ← 主入口（Node.js + Playwright）
 └── lib/
     ├── fb_phone.js      ← 电话号码提取（5组正则 + Unicode归一化）
@@ -47,7 +47,7 @@ jb-rental-intel/scraper/
 ### 执行
 
 ```bash
-cd /home/user/jb-rental-intel/scraper
+cd /home/user/leadpilot/scraper
 node fb_scraper.js
 ```
 
@@ -77,13 +77,13 @@ node fb_scraper.js
 ### 脚本
 
 ```
-jb-rental-intel/processors/fb_parser.py   ← 647行，纯规则提取12字段
+leadpilot/processors/fb_parser.py   ← 647行，纯规则提取12字段
 ```
 
 ### 执行
 
 ```bash
-cd /home/user/jb-rental-intel/processors
+cd /home/user/leadpilot/processors
 python3 fb_parser.py
 ```
 
@@ -132,9 +132,9 @@ python3 fb_parser.py
 
 | 组件 | 文件 | 职责 |
 |------|------|------|
-| **Daemon** | `jb-rental-intel/wa_daemon.js` | Baileys 长连接，`localhost:3456`，24/7 在线 |
-| **Sender** | `jb-rental-intel/wa_notify.js` | CLI 封装，`node wa_notify.js send <phone> <msg>` |
-| **Listener** | `jb-rental-intel/wa_listener.js` | 监听回复 → 检测 agent 回复/注册，更新推广记录 |
+| **Daemon** | `leadpilot/wa_daemon.js` | Baileys 长连接，`localhost:3456`，24/7 在线 |
+| **Sender** | `leadpilot/wa_notify.js` | CLI 封装，`node wa_notify.js send <phone> <msg>` |
+| **Listener** | `leadpilot/wa_listener.js` | 监听回复 → 检测 agent 回复/注册，更新推广记录 |
 
 ### 推广规则（来自 `推广计划.md`）
 
@@ -147,7 +147,7 @@ python3 fb_parser.py
 
 ### 推广引擎（✅ 已完成）
 
-**文件：** `jb-rental-intel/outreach/outreach_engine.py`（142行 + 3 个 lib）
+**文件：** `leadpilot/outreach/outreach_engine.py`（142行 + 3 个 lib）
 
 **模块结构：**
 ```
@@ -319,19 +319,19 @@ https://buy.stripe.com/7sY3cu2GOa5u9rp0cI7bW02
 |------|------|------|
 | **fb_posts_raw.json** | `/home/user/fb_data/` | 原始 FB 帖子（542条） |
 | **JB Rentals Sheet** | Google Sheets `1QgWjlU...` | ★ 结构化房源数据（agent 电话在 H 列） |
-| **subscribers.db** | `/home/user/jb-rental-intel/` | SQLite — 订阅者（name/email/phone/plan/status） |
+| **subscribers.db** | `/home/user/leadpilot/` | SQLite — 订阅者（name/email/phone/plan/status） |
 | **推广记录 Sheet** | Google Sheets（待创建） | 推广状态追踪（已发/已回复/已注册/已付费） |
 | **订阅状态 Sheet** | Google Sheets `1zLOyuR...` | 订阅状态实时同步 |
-| **wa_session/** | `/home/user/jb-rental-intel/wa_session/` | Baileys 认证状态（含 40+ 联系人 @lid 映射） |
-| **.form_processed.json** | `/home/user/jb-rental-intel/` | 已处理的 Form 注册邮箱 |
-| **processed_payments.txt** | `/home/user/jb-rental-intel/` | 已处理的 Stripe 付款 session ID |
+| **wa_session/** | `/home/user/leadpilot/wa_session/` | Baileys 认证状态（含 40+ 联系人 @lid 映射） |
+| **.form_processed.json** | `/home/user/leadpilot/` | 已处理的 Form 注册邮箱 |
+| **processed_payments.txt** | `/home/user/leadpilot/` | 已处理的 Stripe 付款 session ID |
 
 ---
 
 ## 完整文件清单
 
 ```
-/home/user/jb-rental-intel/
+/home/user/leadpilot/
 ├── README.md                  ← 技术栈
 ├── TODO.md                    ← 进度表
 ├── DEPLOY.md                  ← 部署手册
@@ -377,7 +377,7 @@ https://buy.stripe.com/7sY3cu2GOa5u9rp0cI7bW02
 ## sub_mgr.py 命令速查
 
 ```bash
-cd /home/user/jb-rental-intel
+cd /home/user/leadpilot
 
 # 查所有订阅者
 python3 sub_mgr.py list

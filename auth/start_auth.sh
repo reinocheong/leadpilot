@@ -1,7 +1,7 @@
 #!/bin/bash
 # Start JB Rentals Auth services with Cloudflare Tunnel
 
-LOG="/home/user/jb-rental-intel/.logs/auth.log"
+LOG="/home/user/leadpilot/.logs/auth.log"
 mkdir -p "$(dirname "$LOG")"
 
 echo "[$(date)] Starting auth services..." >> "$LOG"
@@ -12,7 +12,7 @@ pkill -f "cloudflared" 2>/dev/null
 sleep 1
 
 # Start auth server
-cd /home/user/jb-rental-intel
+cd /home/user/leadpilot
 nohup python3 auth/auth_server.py >> "$LOG" 2>&1 &
 echo "[$(date)] auth_server PID: $!" >> "$LOG"
 sleep 2

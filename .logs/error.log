@@ -26,3 +26,180 @@ Call log:
 
     at scrapeGroup (/home/user/jb-rental-intel/scraper/fb_scraper.js:17:16)
     at async /home/user/jb-rental-intel/scraper/fb_scraper.js:40:17
+[2026-05-21T19:01:47.167Z] [scraper/fb_scraper.js] [L22] -> page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/290627785937141", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/jb-rental-intel/scraper/fb_scraper.js:17:16)
+    at async /home/user/jb-rental-intel/scraper/fb_scraper.js:40:17
+[2026-05-22T15:31:04.124Z] [scraper/fb_scraper.js] [L22] -> browser.newContext: Target page, context or browser has been closed
+Browser logs:
+
+<launching> /home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-kjh7Hs --remote-debugging-pipe --no-startup-window
+<launched> pid=823
+[pid=823][err] [0522/233042.969026:WARNING:sandbox/policy/linux/sandbox_linux.cc:405] InitializeSandbox() called with multiple threads in process gpu-process.
+[pid=823][err] [0522/233043.480774:INFO:CONSOLE:0] "Error with Permissions-Policy header: Unrecognized feature: 'bluetooth'.", source:  (0)
+[pid=823][err] [0522/233046.348641:INFO:CONSOLE:0] "Error with Permissions-Policy header: Unrecognized feature: 'bluetooth'.", source:  (0)
+[pid=823][err] [0522/233046.510990:INFO:CONSOLE:321] "Permissions policy violation: unload is not allowed in this document.", source: https://static.xx.fbcdn.net/rsrc.php/v4/yf/r/3eZiCoyW1Mb.js (321)
+[pid=823][err] [0522/233046.573015:INFO:CONSOLE:591] "
+[pid=823][err] %c停下！ font-family:helvetica; font-size:20px; font-size:50px; font-weight:bold; color:red; -webkit-text-stroke:1px black;", source: https://static.xx.fbcdn.net/rsrc.php/v4is624/yl/l/zh_CN-j/MbcUAjC9hyJofYsOtDZ0pGmiz2owbmBYkP88A6PGQAK7fBVraAP290bXioh3vuzgVzhQsDanR_uEMzB4JBJh14dWFu3msYBpv98QAhvZiuH-P6QGj4mA1B5LSnn_E6w_Y60zdQJQB11c9qbcE3_hOX7RFDqbIxvGhd144IX-LDeqDXMGzmEvlq9hjXh_AXNLlai52BZV57g38y9LzeHUs29v-tEQF-mDmqRCF8jzu62ua-DNxO-5TN0uSvRmHPtQWH-XL0vbgz9cj2NBXdtkOvr-N1sv8X3FKxa9uyYt__p5LZ9x6K9jZMhPHOOfrzcP8I5uB7qQii.js?_nc_eui2=AeHTXWUxPqQPP1oZs2WJ__1oQrhsRSr0LYlCuGxFKvQtiXYFjX25XIlrynKUURHJbuqWikObqT74GNjytPytwQID (591)
+[pid=823][err] [0522/233046.573115:INFO:CONSOLE:591] "
+[pid=823][err] %c此浏览器功能专供开发者使用。若某人让你在此复制粘贴某内容以启用某 Facebook 功能或“入侵”某人账户，此为欺诈，会使对方获权进入你的 Facebook 账户。 font-family:helvetica; font-size:20px; ", source: https://static.xx.fbcdn.net/rsrc.php/v4is624/yl/l/zh_CN-j/MbcUAjC9hyJofYsOtDZ0pGmiz2owbmBYkP88A6PGQAK7fBVraAP290bXioh3vuzgVzhQsDanR_uEMzB4JBJh14dWFu3msYBpv98QAhvZiuH-P6QGj4mA1B5LSnn_E6w_Y60zdQJQB11c9qbcE3_hOX7RFDqbIxvGhd144IX-LDeqDXMGzmEvlq9hjXh_AXNLlai52BZV57g38y9LzeHUs29v-tEQF-mDmqRCF8jzu62ua-DNxO-5TN0uSvRmHPtQWH-XL0vbgz9cj2NBXdtkOvr-N1sv8X3FKxa9uyYt__p5LZ9x6K9jZMhPHOOfrzcP8I5uB7qQii.js?_nc_eui2=AeHTXWUxPqQPP1oZs2WJ__1oQrhsRSr0LYlCuGxFKvQtiXYFjX25XIlrynKUURHJbuqWikObqT74GNjytPytwQID (591)
+[pid=823][err] [0522/233046.573218:INFO:CONSOLE:591] "
+[pid=823][err] %c更多信息请参见 https://www.facebook.com/selfxss。 font-family:helvetica; font-size:20px; ", source: https://static.xx.fbcdn.net/rsrc.php/v4is624/yl/l/zh_CN-j/MbcUAjC9hyJofYsOtDZ0pGmiz2owbmBYkP88A6PGQAK7fBVraAP290bXioh3vuzgVzhQsDanR_uEMzB4JBJh14dWFu3msYBpv98QAhvZiuH-P6QGj4mA1B5LSnn_E6w_Y60zdQJQB11c9qbcE3_hOX7RFDqbIxvGhd144IX-LDeqDXMGzmEvlq9hjXh_AXNLlai52BZV57g38y9LzeHUs29v-tEQF-mDmqRCF8jzu62ua-DNxO-5TN0uSvRmHPtQWH-XL0vbgz9cj2NBXdtkOvr-N1sv8X3FKxa9uyYt__p5LZ9x6K9jZMhPHOOfrzcP8I5uB7qQii.js?_nc_eui2=AeHTXWUxPqQPP1oZs2WJ__1oQrhsRSr0LYlCuGxFKvQtiXYFjX25XIlrynKUURHJbuqWikObqT74GNjytPytwQID (591)
+[pid=823][err] [0522/233046.573312:INFO:CONSOLE:591] "
+[pid=823][err] %c ", source: https://static.xx.fbcdn.net/rsrc.php/v4is624/yl/l/zh_CN-j/MbcUAjC9hyJofYsOtDZ0pGmiz2owbmBYkP88A6PGQAK7fBVraAP290bXioh3vuzgVzhQsDanR_uEMzB4JBJh14dWFu3msYBpv98QAhvZiuH-P6QGj4mA1B5LSnn_E6w_Y60zdQJQB11c9qbcE3_hOX7RFDqbIxvGhd144IX-LDeqDXMGzmEvlq9hjXh_AXNLlai52BZV57g38y9LzeHUs29v-tEQF-mDmqRCF8jzu62ua-DNxO-5TN0uSvRmHPtQWH-XL0vbgz9cj2NBXdtkOvr-N1sv8X3FKxa9uyYt__p5LZ9x6K9jZMhPHOOfrzcP8I5uB7qQii.js?_nc_eui2=AeHTXWUxPqQPP1oZs2WJ__1oQrhsRSr0LYlCuGxFKvQtiXYFjX25XIlrynKUURHJbuqWikObqT74GNjytPytwQID (591)
+[pid=823][err] [0522/233049.025690:INFO:CONSOLE:0] "Error with Permissions-Policy header: Unrecognized feature: 'bluetooth'.", source:  (0)
+[pid=823][err] [0522/233050.798276:INFO:CONSOLE:0] "Error with Permissions-Policy header: Unrecognized feature: 'bluetooth'.", source:  (0)
+[pid=823][err] [0522/233050.976364:INFO:CONSOLE:321] "Permissions policy violation: unload is not allowed in this document.", source: https://static.xx.fbcdn.net/rsrc.php/v4/yf/r/3eZiCoyW1Mb.js (321)
+[pid=823][err] [0522/233051.674359:INFO:CONSOLE:591] "
+[pid=823][err] %c停下！ font-family:helvetica; font-size:20px; font-size:50px; font-weight:bold; color:red; -webkit-text-stroke:1px black;", source: https://static.xx.fbcdn.net/rsrc.php/v4is624/yl/l/zh_CN-j/MbcUAjC9hyJofYsOtDZ0pGmiz2owbmBYkP88A6PGQAK7fBVraAP290bXioh3vuzgVzhQsDanR_uEMzB4JBJh14dWFu3msYBpv98QAhvZiuH-P6QGj4mA1B5LSnn_E6w_Y60zdQJQB11c9qbcE3_hOX7RFDqbIxvGhd144IX-LDeqDXMGzmEvlq9hjXh_AXNLlai52BZV57g38y9LzeHUs29v-tEQF-mDmqRCF8jzu62ua-DNxO-5TN0uSvRmHPtQWH-XL0vbgz9cj2NBXdtkOvr-N1sv8X3FKxa9uyYt__p5LZ9x6K9jZMhPHOOfrzcP8I5uB7qQii.js?_nc_eui2=AeHTXWUxPqQPP1oZs2WJ__1oQrhsRSr0LYlCuGxFKvQtiXYFjX25XIlrynKUURHJbuqWikObqT74GNjytPytwQID (591)
+[pid=823][err] [0522/233051.674447:INFO:CONSOLE:591] "
+[pid=823][err] %c此浏览器功能专供开发者使用。若某人让你在此复制粘贴某内容以启用某 Facebook 功能或“入侵”某人账户，此为欺诈，会使对方获权进入你的 Facebook 账户。 font-family:helvetica; font-size:20px; ", source: https://static.xx.fbcdn.net/rsrc.php/v4is624/yl/l/zh_CN-j/MbcUAjC9hyJofYsOtDZ0pGmiz2owbmBYkP88A6PGQAK7fBVraAP290bXioh3vuzgVzhQsDanR_uEMzB4JBJh14dWFu3msYBpv98QAhvZiuH-P6QGj4mA1B5LSnn_E6w_Y60zdQJQB11c9qbcE3_hOX7RFDqbIxvGhd144IX-LDeqDXMGzmEvlq9hjXh_AXNLlai52BZV57g38y9LzeHUs29v-tEQF-mDmqRCF8jzu62ua-DNxO-5TN0uSvRmHPtQWH-XL0vbgz9cj2NBXdtkOvr-N1sv8X3FKxa9uyYt__p5LZ9x6K9jZMhPHOOfrzcP8I5uB7qQii.js?_nc_eui2=AeHTXWUxPqQPP1oZs2WJ__1oQrhsRSr0LYlCuGxFKvQtiXYFjX25XIlrynKUURHJbuqWikObqT74GNjytPytwQID (591)
+[pid=823][err] [0522/233051.674478:INFO:CONSOLE:591] "
+[pid=823][err] %c更多信息请参见 https://www.facebook.com/selfxss。 font-family:helvetica; font-size:20px; ", source: https://static.xx.fbcdn.net/rsrc.php/v4is624/yl/l/zh_CN-j/MbcUAjC9hyJofYsOtDZ0pGmiz2owbmBYkP88A6PGQAK7fBVraAP290bXioh3vuzgVzhQsDanR_uEMzB4JBJh14dWFu3msYBpv98QAhvZiuH-P6QGj4mA1B5LSnn_E6w_Y60zdQJQB11c9qbcE3_hOX7RFDqbIxvGhd144IX-LDeqDXMGzmEvlq9hjXh_AXNLlai52BZV57g38y9LzeHUs29v-tEQF-mDmqRCF8jzu62ua-DNxO-5TN0uSvRmHPtQWH-XL0vbgz9cj2NBXdtkOvr-N1sv8X3FKxa9uyYt__p5LZ9x6K9jZMhPHOOfrzcP8I5uB7qQii.js?_nc_eui2=AeHTXWUxPqQPP1oZs2WJ__1oQrhsRSr0LYlCuGxFKvQtiXYFjX25XIlrynKUURHJbuqWikObqT74GNjytPytwQID (591)
+[pid=823][err] [0522/233051.674528:INFO:CONSOLE:591] "
+[pid=823][err] %c ", source: https://static.xx.fbcdn.net/rsrc.php/v4is624/yl/l/zh_CN-j/MbcUAjC9hyJofYsOtDZ0pGmiz2owbmBYkP88A6PGQAK7fBVraAP290bXioh3vuzgVzhQsDanR_uEMzB4JBJh14dWFu3msYBpv98QAhvZiuH-P6QGj4mA1B5LSnn_E6w_Y60zdQJQB11c9qbcE3_hOX7RFDqbIxvGhd144IX-LDeqDXMGzmEvlq9hjXh_AXNLlai52BZV57g38y9LzeHUs29v-tEQF-mDmqRCF8jzu62ua-DNxO-5TN0uSvRmHPtQWH-XL0vbgz9cj2NBXdtkOvr-N1sv8X3FKxa9uyYt__p5LZ9x6K9jZMhPHOOfrzcP8I5uB7qQii.js?_nc_eui2=AeHTXWUxPqQPP1oZs2WJ__1oQrhsRSr0LYlCuGxFKvQtiXYFjX25XIlrynKUURHJbuqWikObqT74GNjytPytwQID (591)
+[pid=823][err] [0522/233054.475056:INFO:CONSOLE:0] "Error with Permissions-Policy header: Unrecognized feature: 'bluetooth'.", source:  (0)
+[pid=823][err] [0522/233056.553845:INFO:CONSOLE:0] "Error with Permissions-Policy header: Unrecognized feature: 'bluetooth'.", source:  (0)
+[pid=823][err] [0522/233056.653035:INFO:CONSOLE:321] "Permissions policy violation: unload is not allowed in this document.", source: https://static.xx.fbcdn.net/rsrc.php/v4/yf/r/3eZiCoyW1Mb.js (321)
+[pid=823][err] [0522/233056.774162:INFO:CONSOLE:311] "Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently", source: https://static.xx.fbcdn.net/rsrc.php/v4iTCJ4/yF/l/zh_CN-j/toHipcM8iRf2ROB1ioELvwZ-MKOK9rCTr0hGbp3KoNEqSLtNgOTenM9QcrbBardiiEtvMAsQ-0hmruflX7v5Bhm0WI6yfxAE24AxZvZEP5m2a2JDCE2kCR_eNbHT70VIA4BceuO-YTDE8Ze1G7bga6UPZTVLS359e02OX2dazkQpEBLewowjTOzpMugetqzs6vewS-VEzNwW2_VEnQL65LNwHa2g7WlmAglP2wyRvMYj1_hje224kbUnip9P8v6nEtxIXkL_Wo7WGZq907_Irt28n4YATqgPL8PfU5ILxUFZjUQdBSaU9wxLgsyrP7C.js?_nc_eui2=AeFLmev6oWl_TAdJEv3EC8h_s2HYzVjiJtCzYdjNWOIm0Jxvb4NlD8Vjdh1P7fPD6WWaqSZk66RbFxSkUJeP-8aF (311)
+[pid=823][err] [0522/233056.859385:INFO:CONSOLE:591] "
+[pid=823][err] %c停下！ font-family:helvetica; font-size:20px; font-size:50px; font-weight:bold; color:red; -webkit-text-stroke:1px black;", source: https://static.xx.fbcdn.net/rsrc.php/v4is624/yl/l/zh_CN-j/MbcUAjC9hyJofYsOtDZ0pGmiz2owbmBYkP88A6PGQAK7fBVraAP290bXioh3vuzgVzhQsDanR_uEMzB4JBJh14dWFu3msYBpv98QAhvZiuH-P6QGj4mA1B5LSnn_E6w_Y60zdQJQB11c9qbcE3_hOX7RFDqbIxvGhd144IX-LDeqDXMGzmEvlq9hjXh_AXNLlai52BZV57g38y9LzeHUs29v-tEQF-mDmqRCF8jzu62ua-DNxO-5TN0uSvRmHPtQWH-XL0vbgz9cj2NBXdtkOvr-N1sv8X3FKxa9uyYt__p5LZ9x6K9jZMhPHOOfrzcP8I5uB7qQii.js?_nc_eui2=AeHTXWUxPqQPP1oZs2WJ__1oQrhsRSr0LYlCuGxFKvQtiXYFjX25XIlrynKUURHJbuqWikObqT74GNjytPytwQID (591)
+[pid=823][err] [0522/233056.859519:INFO:CONSOLE:591] "
+[pid=823][err] %c此浏览器功能专供开发者使用。若某人让你在此复制粘贴某内容以启用某 Facebook 功能或“入侵”某人账户，此为欺诈，会使对方获权进入你的 Facebook 账户。 font-family:helvetica; font-size:20px; ", source: https://static.xx.fbcdn.net/rsrc.php/v4is624/yl/l/zh_CN-j/MbcUAjC9hyJofYsOtDZ0pGmiz2owbmBYkP88A6PGQAK7fBVraAP290bXioh3vuzgVzhQsDanR_uEMzB4JBJh14dWFu3msYBpv98QAhvZiuH-P6QGj4mA1B5LSnn_E6w_Y60zdQJQB11c9qbcE3_hOX7RFDqbIxvGhd144IX-LDeqDXMGzmEvlq9hjXh_AXNLlai52BZV57g38y9LzeHUs29v-tEQF-mDmqRCF8jzu62ua-DNxO-5TN0uSvRmHPtQWH-XL0vbgz9cj2NBXdtkOvr-N1sv8X3FKxa9uyYt__p5LZ9x6K9jZMhPHOOfrzcP8I5uB7qQii.js?_nc_eui2=AeHTXWUxPqQPP1oZs2WJ__1oQrhsRSr0LYlCuGxFKvQtiXYFjX25XIlrynKUURHJbuqWikObqT74GNjytPytwQID (591)
+[pid=823][err] [0522/233056.859695:INFO:CONSOLE:591] "
+[pid=823][err] %c更多信息请参见 https://www.facebook.com/selfxss。 font-family:helvetica; font-size:20px; ", source: https://static.xx.fbcdn.net/rsrc.php/v4is624/yl/l/zh_CN-j/MbcUAjC9hyJofYsOtDZ0pGmiz2owbmBYkP88A6PGQAK7fBVraAP290bXioh3vuzgVzhQsDanR_uEMzB4JBJh14dWFu3msYBpv98QAhvZiuH-P6QGj4mA1B5LSnn_E6w_Y60zdQJQB11c9qbcE3_hOX7RFDqbIxvGhd144IX-LDeqDXMGzmEvlq9hjXh_AXNLlai52BZV57g38y9LzeHUs29v-tEQF-mDmqRCF8jzu62ua-DNxO-5TN0uSvRmHPtQWH-XL0vbgz9cj2NBXdtkOvr-N1sv8X3FKxa9uyYt__p5LZ9x6K9jZMhPHOOfrzcP8I5uB7qQii.js?_nc_eui2=AeHTXWUxPqQPP1oZs2WJ__1oQrhsRSr0LYlCuGxFKvQtiXYFjX25XIlrynKUURHJbuqWikObqT74GNjytPytwQID (591)
+[pid=823][err] [0522/233056.859762:INFO:CONSOLE:591] "
+[pid=823][err] %c ", source: https://static.xx.fbcdn.net/rsrc.php/v4is624/yl/l/zh_CN-j/MbcUAjC9hyJofYsOtDZ0pGmiz2owbmBYkP88A6PGQAK7fBVraAP290bXioh3vuzgVzhQsDanR_uEMzB4JBJh14dWFu3msYBpv98QAhvZiuH-P6QGj4mA1B5LSnn_E6w_Y60zdQJQB11c9qbcE3_hOX7RFDqbIxvGhd144IX-LDeqDXMGzmEvlq9hjXh_AXNLlai52BZV57g38y9LzeHUs29v-tEQF-mDmqRCF8jzu62ua-DNxO-5TN0uSvRmHPtQWH-XL0vbgz9cj2NBXdtkOvr-N1sv8X3FKxa9uyYt__p5LZ9x6K9jZMhPHOOfrzcP8I5uB7qQii.js?_nc_eui2=AeHTXWUxPqQPP1oZs2WJ__1oQrhsRSr0LYlCuGxFKvQtiXYFjX25XIlrynKUURHJbuqWikObqT74GNjytPytwQID (591)
+[pid=823][err] [0522/233059.125305:INFO:CONSOLE:0] "Error with Permissions-Policy header: Unrecognized feature: 'bluetooth'.", source:  (0)
+[pid=823][err] [0522/233101.272598:INFO:CONSOLE:0] "Error with Permissions-Policy header: Unrecognized feature: 'bluetooth'.", source:  (0)
+[pid=823][err] [0522/233101.347209:INFO:CONSOLE:321] "Permissions policy violation: unload is not allowed in this document.", source: https://static.xx.fbcdn.net/rsrc.php/v4/yf/r/3eZiCoyW1Mb.js (321)
+[pid=823][err] [0522/233101.495340:INFO:CONSOLE:591] "
+[pid=823][err] %c停下！ font-family:helvetica; font-size:20px; font-size:50px; font-weight:bold; color:red; -webkit-text-stroke:1px black;", source: https://static.xx.fbcdn.net/rsrc.php/v4is624/yl/l/zh_CN-j/MbcUAjC9hyJofYsOtDZ0pGmiz2owbmBYkP88A6PGQAK7fBVraAP290bXioh3vuzgVzhQsDanR_uEMzB4JBJh14dWFu3msYBpv98QAhvZiuH-P6QGj4mA1B5LSnn_E6w_Y60zdQJQB11c9qbcE3_hOX7RFDqbIxvGhd144IX-LDeqDXMGzmEvlq9hjXh_AXNLlai52BZV57g38y9LzeHUs29v-tEQF-mDmqRCF8jzu62ua-DNxO-5TN0uSvRmHPtQWH-XL0vbgz9cj2NBXdtkOvr-N1sv8X3FKxa9uyYt__p5LZ9x6K9jZMhPHOOfrzcP8I5uB7qQii.js?_nc_eui2=AeHTXWUxPqQPP1oZs2WJ__1oQrhsRSr0LYlCuGxFKvQtiXYFjX25XIlrynKUURHJbuqWikObqT74GNjytPytwQID (591)
+[pid=823][err] [0522/233101.495820:INFO:CONSOLE:591] "
+[pid=823][err] %c此浏览器功能专供开发者使用。若某人让你在此复制粘贴某内容以启用某 Facebook 功能或“入侵”某人账户，此为欺诈，会使对方获权进入你的 Facebook 账户。 font-family:helvetica; font-size:20px; ", source: https://static.xx.fbcdn.net/rsrc.php/v4is624/yl/l/zh_CN-j/MbcUAjC9hyJofYsOtDZ0pGmiz2owbmBYkP88A6PGQAK7fBVraAP290bXioh3vuzgVzhQsDanR_uEMzB4JBJh14dWFu3msYBpv98QAhvZiuH-P6QGj4mA1B5LSnn_E6w_Y60zdQJQB11c9qbcE3_hOX7RFDqbIxvGhd144IX-LDeqDXMGzmEvlq9hjXh_AXNLlai52BZV57g38y9LzeHUs29v-tEQF-mDmqRCF8jzu62ua-DNxO-5TN0uSvRmHPtQWH-XL0vbgz9cj2NBXdtkOvr-N1sv8X3FKxa9uyYt__p5LZ9x6K9jZMhPHOOfrzcP8I5uB7qQii.js?_nc_eui2=AeHTXWUxPqQPP1oZs2WJ__1oQrhsRSr0LYlCuGxFKvQtiXYFjX25XIlrynKUURHJbuqWikObqT74GNjytPytwQID (591)
+[pid=823][err] [0522/233101.495955:INFO:CONSOLE:591] "
+[pid=823][err] %c更多信息请参见 https://www.facebook.com/selfxss。 font-family:helvetica; font-size:20px; ", source: https://static.xx.fbcdn.net/rsrc.php/v4is624/yl/l/zh_CN-j/MbcUAjC9hyJofYsOtDZ0pGmiz2owbmBYkP88A6PGQAK7fBVraAP290bXioh3vuzgVzhQsDanR_uEMzB4JBJh14dWFu3msYBpv98QAhvZiuH-P6QGj4mA1B5LSnn_E6w_Y60zdQJQB11c9qbcE3_hOX7RFDqbIxvGhd144IX-LDeqDXMGzmEvlq9hjXh_AXNLlai52BZV57g38y9LzeHUs29v-tEQF-mDmqRCF8jzu62ua-DNxO-5TN0uSvRmHPtQWH-XL0vbgz9cj2NBXdtkOvr-N1sv8X3FKxa9uyYt__p5LZ9x6K9jZMhPHOOfrzcP8I5uB7qQii.js?_nc_eui2=AeHTXWUxPqQPP1oZs2WJ__1oQrhsRSr0LYlCuGxFKvQtiXYFjX25XIlrynKUURHJbuqWikObqT74GNjytPytwQID (591)
+[pid=823][err] [0522/233101.496493:INFO:CONSOLE:591] "
+[pid=823][err] %c ", source: https://static.xx.fbcdn.net/rsrc.php/v4is624/yl/l/zh_CN-j/MbcUAjC9hyJofYsOtDZ0pGmiz2owbmBYkP88A6PGQAK7fBVraAP290bXioh3vuzgVzhQsDanR_uEMzB4JBJh14dWFu3msYBpv98QAhvZiuH-P6QGj4mA1B5LSnn_E6w_Y60zdQJQB11c9qbcE3_hOX7RFDqbIxvGhd144IX-LDeqDXMGzmEvlq9hjXh_AXNLlai52BZV57g38y9LzeHUs29v-tEQF-mDmqRCF8jzu62ua-DNxO-5TN0uSvRmHPtQWH-XL0vbgz9cj2NBXdtkOvr-N1sv8X3FKxa9uyYt__p5LZ9x6K9jZMhPHOOfrzcP8I5uB7qQii.js?_nc_eui2=AeHTXWUxPqQPP1oZs2WJ__1oQrhsRSr0LYlCuGxFKvQtiXYFjX25XIlrynKUURHJbuqWikObqT74GNjytPytwQID (591)
+[pid=823][err] [0522/233102.304237:FATAL:base/allocator/partition_alloc_support.cc:797] Detected dangling raw_ptr in unretained with id=0x000031dc005678fc:
+[pid=823][err] 
+[pid=823][err] Task trace:
+[pid=823][err] #0 0x570640bb77bf (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x196e7be)
+[pid=823][err] #1 0x570640bb77bf (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x196e7be)
+[pid=823][err] 
+[pid=823][err] Stack trace:
+[pid=823][err] #0 0x570642b9df5a (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x3954f59)
+[pid=823][err] #1 0x570645fd1e78 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x6d88e77)
+[pid=823][err] #2 0x57064575b12b (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x651212a)
+[pid=823][err] #3 0x5706453917a2 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x61487a1)
+[pid=823][err] #4 0x570641968a68 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x271fa67)
+[pid=823][err] #5 0x57064138a754 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x2141753)
+[pid=823][err] #6 0x570641a57cd6 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x280ecd5)
+[pid=823][err] #7 0x570641a50b13 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x2807b12)
+[pid=823][err] #8 0x570641a51f3f (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x2808f3e)
+[pid=823][err] #9 0x570641a462c6 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x27fd2c5)
+[pid=823][err] #10 0x570641a48019 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x27ff018)
+[pid=823][err] #11 0x570641ac4be6 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x287bbe5)
+[pid=823][err] #12 0x570640bd37b4 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x198a7b3)
+[pid=823][err] #13 0x570640a989a4 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x184f9a3)
+[pid=823][err] #14 0x5706414192d3 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x21d02d2)
+[pid=823][err] #15 0x570641418a51 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x21cfa50)
+[pid=823][err] #16 0x5706429bf2ef (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x37762ee)
+[pid=823][err] #17 0x570643230e66 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x3fe7e65)
+[pid=823][err] #18 0x570643230fe6 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x3fe7fe5)
+[pid=823][err] #19 0x570643234481 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x3feb480)
+[pid=823][err] #20 0x570643231419 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x3fe8418)
+[pid=823][err] #21 0x57064323050e (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x3fe750d)
+[pid=823][err] #22 0x570643bcbad0 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x4982acf)
+[pid=823][err] #23 0x570643bcccf2 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x4983cf1)
+[pid=823][err] #24 0x74a26fe2a1ca (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a1c9)
+[pid=823][err] #25 0x74a26fe2a28b (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a28a)
+[pid=823][err] #26 0x5706437047ca (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x44bb7c9)
+[pid=823][err] 
+[pid=823][err] 
+[pid=823][err] Please check for more information on:
+[pid=823][err] https://chromium.googlesource.com/chromium/src/+/main/docs/unretained_dangling_ptr_guide.md
+[pid=823][err] 
+    at async scrapeGroup (/home/user/jb-rental-intel/scraper/fb_scraper.js:15:15)
+    at async /home/user/jb-rental-intel/scraper/fb_scraper.js:40:17
+[2026-05-23T09:31:07.769Z] [scraper/fb_scraper.js] [L22] -> page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/290627785937141", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/jb-rental-intel/scraper/fb_scraper.js:17:16)
+    at async /home/user/jb-rental-intel/scraper/fb_scraper.js:40:17
+[2026-05-23T19:30:27.629Z] [scraper/fb_scraper.js] [L22] -> browser.newContext: Target page, context or browser has been closed
+Browser logs:
+
+<launching> /home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-QHY6Z8 --remote-debugging-pipe --no-startup-window
+<launched> pid=35938
+[pid=35938][err] [0524/033016.455587:WARNING:sandbox/policy/linux/sandbox_linux.cc:405] InitializeSandbox() called with multiple threads in process gpu-process.
+[pid=35938][err] [0524/033017.000193:INFO:CONSOLE:0] "Error with Permissions-Policy header: Unrecognized feature: 'bluetooth'.", source:  (0)
+[pid=35938][err] [0524/033019.234455:INFO:CONSOLE:0] "Error with Permissions-Policy header: Unrecognized feature: 'bluetooth'.", source:  (0)
+[pid=35938][err] [0524/033019.391425:INFO:CONSOLE:321] "Permissions policy violation: unload is not allowed in this document.", source: https://static.xx.fbcdn.net/rsrc.php/v4/yf/r/3eZiCoyW1Mb.js (321)
+[pid=35938][err] [0524/033019.495237:INFO:CONSOLE:459] "
+[pid=35938][err] %c停下！ font-family:helvetica; font-size:20px; font-size:50px; font-weight:bold; color:red; -webkit-text-stroke:1px black;", source: https://static.xx.fbcdn.net/rsrc.php/v4i2x54/ym/l/zh_CN-j/MVACPmNdV2NMbcUAjC9hyJmiz2owbmBYkP88A6PGQAK7fBVraAP290bXioh3vuzgVzhQsDanR_uEMzB4JBJh14dWFu3msYBpv98QAhvZiuH-P6QGj4mA1B5LSOaFH8M-FotCdQJQB11c9qbNEOIbqCMDOQqbIxvGhd144IX-LDeqDXMGzmEvlq9hjXh_AXNLlai52BZV57g38y9LzeHUs29v-tEQF-mDmqRCF8jzu62ua-DNxO-5TN0uSvRmHd-RzlhBAdHXgz9cj2NBXdtkOvr-N1sv8X3FKxa9uyYt__p5LZ9x6K9jZMhPHOOfrzcP8I5uB7qQii.js?_nc_eui2=AeGiBuQy1SQ_T9N-qBHKsodPljQT1atA6KmWNBPVq0DoqXe4ozF17Goli0QJgbuX5L3HobtYwU3JIM8ausgkSs8u (459)
+[pid=35938][err] [0524/033019.495369:INFO:CONSOLE:459] "
+[pid=35938][err] %c此浏览器功能专供开发者使用。若某人让你在此复制粘贴某内容以启用某 Facebook 功能或“入侵”某人账户，此为欺诈，会使对方获权进入你的 Facebook 账户。 font-family:helvetica; font-size:20px; ", source: https://static.xx.fbcdn.net/rsrc.php/v4i2x54/ym/l/zh_CN-j/MVACPmNdV2NMbcUAjC9hyJmiz2owbmBYkP88A6PGQAK7fBVraAP290bXioh3vuzgVzhQsDanR_uEMzB4JBJh14dWFu3msYBpv98QAhvZiuH-P6QGj4mA1B5LSOaFH8M-FotCdQJQB11c9qbNEOIbqCMDOQqbIxvGhd144IX-LDeqDXMGzmEvlq9hjXh_AXNLlai52BZV57g38y9LzeHUs29v-tEQF-mDmqRCF8jzu62ua-DNxO-5TN0uSvRmHd-RzlhBAdHXgz9cj2NBXdtkOvr-N1sv8X3FKxa9uyYt__p5LZ9x6K9jZMhPHOOfrzcP8I5uB7qQii.js?_nc_eui2=AeGiBuQy1SQ_T9N-qBHKsodPljQT1atA6KmWNBPVq0DoqXe4ozF17Goli0QJgbuX5L3HobtYwU3JIM8ausgkSs8u (459)
+[pid=35938][err] [0524/033019.495404:INFO:CONSOLE:459] "
+[pid=35938][err] %c更多信息请参见 https://www.facebook.com/selfxss。 font-family:helvetica; font-size:20px; ", source: https://static.xx.fbcdn.net/rsrc.php/v4i2x54/ym/l/zh_CN-j/MVACPmNdV2NMbcUAjC9hyJmiz2owbmBYkP88A6PGQAK7fBVraAP290bXioh3vuzgVzhQsDanR_uEMzB4JBJh14dWFu3msYBpv98QAhvZiuH-P6QGj4mA1B5LSOaFH8M-FotCdQJQB11c9qbNEOIbqCMDOQqbIxvGhd144IX-LDeqDXMGzmEvlq9hjXh_AXNLlai52BZV57g38y9LzeHUs29v-tEQF-mDmqRCF8jzu62ua-DNxO-5TN0uSvRmHd-RzlhBAdHXgz9cj2NBXdtkOvr-N1sv8X3FKxa9uyYt__p5LZ9x6K9jZMhPHOOfrzcP8I5uB7qQii.js?_nc_eui2=AeGiBuQy1SQ_T9N-qBHKsodPljQT1atA6KmWNBPVq0DoqXe4ozF17Goli0QJgbuX5L3HobtYwU3JIM8ausgkSs8u (459)
+[pid=35938][err] [0524/033019.495540:INFO:CONSOLE:459] "
+[pid=35938][err] %c ", source: https://static.xx.fbcdn.net/rsrc.php/v4i2x54/ym/l/zh_CN-j/MVACPmNdV2NMbcUAjC9hyJmiz2owbmBYkP88A6PGQAK7fBVraAP290bXioh3vuzgVzhQsDanR_uEMzB4JBJh14dWFu3msYBpv98QAhvZiuH-P6QGj4mA1B5LSOaFH8M-FotCdQJQB11c9qbNEOIbqCMDOQqbIxvGhd144IX-LDeqDXMGzmEvlq9hjXh_AXNLlai52BZV57g38y9LzeHUs29v-tEQF-mDmqRCF8jzu62ua-DNxO-5TN0uSvRmHd-RzlhBAdHXgz9cj2NBXdtkOvr-N1sv8X3FKxa9uyYt__p5LZ9x6K9jZMhPHOOfrzcP8I5uB7qQii.js?_nc_eui2=AeGiBuQy1SQ_T9N-qBHKsodPljQT1atA6KmWNBPVq0DoqXe4ozF17Goli0QJgbuX5L3HobtYwU3JIM8ausgkSs8u (459)
+[pid=35938][err] [0524/033021.991695:INFO:CONSOLE:0] "Error with Permissions-Policy header: Unrecognized feature: 'bluetooth'.", source:  (0)
+[pid=35938][err] [0524/033023.860222:INFO:CONSOLE:0] "Error with Permissions-Policy header: Unrecognized feature: 'bluetooth'.", source:  (0)
+[pid=35938][err] [0524/033024.004789:INFO:CONSOLE:321] "Permissions policy violation: unload is not allowed in this document.", source: https://static.xx.fbcdn.net/rsrc.php/v4/yf/r/3eZiCoyW1Mb.js (321)
+[pid=35938][err] [0524/033024.057383:INFO:CONSOLE:459] "
+[pid=35938][err] %c停下！ font-family:helvetica; font-size:20px; font-size:50px; font-weight:bold; color:red; -webkit-text-stroke:1px black;", source: https://static.xx.fbcdn.net/rsrc.php/v4i2x54/ym/l/zh_CN-j/MVACPmNdV2NMbcUAjC9hyJmiz2owbmBYkP88A6PGQAK7fBVraAP290bXioh3vuzgVzhQsDanR_uEMzB4JBJh14dWFu3msYBpv98QAhvZiuH-P6QGj4mA1B5LSOaFH8M-FotCdQJQB11c9qbNEOIbqCMDOQqbIxvGhd144IX-LDeqDXMGzmEvlq9hjXh_AXNLlai52BZV57g38y9LzeHUs29v-tEQF-mDmqRCF8jzu62ua-DNxO-5TN0uSvRmHd-RzlhBAdHXgz9cj2NBXdtkOvr-N1sv8X3FKxa9uyYt__p5LZ9x6K9jZMhPHOOfrzcP8I5uB7qQii.js?_nc_eui2=AeGiBuQy1SQ_T9N-qBHKsodPljQT1atA6KmWNBPVq0DoqXe4ozF17Goli0QJgbuX5L3HobtYwU3JIM8ausgkSs8u (459)
+[pid=35938][err] [0524/033024.057477:INFO:CONSOLE:459] "
+[pid=35938][err] %c此浏览器功能专供开发者使用。若某人让你在此复制粘贴某内容以启用某 Facebook 功能或“入侵”某人账户，此为欺诈，会使对方获权进入你的 Facebook 账户。 font-family:helvetica; font-size:20px; ", source: https://static.xx.fbcdn.net/rsrc.php/v4i2x54/ym/l/zh_CN-j/MVACPmNdV2NMbcUAjC9hyJmiz2owbmBYkP88A6PGQAK7fBVraAP290bXioh3vuzgVzhQsDanR_uEMzB4JBJh14dWFu3msYBpv98QAhvZiuH-P6QGj4mA1B5LSOaFH8M-FotCdQJQB11c9qbNEOIbqCMDOQqbIxvGhd144IX-LDeqDXMGzmEvlq9hjXh_AXNLlai52BZV57g38y9LzeHUs29v-tEQF-mDmqRCF8jzu62ua-DNxO-5TN0uSvRmHd-RzlhBAdHXgz9cj2NBXdtkOvr-N1sv8X3FKxa9uyYt__p5LZ9x6K9jZMhPHOOfrzcP8I5uB7qQii.js?_nc_eui2=AeGiBuQy1SQ_T9N-qBHKsodPljQT1atA6KmWNBPVq0DoqXe4ozF17Goli0QJgbuX5L3HobtYwU3JIM8ausgkSs8u (459)
+[pid=35938][err] [0524/033024.057551:INFO:CONSOLE:459] "
+[pid=35938][err] %c更多信息请参见 https://www.facebook.com/selfxss。 font-family:helvetica; font-size:20px; ", source: https://static.xx.fbcdn.net/rsrc.php/v4i2x54/ym/l/zh_CN-j/MVACPmNdV2NMbcUAjC9hyJmiz2owbmBYkP88A6PGQAK7fBVraAP290bXioh3vuzgVzhQsDanR_uEMzB4JBJh14dWFu3msYBpv98QAhvZiuH-P6QGj4mA1B5LSOaFH8M-FotCdQJQB11c9qbNEOIbqCMDOQqbIxvGhd144IX-LDeqDXMGzmEvlq9hjXh_AXNLlai52BZV57g38y9LzeHUs29v-tEQF-mDmqRCF8jzu62ua-DNxO-5TN0uSvRmHd-RzlhBAdHXgz9cj2NBXdtkOvr-N1sv8X3FKxa9uyYt__p5LZ9x6K9jZMhPHOOfrzcP8I5uB7qQii.js?_nc_eui2=AeGiBuQy1SQ_T9N-qBHKsodPljQT1atA6KmWNBPVq0DoqXe4ozF17Goli0QJgbuX5L3HobtYwU3JIM8ausgkSs8u (459)
+[pid=35938][err] [0524/033024.057701:INFO:CONSOLE:459] "
+[pid=35938][err] %c ", source: https://static.xx.fbcdn.net/rsrc.php/v4i2x54/ym/l/zh_CN-j/MVACPmNdV2NMbcUAjC9hyJmiz2owbmBYkP88A6PGQAK7fBVraAP290bXioh3vuzgVzhQsDanR_uEMzB4JBJh14dWFu3msYBpv98QAhvZiuH-P6QGj4mA1B5LSOaFH8M-FotCdQJQB11c9qbNEOIbqCMDOQqbIxvGhd144IX-LDeqDXMGzmEvlq9hjXh_AXNLlai52BZV57g38y9LzeHUs29v-tEQF-mDmqRCF8jzu62ua-DNxO-5TN0uSvRmHd-RzlhBAdHXgz9cj2NBXdtkOvr-N1sv8X3FKxa9uyYt__p5LZ9x6K9jZMhPHOOfrzcP8I5uB7qQii.js?_nc_eui2=AeGiBuQy1SQ_T9N-qBHKsodPljQT1atA6KmWNBPVq0DoqXe4ozF17Goli0QJgbuX5L3HobtYwU3JIM8ausgkSs8u (459)
+[pid=35938][err] [0524/033025.823590:FATAL:base/allocator/partition_alloc_support.cc:797] Detected dangling raw_ptr in unretained with id=0x00002b7400ed82fc:
+[pid=35938][err] 
+[pid=35938][err] Task trace:
+[pid=35938][err] #0 0x5d63802047bf (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x196e7be)
+[pid=35938][err] #1 0x5d63802047bf (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x196e7be)
+[pid=35938][err] 
+[pid=35938][err] Stack trace:
+[pid=35938][err] #0 0x5d63821eaf5a (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x3954f59)
+[pid=35938][err] #1 0x5d638561ee78 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x6d88e77)
+[pid=35938][err] #2 0x5d6384da812b (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x651212a)
+[pid=35938][err] #3 0x5d63849de7a2 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x61487a1)
+[pid=35938][err] #4 0x5d6380fb5a68 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x271fa67)
+[pid=35938][err] #5 0x5d63809d7754 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x2141753)
+[pid=35938][err] #6 0x5d63810a4cd6 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x280ecd5)
+[pid=35938][err] #7 0x5d638109db13 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x2807b12)
+[pid=35938][err] #8 0x5d638109ef3f (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x2808f3e)
+[pid=35938][err] #9 0x5d63810932c6 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x27fd2c5)
+[pid=35938][err] #10 0x5d6381095019 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x27ff018)
+[pid=35938][err] #11 0x5d6381111be6 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x287bbe5)
+[pid=35938][err] #12 0x5d63802207b4 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x198a7b3)
+[pid=35938][err] #13 0x5d6381634921 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x2d9e920)
+[pid=35938][err] #14 0x7d235098d585 (/usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.8000.0+0x5d584)
+[pid=35938][err] #15 0x7d23509ec977 (/usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.8000.0+0xbc976)
+[pid=35938][err] #16 0x7d235098ca23 (/usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.8000.0+0x5ca22)
+[pid=35938][err] #17 0x5d63800e5b4c (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x184fb4b)
+[pid=35938][err] #18 0x5d6380a662d3 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x21d02d2)
+[pid=35938][err] #19 0x5d6380a65a51 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x21cfa50)
+[pid=35938][err] #20 0x5d638200c2ef (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x37762ee)
+[pid=35938][err] #21 0x5d638287de66 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x3fe7e65)
+[pid=35938][err] #22 0x5d638287dfe6 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x3fe7fe5)
+[pid=35938][err] #23 0x5d6382881481 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x3feb480)
+[pid=35938][err] #24 0x5d638287e419 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x3fe8418)
+[pid=35938][err] #25 0x5d638287d50e (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x3fe750d)
+[pid=35938][err] #26 0x5d6383218ad0 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x4982acf)
+[pid=35938][err] #27 0x5d6383219cf2 (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x4983cf1)
+[pid=35938][err] #28 0x7d234fc2a1ca (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a1c9)
+[pid=35938][err] #29 0x7d234fc2a28b (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a28a)
+[pid=35938][err] #30 0x5d6382d517ca (/home/user/.cache/ms-playwright/chromium_headless_shell-1217/chrome-headless-shell-linux64/chrome-headless-shell+0x44bb7c9)
+[pid=35938][err] 
+[pid=35938][err] 
+[pid=35938][err] Please check for more information on:
+[pid=35938][err] https://chromium.googlesource.com/chromium/src/+/main/docs/unretained_dangling_ptr_guide.md
+[pid=35938][err] 
+    at async scrapeGroup (/home/user/jb-rental-intel/scraper/fb_scraper.js:15:15)
+    at async /home/user/jb-rental-intel/scraper/fb_scraper.js:40:17

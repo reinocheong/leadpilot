@@ -1,7 +1,7 @@
 import sqlite3, os
 from datetime import timedelta
 
-DB_PATH = "/home/user/jb-rental-intel/subscribers.db"
+DB_PATH = "/home/user/leadpilot/subscribers.db"
 
 def get_conn():
     return sqlite3.connect(DB_PATH)

@@ -4,7 +4,7 @@
 可还原：运行 reset_sheet_format.py
 """
 import sys
-sys.path.insert(0, '/home/user/jb-rental-intel')
+sys.path.insert(0, '/home/user/leadpilot')
 from processors.fb_parser import get_sheets_service
 
 SHEET_ID = '1QgWjlUEvFf9auZzptbYI2EEDAeWnKAZcxsXhcCgjJYM'

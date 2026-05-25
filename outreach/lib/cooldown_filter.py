@@ -9,7 +9,7 @@ from typing import List, Dict, Set, Optional
 
 MY_TZ = ZoneInfo("Asia/Kuala_Lumpur")
 COOLDOWN_DAYS = 30
-DAILY_LIMIT = 5  # fallback default
+DAILY_LIMIT = 20  # fallback default
 
 
 def filter_candidates(

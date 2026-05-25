@@ -13,10 +13,10 @@ def wa_send(phone, message):
             print(f"   📤 WhatsApp 已发送给 {phone}")
         else:
             errMsg = result.stderr.strip()[:100]
-            with open("/home/user/jb-rental-intel/.logs/error.log", "a") as f:
+            with open("/home/user/leadpilot/.logs/error.log", "a") as f:
                 f.write(f"[{datetime.now().isoformat()}] [sub_mgr/notifications.py] [L12] [WASend] -> {errMsg}\n")
     except Exception as e:
-        with open("/home/user/jb-rental-intel/.logs/error.log", "a") as f:
+        with open("/home/user/leadpilot/.logs/error.log", "a") as f:
             f.write(f"[{datetime.now().isoformat()}] [sub_mgr/notifications.py] [L14] [WASend] -> {e}\n")
 
 def wa_lid(phone):

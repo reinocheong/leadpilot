@@ -5,8 +5,8 @@
 LOCK_FILE="/tmp/auto_sync_tunnel.lock"
 LAST_URL_FILE="/tmp/cf_last_synced_url.txt"
 CURRENT_URL_FILE="/tmp/cf_active_url.txt"
-RENTALS_HTML="/home/user/jb-rental-intel/rentals.html"
-PROJECT_DIR="/home/user/jb-rental-intel"
+RENTALS_HTML="/home/user/leadpilot/rentals.html"
+PROJECT_DIR="/home/user/leadpilot"
 
 exec 200>"$LOCK_FILE"
 flock -n 200 || exit 0

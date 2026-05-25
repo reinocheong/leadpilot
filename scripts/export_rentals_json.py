@@ -9,7 +9,7 @@ from zoneinfo import ZoneInfo
 from collections import Counter
 
 MY_TZ = ZoneInfo("Asia/Kuala_Lumpur")
-PROJECT_ROOT = "/home/user/jb-rental-intel"
+PROJECT_ROOT = "/home/user/leadpilot"
 SA_KEY = "/home/user/.hermes/google_sa_rental.json"
 JB_SHEET_ID = "1QgWjlUEvFf9auZzptbYI2EEDAeWnKAZcxsXhcCgjJYM"
 

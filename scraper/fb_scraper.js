@@ -21,7 +21,7 @@ async function scrapeGroup(browser, groupId, groupName) {
     pre.forEach(p => { if(!seen.has(p.postLink)) posts.push(buildPost(groupId, groupName, p)); });
     console.log(`[scraper/fb_scraper.js][${groupName}] 结束: 抓取到 ${posts.length} 条`);
   } catch (e) {
-    fs.appendFileSync('/home/user/jb-rental-intel/.logs/error.log', `[${new Date().toISOString()}] [scraper/fb_scraper.js] [L22] -> ${e.stack}\n`);
+    fs.appendFileSync('/home/user/leadpilot/.logs/error.log', `[${new Date().toISOString()}] [scraper/fb_scraper.js] [L22] -> ${e.stack}\n`);
     if (isBrowserDeadError(e.message)) throw e;
   } finally { if(page) await page.close(); if(context) await context.close(); }
   return posts;
