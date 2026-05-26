@@ -4,7 +4,14 @@ const { clickExpandButtons } = require('./lib/fb_expand');
 const { extractPosts } = require('./lib/fb_extract');
 const { launchBrowser, isBrowserDeadError } = require('./lib/browser');
 
-const COOKIES = [{ name: 'c_user', value: '100000390330536', domain: '.facebook.com', path: '/' }, { name: 'xs', value: '22%3ABP076DDNtD7PnQ%3A2%3A1773550824%3A-1%3A-1%3A%3AAcw-mSgGoEFZAI_4rPrQWnZdsDrepQ1MED6H7hony9w', domain: '.facebook.com', path: '/' }, { name: 'fr', value: '11lkkMhtF2En5XJeD.AWeKxawEKCkeI_s_RFZZDjCg3hFSAcCmvKx2epfkf63Jt-qXC_U.BqAmQE..AAA.0.0.BqAmQE.AWcmtemPt2EE7myVwQ5QLmlSAr0', domain: '.facebook.com', path: '/' }, { name: 'presence', value: 'C%7B%22t3%22%3A%5B%5D%2C%22utc3%22%3A1778541574416%2C%22v%22%3A1%7D', domain: '.facebook.com', path: '/' }];
+const COOKIES = [
+  { name: 'c_user', value: '100000390330536', domain: '.facebook.com', path: '/' },
+  { name: 'xs', value: '22%3ABP076DDNtD7PnQ%3A2%3A1773550824%3A-1%3A-1%3A%3AAcyGP4bjxP_DCJ2_0QtWjXOyixuonqEp9GVZVBFHKxqA', domain: '.facebook.com', path: '/' },
+  { name: 'fr', value: '1PiOKIuPaPOaaiFOy.AWej3InpwamINJaEWsAoWpdEgyE-4MjsC5A785H0v4lInCXe3yw.BqFbk9..AAA.0.0.BqFcXw.AWdUZnfAzasyV7dQqZA3VzfpxW0', domain: '.facebook.com', path: '/' },
+  { name: 'presence', value: 'C%7B%22t3%22%3A%5B%5D%2C%22utc3%22%3A1779811834430%2C%22v%22%3A1%7D', domain: '.facebook.com', path: '/' },
+  { name: 'datr', value: 'xzy2aXZW-Tjo2NZkem0HL33m', domain: '.facebook.com', path: '/' },
+  { name: 'sb', value: 'yDy2aQZz1vMBpEuPxjI8V2lQ', domain: '.facebook.com', path: '/' }
+];
 const GROUPS = [{ id: '1467428250213843', name: 'JB新山租房与出租' }, { id: '1313487628797877', name: 'Group2' }, { id: '801784763175081', name: 'Group3-房屋出租' }, { id: 'JBPropertyForSalesRent', name: 'JB Property For Sales/Rent' }, { id: '290627785937141', name: 'Group5-租屋' }];
 const OUTPUT_JSON = '/home/user/fb_data/fb_posts_raw.json';
 
