@@ -1,8 +1,23 @@
 # DEPLOY.md — 部署与环境手册
 
-> 项目：Smart Tenancy Pro — JB 房产数据 SaaS  
+> 项目：LeadPilot — JB 房产数据 SaaS  
 > 根目录：`/home/user/leadpilot/`  
-> 最后更新：2026-05-21
+> 最后更新：2026-05-26
+
+---
+
+## 自定义域名
+
+| 项目 | 值 |
+|------|-----|
+| 域名 | `leadpilot.dpdns.org` |
+| 注册商 | DigitalPlat（免费域名） |
+| DNS | Cloudflare（NS: adel.ns.cloudflare.com / roan.ns.cloudflare.com） |
+| 记录 | `CNAME @ → reinocheong.github.io`（灰色云，不代理） |
+| GitHub Pages | 自定义域名已验证，强制 HTTPS 待 TLS 签发后开启 |
+| 首页 | `index.html` = rentals.html（房源浏览页） |
+
+Promo 链接格式：`https://leadpilot.dpdns.org/`
 
 ---
 

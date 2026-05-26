@@ -56,3 +56,20 @@
   - 配置 Windows Git Credential Manager 解决 git push 认证。
   - 更新 skill/memory/wiki 全部引用。
   - 全面巡检确认：Pages/Auth/Tunnel/Preview/Parser/AgentList 全部正常。
+  - 修复 wa_daemon `printQRInTerminal` 警告（移除该选项）。
+  - wa_daemon 添加 `syncFullHistory: false` 与 `maxMsgRetryCount: 2` 优化连接稳定性。
+- **2026-05-26 [AI] (domain)**
+  - 注册自定义域名 **leadpilot.dpdns.org**（DigitalPlat → Cloudflare DNS）。
+  - GitHub Pages 绑定域名，`rentals.html` 设为首页（替换旧架构图页）。
+  - 重启 Cloudflare Tunnel，更新 `AUTH_URL` 到新隧道地址。
+  - 修复 Google OAuth：用户手动添加 `leadpilot.dpdns.org` 到 Cloud Console 授权来源。
+  - ✅ 域名 `leadpilot.dpdns.org` 直接打开房源预览页，Google 登录可用。
+
+- **2026-05-26 [AI] (重连)**
+  - 参照另一项目的指数退避协议，重构 wa_daemon 重连逻辑：
+    - 断线后不立即重连，用 **5min → 10min → 20min → 40min → 60min** 指数退避。
+    - `shouldReconnect` 增加 `statusCode !== 403` 判断，403/401 均停止重连。
+    - 连接成功时自动归零退避计数器。
+    - 取消旧定时器防止多重调度。
+    - 移除自杀重启代码（原来就没有）。
+  - 手机 WA 显示设备仍在链接，但 daemon 被 403 限流需冷却后重新扫码。

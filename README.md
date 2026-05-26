@@ -1,4 +1,4 @@
-# Smart Tenancy Pro — JB 房产数据 SaaS
+# LeadPilot — JB 房产数据 SaaS
 
 > 从 FB 抓取 agent 号码 → WhatsApp 自动推广 → Google 登录试用 → Stripe 付费续费，全链路自动化。
 
