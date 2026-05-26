@@ -57,29 +57,31 @@ bash auth/start_auth.sh
 
 启动后 HTTPS 隧道 URL 保存在 `/tmp/cf_active_url.txt`。
 
-### WhatsApp Daemon
+### WhatsApp Daemon — 指数退避重连（2026-05-26）
 
 ```bash
-bash wa/start_daemon.sh
-```
-
-### @reboot 自启（已配置）
-
-```bash
-@reboot bash /home/user/leadpilot/auth/start_auth.sh
-@reboot bash /home/user/leadpilot/wa/start_daemon.sh
-```
-
-### 1. WhatsApp Daemon（必须 24/7 常驻）
-
-```bash
-cd /home/user/leadpilot
-
 # 启动（首次会生成 QR 码扫码登录）
 node wa/wa_daemon.js
 
-# 或后台运行
-nohup node wa/wa_daemon.js > .logs/wa_daemon.log 2>&1 &
+# 检测 Daemon 健康
+curl -s http://localhost:3456/health
+# → {"ok":true,"pid":...,"connected":true,"uptime":"..."}
+```
+
+**断线时自动指数退避：**
+- 5 分钟 → 10 分钟 → 20 分钟 → 40 分钟 → 60 分钟（上限）
+- 连接成功后计数器归零
+- 登录失效（401）或被限流（403）时停止重连，不无限刷请求
+- 不自杀、不重启进程，保持等待
+
+```bash
+# 查看 Daemon 日志
+tail -f .logs/wa_daemon.log
+
+# 重新扫码登录（如果掉线超过1小时或403）
+# 1. 停 daemon
+# 2. 删 wa_session/
+# 3. 启动 daemon → 扫 QR 码
 ```
 
 ### 2. FB 爬虫（手动运行）
@@ -382,4 +384,4 @@ Parser 已集成 `normalize_property_name()` + `_is_valid_property_name()`，新
 | Agent 名清理 | `/tmp/clean_agent_only.py` | 清掉FB随机用户名（一次性的） |
 | 🔐 Auth 服务 | `auth/start_auth.sh` | 启动 auth_server + Cloudflare Tunnel（@reboot cron） |
 | 🔐 隧道同步 | `scripts/auto_sync_tunnel.sh` | 每5分钟检测 Tunnel URL 变化 → 自动更新 `rentals.html` + push（cron 静默） |
-| 🔐 手动登录测试 | 打开 `https://reinocheong.github.io/leadpilot/rentals.html` | 测试用户: test@example.com / test123 |
+| 🔐 手动登录测试 | 打开 `https://leadpilot.dpdns.org/` | 测试用户: test@example.com / test123 |
