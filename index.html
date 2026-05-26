@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
   <title>JB Rentals</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Google Sign-In disabled — too many OAuth popup issues
   <script src="https://accounts.google.com/gsi/client" async defer></script>
+  -->
   <style>
     :root {
       --bg: #020617;
@@ -678,14 +680,14 @@ function showLoginFromPreview() {
   document.getElementById('previewBar').classList.add('hidden');
   document.getElementById('loginOverlay').style.display = 'flex';
   document.getElementById('loginOverlay').style.opacity = '1';
-  initGoogleSignIn();
+  // initGoogleSignIn(); // disabled — Google Sign-In removed
 }
 
 function doLogout() {
   if (window.google && google.accounts) google.accounts.id.disableAutoSelect();
   clearAuth();
   showLogin();
-  initGoogleSignIn();
+  // initGoogleSignIn(); // disabled — Google Sign-In removed
 }
 
 // ── Google Sign-In ────────────────────────────────────────
@@ -952,7 +954,7 @@ function togglePost(el) {
     // Preview unavailable — fallback to login page
   }
   showLogin();
-  initGoogleSignIn();
+  // initGoogleSignIn(); // disabled — Google Sign-In removed
 })();
 </script>
 </body>
