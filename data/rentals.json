@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-05-28T00:31:57.180163+08:00",
-  "total": 919,
+  "updated_at": "2026-05-28T01:02:03.555974+08:00",
+  "total": 920,
   "today_new": 0,
   "top_properties": [
     "R&F Princess Cove",
@@ -15,6 +15,20 @@
     "Kulai"
   ],
   "listings": [
+    {
+      "agent": "",
+      "property": "R&F Princess Cove",
+      "type": "出租",
+      "property_type": "",
+      "rooms": "2房1厕",
+      "furnishing": "全家私",
+      "rent": "2,700",
+      "phone": "+60178853149",
+      "link": "https://www.facebook.com/groups/JBPropertyForSalesRent/posts/3141943082672579",
+      "remark": "[JB Property For Sales/Rent] 有停车位",
+      "scraped_at": "2026-05-28 00:31:35",
+      "post_text": "MC Moo *For Rent**R&F Princess Cove Phase 1* (IA3149)*2Bed 1Bath*Close to Link Bridge and Jaya Grocer (A7-1) 2Bed 1Bath 873sqft Fully Furnished Low Floor (Less Lift Waiting Time) Back side of RTS Railway (Less Noice, Facing Facilities)Rental RM2,700 (not include carpark )Can Move in Immediately Please contact *Ian Ang*(REN58002)*PropNex Realty*+6017-8853149 WhatsApp : wa.me/60178853149"
+    },
     {
       "agent": "Fang Wei",
       "property": "",
