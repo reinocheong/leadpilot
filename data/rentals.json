@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-05-27T19:01:59.912390+08:00",
-  "total": 906,
+  "updated_at": "2026-05-27T19:31:51.275187+08:00",
+  "total": 908,
   "today_new": 0,
   "top_properties": [
     "R&F Princess Cove",
-    "Permas Jaya",
     "Bukit Indah",
+    "Permas Jaya",
     "Mount Austin",
     "Taman Pelangi",
     "Johor Jaya",
@@ -15,6 +15,34 @@
     "Kulai"
   ],
   "listings": [
+    {
+      "agent": "海潮音振林山有冷气房两间！靠近巴士站出入新加坡方便！",
+      "property": "",
+      "type": "出租",
+      "property_type": "",
+      "rooms": "",
+      "furnishing": "",
+      "rent": "",
+      "phone": "+601123015739",
+      "link": "https://www.facebook.com/groups/JBPropertyForSalesRent/posts/3138577633009124",
+      "remark": "[JB Property For Sales/Rent] 有冷气",
+      "scraped_at": "2026-05-27 19:01:38",
+      "post_text": "海潮音振林山有冷气房两间！靠近巴士站出入新加坡方便！01123015739！"
+    },
+    {
+      "agent": "Wendy Gan",
+      "property": "Bukit Indah",
+      "type": "出租",
+      "property_type": "单层排屋",
+      "rooms": "3房2厕",
+      "furnishing": "半家私",
+      "rent": "2,200",
+      "phone": "+601111114199",
+      "link": "https://www.facebook.com/groups/1313487628797877/posts/4434475373365738",
+      "remark": "[Group2]",
+      "scraped_at": "2026-05-27 19:00:58",
+      "post_text": "Wendy Gan Bukit Indah Single Storey House For Rent Bukit Indah, Iskandar Puteri Rental: RM2,200/month Property Details: Single Storey Terrace House Land Size: 20 x 70 3 Bedrooms 2 Bathrooms Partial Furnished Spacious living area Suitable for family stay Strategically located near: AEON Bukit Indah Eco Botanic & Horizon Hills Restaurants, banks & supermarkets Easy access to highway Interested kindly PM / WhatsApp for viewing arrangement.Wendy Gan 011-11114199Ceiloz Realty Sdn Bhd (REN 37548)#BukitIndah #BukitIndahForRent #JBProperty #JohorBahru #HouseForRent #JB房屋出租 #新山租房 #BukitIndahRental"
+    },
     {
       "agent": "Johnson Wong",
       "property": "",
