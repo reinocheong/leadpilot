@@ -130,5 +130,12 @@ def main():
     print(f"✅ 导出完成: {len(listings)} 条 ({today_new} 今日新), top: {top_props[:5]}")
     print(f"   → {out_path}")
 
+    # Generate sitemap.xml and dataset JSON-LD
+    sys.path.insert(0, os.path.join(PROJECT_ROOT, "scripts"))
+    from gen_sitemap import gen_sitemap, write_sitemap
+    pages = gen_sitemap(listings)
+    count = write_sitemap(pages)
+    print(f"✅ sitemap.xml: {count} URLs")
+
 if __name__ == "__main__":
     main()

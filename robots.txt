@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://leadpilot.dpdns.org/sitemap.xml
