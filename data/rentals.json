@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-05-28T03:32:22.709653+08:00",
-  "total": 923,
+  "updated_at": "2026-05-28T04:02:11.994840+08:00",
+  "total": 924,
   "today_new": 0,
   "top_properties": [
     "R&F Princess Cove",
@@ -15,6 +15,20 @@
     "Kulai"
   ],
   "listings": [
+    {
+      "agent": "Cholas Tung",
+      "property": "Trellis Residence",
+      "type": "出租",
+      "property_type": "大房",
+      "rooms": "",
+      "furnishing": "",
+      "rent": "",
+      "phone": "+60177600260",
+      "link": "https://www.facebook.com/groups/1467428250213843/posts/4154743191482322",
+      "remark": "[JB新山租房与出租]",
+      "scraped_at": "2026-05-28 03:30:57",
+      "post_text": "Cholas Tung Trellis Residence 出租（没有中介费）屋主联系方式：0177600260（WhatsApp）房间类型及价格：大房间：RM1100所有房间均配备齐全的家具。仅限女性租客。禁止携带宠物。禁止访客。"
+    },
     {
       "agent": "Tung Cheong",
       "property": "Bukit Indah",
