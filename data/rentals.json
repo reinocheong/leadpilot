@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-05-27T16:02:10.391771+08:00",
-  "total": 899,
+  "updated_at": "2026-05-27T16:32:15.927331+08:00",
+  "total": 900,
   "today_new": 0,
   "top_properties": [
     "R&F Princess Cove",
@@ -15,6 +15,20 @@
     "Kulai"
   ],
   "listings": [
+    {
+      "agent": "Kok Jun",
+      "property": "",
+      "type": "出租",
+      "property_type": "",
+      "rooms": "",
+      "furnishing": "",
+      "rent": "",
+      "phone": "+60177162811",
+      "link": "https://www.facebook.com/groups/JBPropertyForSalesRent/posts/3141518222715065",
+      "remark": "[JB Property For Sales/Rent]",
+      "scraped_at": "2026-05-27 16:01:41",
+      "post_text": "Kok Jun 欢庆 年大促销到时最后 Kok Jun 公司欢庆 年，会员优惠倒数最后 ！50周年感恩回馈，申请会员只剩最后 ！错过就没有了！免费得到1支G&H滚珠香身防汗剂会员促销最后 ！加入会员享更多优惠，最后 别错过！50周年限定福利，倒数 截止！福利多多欢迎信息我https://www.wasap.my/+60177162811"
+    },
     {
       "agent": "Heng Wan",
       "property": "Bukit Indah",
