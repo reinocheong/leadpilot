@@ -1,20 +1,48 @@
 {
-  "updated_at": "2026-05-27T17:32:07.923154+08:00",
-  "total": 901,
+  "updated_at": "2026-05-27T18:02:02.491711+08:00",
+  "total": 903,
   "today_new": 0,
   "top_properties": [
     "R&F Princess Cove",
     "Permas Jaya",
     "Bukit Indah",
     "Mount Austin",
+    "Taman Pelangi",
     "Johor Jaya",
     "Johor Bahru",
-    "Taman Pelangi",
     "Skudai",
     "KSL Residence",
     "Kulai"
   ],
   "listings": [
+    {
+      "agent": "何嘉琪",
+      "property": "Taman Pelangi",
+      "type": "出租",
+      "property_type": "双层排屋",
+      "rooms": "",
+      "furnishing": "",
+      "rent": "2,800",
+      "phone": "+60167946617",
+      "link": "https://www.facebook.com/groups/JBPropertyForSalesRent/posts/3141603546039866",
+      "remark": "[JB Property For Sales/Rent]",
+      "scraped_at": "2026-05-27 17:31:47",
+      "post_text": "何嘉琪 Taman Pelangi Double Storey Terrace House For RentTaman Pelangi 双层排楼出租 Jalan Nila, Taman PelangiType / 类型: Double Storey Terrace 双层排楼Layout / 格局: 4 Bedrooms | 3 Bathrooms（4房3厕）Unit / 单位: Intermediate 中间单位Condition / 状况: Partially Furnished 部分家具 Rental / 租金: RM2800 (Nego)Enson Tanhttp://www.wasap.my/60167946617/pelangi2800rentivan"
+    },
+    {
+      "agent": "Linda Chua",
+      "property": "Linda Chua Crescent Bay",
+      "type": "出租",
+      "property_type": "Studio",
+      "rooms": "",
+      "furnishing": "",
+      "rent": "",
+      "phone": "+60127753713",
+      "link": "https://www.facebook.com/groups/801784763175081/posts/27414727961454066",
+      "remark": "[Group3-房屋出租] 有洗衣机; 有冰箱",
+      "scraped_at": "2026-05-27 17:31:27",
+      "post_text": "Linda Chua Crescent Bay SuiteStudio有傢俱/冰箱/洗衣机.租1800联系0127753713"
+    },
     {
       "agent": "Terence Property",
       "property": "Bukit Indah",
