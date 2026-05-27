@@ -59,11 +59,11 @@
   - 修复 wa_daemon `printQRInTerminal` 警告（移除该选项）。
   - wa_daemon 添加 `syncFullHistory: false` 与 `maxMsgRetryCount: 2` 优化连接稳定性。
 - **2026-05-26 [AI] (domain)**
-  - 注册自定义域名 **leadpilot.dpdns.org**（DigitalPlat → Cloudflare DNS）。
+  - 注册自定义域名 **leadpilot.smart-tenancy-pro.org**（DigitalPlat → Cloudflare DNS）。
   - GitHub Pages 绑定域名，`rentals.html` 设为首页（替换旧架构图页）。
   - 重启 Cloudflare Tunnel，更新 `AUTH_URL` 到新隧道地址。
-  - 修复 Google OAuth：用户手动添加 `leadpilot.dpdns.org` 到 Cloud Console 授权来源。
-  - ✅ 域名 `leadpilot.dpdns.org` 直接打开房源预览页，Google 登录可用。
+  - 修复 Google OAuth：用户手动添加 `leadpilot.smart-tenancy-pro.org` 到 Cloud Console 授权来源。
+  - ✅ 域名 `leadpilot.smart-tenancy-pro.org` 直接打开房源预览页，Google 登录可用。
 
 - **2026-05-26 [AI] (重连)**
   - 参照另一项目的指数退避协议，重构 wa_daemon 重连逻辑：

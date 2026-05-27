@@ -10,14 +10,14 @@
 
 | 项目 | 值 |
 |------|-----|
-| 域名 | `leadpilot.dpdns.org` |
+| 域名 | `leadpilot.smart-tenancy-pro.org` |
 | 注册商 | DigitalPlat（免费域名） |
 | DNS | Cloudflare（NS: adel.ns.cloudflare.com / roan.ns.cloudflare.com） |
 | 记录 | `CNAME @ → reinocheong.github.io`（灰色云，不代理） |
 | GitHub Pages | 自定义域名已验证，强制 HTTPS 待 TLS 签发后开启 |
 | 首页 | `index.html` = rentals.html（房源浏览页） |
 
-Promo 链接格式：`https://leadpilot.dpdns.org/`
+Promo 链接格式：`https://leadpilot.smart-tenancy-pro.org/`
 
 ---
 
@@ -399,4 +399,4 @@ Parser 已集成 `normalize_property_name()` + `_is_valid_property_name()`，新
 | Agent 名清理 | `/tmp/clean_agent_only.py` | 清掉FB随机用户名（一次性的） |
 | 🔐 Auth 服务 | `auth/start_auth.sh` | 启动 auth_server + Cloudflare Tunnel（@reboot cron） |
 | 🔐 隧道同步 | `scripts/auto_sync_tunnel.sh` | 每5分钟检测 Tunnel URL 变化 → 自动更新 `rentals.html` + push（cron 静默） |
-| 🔐 手动登录测试 | 打开 `https://leadpilot.dpdns.org/` | 测试用户: test@example.com / test123 |
+| 🔐 手动登录测试 | 打开 `https://leadpilot.smart-tenancy-pro.org/` | 测试用户: test@example.com / test123 |

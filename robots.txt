@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://leadpilot.dpdns.org/sitemap.xml
+Sitemap: https://leadpilot.smart-tenancy-pro.org/sitemap.xml

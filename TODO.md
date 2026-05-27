@@ -13,7 +13,7 @@
 
 | 模块 | 任务 | 状态 | 日期 |
 |------|------|:----:|:----:|
-| 域名 | leadpilot.dpdns.org 绑定 + 首页设为房源页 | ✅ | 2026-05-26 |
+| 域名 | leadpilot.smart-tenancy-pro.org 绑定 + 首页设为房源页 | ✅ | 2026-05-26 |
 | wa_daemon | 指数退避重连（5min→60min） | ✅ | 2026-05-26 |
 | wa_daemon | 403 停止重连逻辑 | ✅ | 2026-05-26 |
 | wa_daemon | EADDRINUSE 修复（server 移出 startSock） | ✅ | 2026-05-25 |
