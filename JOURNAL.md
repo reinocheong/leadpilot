@@ -81,3 +81,10 @@
   - Google OAuth 已加新域名白名单
   - AUTH_URL 占位符 bug：auto_sync_tunnel.sh 的 sed 匹配不上真实 URL，已确认 index.html 和 rentals.html 中 tunnel URL 正确
   - ✅ 新域名 `leadpilot.smart-tenancy-pro.org` 正常访问，预览/登录/数据加载均正常
+
+- **2026-05-27 [AI] (爬虫加强)**
+  - 诊断：爬虫每日抓取量从 42条/天 降到 8条/天 — 根因是页面不滚动，只看顶部 1-2 条帖子
+  - 新增 `scrollToLoadPosts()`：每群组滚动 5 次视口高度，每次等 3s 加载新内容
+  - `page.goto` 超时从 20s 放宽到 60s（FB headless 加载慢）
+  - `run_fb_scraper.sh` 整体超时从 110s → 300s
+  - 6 月 1 日 wiki sync cron 已恢复正常
