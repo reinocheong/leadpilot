@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-05-27T21:31:47.757669+08:00",
-  "total": 910,
+  "updated_at": "2026-05-27T22:02:39.092697+08:00",
+  "total": 912,
   "today_new": 0,
   "top_properties": [
     "R&F Princess Cove",
@@ -15,6 +15,34 @@
     "Kulai"
   ],
   "listings": [
+    {
+      "agent": "Shirley Pang",
+      "property": "The Tate",
+      "type": "出租",
+      "property_type": "双层排屋",
+      "rooms": "",
+      "furnishing": "",
+      "rent": "4,000",
+      "phone": "+60162867768",
+      "link": "https://www.facebook.com/groups/290627785937141/posts/1454582242875017",
+      "remark": "[Group5-租屋] 有冷气",
+      "scraped_at": "2026-05-27 21:31:47",
+      "post_text": "Shirley Pang 8分钟 +14Shirley Pang · 分享对象： 公开HOUSE FOR RENT Location: The Tate, Taman Eko Botani 2, Iskandar Puteri, Johor* Double Storey Terrace House* Partially Furnished* 20x70* 24-Hour Security* 4 Bedrooms, 3 Bathrooms House Comes With:* Ceiling Fans & Lights* Water Heaters* Air-Conditioners* Kitchen Cabinets & Cooking AreaAvailable From: June 2026Rental: RM4,000/month (Including Maintenance)Contact Shirley 0162867768"
+    },
+    {
+      "agent": "",
+      "property": "Taman Tasek",
+      "type": "出租",
+      "property_type": "",
+      "rooms": "",
+      "furnishing": "",
+      "rent": "",
+      "phone": "+601377755781",
+      "link": "https://www.facebook.com/groups/1467428250213843/posts/4152153578407950",
+      "remark": "[JB新山租房与出租] 包水电; 包设施; 有冷气",
+      "scraped_at": "2026-05-27 21:30:23",
+      "post_text": "😝Jeffrey GanTaman tasek Larkin 有地住宅,出入方便,800（包水电冷气）"
+    },
     {
       "agent": "Jin Lin",
       "property": "Twin Tower",
