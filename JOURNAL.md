@@ -87,4 +87,10 @@
   - 新增 `scrollToLoadPosts()`：每群组滚动 5 次视口高度，每次等 3s 加载新内容
   - `page.goto` 超时从 20s 放宽到 60s（FB headless 加载慢）
   - `run_fb_scraper.sh` 整体超时从 110s → 300s
-  - 6 月 1 日 wiki sync cron 已恢复正常
+  - 验证：手动跑一趟产生 21 条原始帖（原来 7 条），Parser 正常入库
+
+- **2026-05-28 00:11 [AI] (Tunnel URL 更新)**
+  - Cloudflare Tunnel 重启后 URL 从 `requests-dude-words-divx` → `receiver-cams-turtle-accommodate`
+  - start_auth.sh 的 6s sleep 不够，未抓到新 URL；/tmp/cf_active_url.txt 残留旧 URL → auto_sync_tunnel 认为没变化
+  - 修复：更新 index.html / rentals.html / index.html.bak 中 AUTH_URL
+  - 修复：start_auth.sh 增加 retry 循环（sleep 10 + 最多重试 3 次），防止下次 URL 抓不到

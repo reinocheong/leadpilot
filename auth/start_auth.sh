@@ -6,9 +6,12 @@ mkdir -p "$(dirname "$LOG")"
 
 echo "[$(date)] Starting auth services..." >> "$LOG"
 
-# Kill old processes
-pkill -f "auth_server.py" 2>/dev/null
-pkill -f "cloudflared" 2>/dev/null
+# Kill only LeadPilot's specific processes (by port, not blanket pkill)
+kill $(lsof -ti :8777 2>/dev/null) 2>/dev/null
+kill $(lsof -ti :8899 2>/dev/null) 2>/dev/null
+# Kill only cloudflared that's proxying LeadPilot's port
+ps aux | grep 'cloudflared.*localhost:8777' | grep -v grep | awk '{print $2}' | xargs kill -9 2>/dev/null
+ps aux | grep 'cloudflared.*localhost:8899' | grep -v grep | awk '{print $2}' | xargs kill -9 2>/dev/null
 sleep 1
 
 # Start auth server
@@ -20,10 +23,15 @@ sleep 2
 # Start cloudflared tunnel
 nohup ~/.local/bin/cloudflared tunnel --url http://localhost:8777 > /tmp/cf_url.txt 2>&1 &
 echo "[$(date)] cloudflared PID: $!" >> "$LOG"
-sleep 6
+sleep 10
 
-# Extract URL
-CF_URL=$(grep -o 'https://[a-z0-9.-]*\.trycloudflare\.com' /tmp/cf_url.txt | head -1)
+# Extract URL with retry (cloudflared may buffer output)
+CF_URL=""
+for i in 1 2 3; do
+    CF_URL=$(grep -o 'https://[a-z0-9.-]*\.trycloudflare\.com' /tmp/cf_url.txt | head -1)
+    if [ -n "$CF_URL" ]; then break; fi
+    sleep 3
+done
 if [ -n "$CF_URL" ]; then
     echo "[$(date)] ✅ Tunnel: $CF_URL" >> "$LOG"
     echo "$CF_URL" > /tmp/cf_active_url.txt
