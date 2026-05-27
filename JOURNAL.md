@@ -73,3 +73,11 @@
     - 取消旧定时器防止多重调度。
     - 移除自杀重启代码（原来就没有）。
   - 手机 WA 显示设备仍在链接，但 daemon 被 403 限流需冷却后重新扫码。
+
+- **2026-05-27 [AI] (域名迁移)**
+  - 域名 `leadpilot.dpdns.org` (DigitalPlat) 因 NS 委托链问题 → 迁移至 `leadpilot.smart-tenancy-pro.org`
+  - Cloudflare DNS：删 CNAME，加 4 条 A 记录指向 GitHub Pages IP
+  - 全项目搜索替换旧域名：index.html / robots.txt / sitemap / 推广文案 / DEPLOY 等
+  - Google OAuth 已加新域名白名单
+  - AUTH_URL 占位符 bug：auto_sync_tunnel.sh 的 sed 匹配不上真实 URL，已确认 index.html 和 rentals.html 中 tunnel URL 正确
+  - ✅ 新域名 `leadpilot.smart-tenancy-pro.org` 正常访问，预览/登录/数据加载均正常

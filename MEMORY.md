@@ -32,6 +32,27 @@
 - **原因：** HTTP server 创建在 `startSock()` 函数内部，每次重连都新建。
 - **对策：** 2026-05-25 重构：HTTP server 移到模块顶层，只创建一次；`startSock()` 只处理 WhatsApp 连接。
 
+### 7. WA 403 限流 + 指数退避重连
+- **现象：** daemon 无限重连（每 5 秒一次）→ WA 服务器返回 `statusCode: 403, location: cln` → 临时封禁连接。
+- **原因：** 原始重连逻辑只判断 `!== 401`（登出），不判断 403。5 秒立即重连在被限流时反而加剧封禁。
+- **对策：** 2026-05-26 参照另一项目协议重构：
+  - **指数退避**：断线后 5min → 10min → 20min → 40min → 60min（上限），通过 `setTimeout` 实现。
+  - **403 也停**：`shouldReconnect` 增加 `statusCode !== 403`，403 和 401 都停。
+  - **归零**：连接成功（`connection === 'open'`）或生成 QR 码时 `backoffMinutes = 0`。
+  - **防多重调度**：设置新定时器前 `clearTimeout(reconnectTimer)`。
+  - **不自杀**：原来就没有 `process.exit()`，保持程序挂着等退避。
+
+### 8. 域名 DNS 委托链不兼容 (2026-05-27)
+- **现象：** `leadpilot.dpdns.org` (DigitalPlat 免费域名) 在某些 ISP 返回 NXDOMAIN。
+- **原因：** DigitalPlat 的 NS (ns1/ns2/ns3.dpdns.org) → Cloudflare NS 的委托链，部分 DNS 解析器（如用户家用路由器 DNS）跟不过去。
+- **对策：** 迁移到 Cloudflare 注册的正规域名 `leadpilot.smart-tenancy-pro.org`，A 记录直指 GitHub Pages IP。
+- **教训：** 免费域名服务（DigitalPlat）的委托链有兼容性风险，正规域名直接托管在 Cloudflare 更稳定。
+
+### 🔧 诊断教训 (2026-05-27)
+- **先检查工具装没装再信结论**：`dig` 未安装时输出空不代表域名不可解析。用 `which dig` 或 Python socket 多路验证。
+- **用户说「之前没问题」时不要坚持理论**：先怀疑自己的证据链，重新验证。
+- **多路交叉验证 DNS**：系统 DNS + Google DNS API + Cloudflare DNS API，三路一致才算确认。
+
 ### 1. 正则 vs LLM 提取
 - **决策：** 核心字段（电话、价格、楼盘）优先使用本地正则匹配。
 - **理由：** 零成本、零延迟、易于调试。仅在正则无法覆盖的极端复杂场景考虑 LLM。

@@ -9,11 +9,13 @@
 | 订阅午间/日报 | 13:00 / 18:00 | ⏸️ | 依赖 wa_daemon，已暂停 |
 | WA 健康检查 | 每小时 10-20 点 | ⏸️ | 依赖 wa_daemon，已暂停 |
 
-## ✅ 已修复
+## ✅ 已完成
 
 | 模块 | 任务 | 状态 | 日期 |
 |------|------|:----:|:----:|
-| 域名 | leadpilot.smart-tenancy-pro.org 绑定 + 首页设为房源页 | ✅ | 2026-05-26 |
+| 域名迁移 | `leadpilot.dpdns.org` → `leadpilot.smart-tenancy-pro.org` | ✅ | 2026-05-27 |
+| 全项目域名替换 | robots/sitemap/OG/推广文案/DEPLOY 等 | ✅ | 2026-05-27 |
+| 域名 | leadpilot.dpdns.org 绑定 + 首页设为房源页 | ✅ | 2026-05-26 |
 | wa_daemon | 指数退避重连（5min→60min） | ✅ | 2026-05-26 |
 | wa_daemon | 403 停止重连逻辑 | ✅ | 2026-05-26 |
 | wa_daemon | EADDRINUSE 修复（server 移出 startSock） | ✅ | 2026-05-25 |
