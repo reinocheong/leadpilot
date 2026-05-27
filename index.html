@@ -198,6 +198,15 @@
       text-decoration: none;
       font-size: 0.68rem;
     }
+    .agent-phone-locked {
+      color: var(--text-muted); cursor: pointer;
+      opacity: 0.6;
+    }
+    .agent-phone-locked span {
+      letter-spacing: 2px;
+      filter: blur(2px);
+      user-select: none;
+    }
 
     /* Post preview */
     .post-block {
@@ -515,12 +524,12 @@
   <div class="tag-row" id="tagRow"></div>
 </div>
 
-<!-- Preview bar (hidden by default, shown when in preview mode) -->
+<!-- Preview bar — all listings visible, phone numbers locked -->
 <div class="preview-bar hidden" id="previewBar" onclick="showLoginFromPreview()">
-  <span class="lock-icon">🔓</span>
+  <span class="lock-icon">🔒</span>
   <span>预览</span>
   <span class="preview-count" id="previewCount">15 套房源</span>
-  <span class="preview-action">Google 登录查看全部 →</span>
+  <span class="preview-action">订阅查看联系方式 →</span>
 </div>
 
 <!-- Login overlay -->
@@ -881,10 +890,13 @@ function renderListings(q) {
     const initial = (l.agent || '?')[0];
     let agentHtml = '';
     if (l.agent || l.phone) {
+      const phoneHtml = DATA.preview
+        ? '<span class="agent-phone agent-phone-locked">🔒 <span>' + esc(l.phone) + '</span></span>'
+        : (l.phone ? '<a class="agent-phone" href="tel:' + esc(l.phone) + '">📞 ' + esc(l.phone) + '</a>' : '');
       agentHtml = '<div class="agent-row">' +
         '<span class="agent-avatar">' + esc(initial) + '</span>' +
         (l.agent ? '<span>' + esc(l.agent) + '</span>' : '') +
-        (l.phone ? '<a class="agent-phone" href="tel:' + esc(l.phone) + '">📞 ' + esc(l.phone) + '</a>' : '') +
+        phoneHtml +
         '</div>';
     }
 

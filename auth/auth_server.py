@@ -103,14 +103,35 @@ def get_rentals_data():
         'listings': listings
     }
 
+def mask_phone_in_text(text):
+    """Mask Malaysian phone numbers in arbitrary text content."""
+    if not text:
+        return text
+    import re
+    # Match: +60123456789, 0123456789, 60123456789, 012-3456789, +6012-3456789 etc.
+    # Also handle: +60 12-345 6789, 012 345 6789
+    pattern = r'(\+?6?0[1-9][0-9]?)[\s\-]?([0-9]{3,4})[\s\-]?([0-9]{4})'
+    def repl(m):
+        prefix = m.group(1)  # e.g., +6012, 012, 012
+        return prefix + '*******'
+    return re.sub(pattern, repl, text)
+
+def mask_phone(phone):
+    """Mask phone number — show first 5 chars + asterisks."""
+    if not phone:
+        return None
+    p = phone.strip()
+    if len(p) <= 5:
+        return p + '****'
+    return p[:5] + '****'
+
 def get_preview_data():
-    """Return quality listings for unauthenticated preview (only clean entries, newest first)."""
+    """Return ALL listings for unauthenticated preview, with masked phone numbers."""
     rows = read_sheet(RENTALS_SHEET_ID, 'JB Rentals!A:L')
     if len(rows) < 2:
-        return {'error': '暂无数据', 'preview': True, 'total': 0, 'listings': [], 'top_properties': []}
+        return {'preview': True, 'total': 0, 'listings': [], 'top_properties': []}
     headers = [h.strip().lower() for h in rows[0]]
     all_listings = []
-    quality = []
     for row in rows[1:]:
         d = dict(zip(headers, row + ['']*(len(headers)-len(row))))
         phone = d.get('phone', '').strip()
@@ -122,40 +143,28 @@ def get_preview_data():
             'agent': agent or None,
             'property': prop or None,
             'rent': d.get('rent (rm)'),
-            'phone': phone,
+            'phone': mask_phone(phone),
             'link': d.get('link'),
             'property_type': d.get('property type'),
             'type': d.get('listing type'),
             'furnishing': d.get('furnishing'),
             'rooms': d.get('rooms'),
             'remark': d.get('remark'),
-            'post_text': d.get('post text'),
+            'post_text': mask_phone_in_text(d.get('post text')),
             'scraped_at': scraped or None
         }
         all_listings.append(entry)
-        # Quality: has property name + agent name
-        if prop and agent:
-            quality.append(entry)
     from collections import Counter
     props = [l.get('property') for l in all_listings if l.get('property')]
     top = [p for p, _ in Counter(props).most_common(15)]
-    # Sort quality by scraped_at descending (newest first)
     def sort_key(e):
         ts = e.get('scraped_at') or ''
         return ts
-    quality.sort(key=sort_key, reverse=True)
-    # Show newest quality listings, up to 8
-    samples = quality[:8]
-    # If not enough quality, fill with newest entries that have at least a property name
-    if len(samples) < 8:
-        partial = [l for l in all_listings if l.get('property') and not (l.get('agent') and l.get('property'))]
-        partial.sort(key=sort_key, reverse=True)
-        samples += [l for l in partial if l not in samples]
-        samples = samples[:8]
+    all_listings.sort(key=sort_key, reverse=True)
     return {
         'preview': True,
         'total': len(all_listings),
-        'listings': samples,
+        'listings': all_listings,
         'top_properties': top
     }
 
