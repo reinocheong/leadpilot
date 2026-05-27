@@ -2,7 +2,7 @@
 
 > 项目：LeadPilot — JB 房产数据 SaaS  
 > 根目录：`/home/user/leadpilot/`  
-> 最后更新：2026-05-26
+> 最后更新：2026-05-27
 
 ---
 
@@ -11,10 +11,10 @@
 | 项目 | 值 |
 |------|-----|
 | 域名 | `leadpilot.smart-tenancy-pro.org` |
-| 注册商 | DigitalPlat（免费域名） |
-| DNS | Cloudflare（NS: adel.ns.cloudflare.com / roan.ns.cloudflare.com） |
-| 记录 | `CNAME @ → reinocheong.github.io`（灰色云，不代理） |
-| GitHub Pages | 自定义域名已验证，强制 HTTPS 待 TLS 签发后开启 |
+| 注册商 | Cloudflare Registrar |
+| DNS | Cloudflare（NS: indie.ns.cloudflare.com / yadiel.ns.cloudflare.com） |
+| 记录 | 4 条 A 记录 → `185.199.108.153` / `109` / `110` / `111`（GitHub Pages，灰色云不代理） |
+| GitHub Pages | 自定义域名已验证，CNAME 文件在 repo 根目录 |
 | 首页 | `index.html` = rentals.html（房源浏览页） |
 
 Promo 链接格式：`https://leadpilot.smart-tenancy-pro.org/`
