@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-05-27T18:32:09.113235+08:00",
-  "total": 905,
+  "updated_at": "2026-05-27T19:01:59.912390+08:00",
+  "total": 906,
   "today_new": 0,
   "top_properties": [
     "R&F Princess Cove",
@@ -15,6 +15,20 @@
     "Kulai"
   ],
   "listings": [
+    {
+      "agent": "Johnson Wong",
+      "property": "",
+      "type": "出租",
+      "property_type": "房间",
+      "rooms": "2房1厕",
+      "furnishing": "全家私",
+      "rent": "1,500",
+      "phone": "+60184632320",
+      "link": "https://www.facebook.com/groups/290627785937141/posts/1454450749554833",
+      "remark": "[Group5-租屋]",
+      "scraped_at": "2026-05-27 18:32:08",
+      "post_text": "Johnson Wong *RENT Risting**For Rent**Property:* Ataraxia Park Forest City*Location:* Forest City/Near Tuas*Type:* 2 Bedrooms 1 Bathrooms*Sqft:* 785 sqft*Furnishing:* Fully Furnished *Deposit:* 2+1+0.5 *Prefer:* C and M with good profile*Rental:* Rm1500*Key:* Easy to Arrange *Remarks:* Available now有兴趣欢迎WhatsApp我了解详情～For more details or interested, kindly contact via WhatsApp:Johnson018-4632320http://www.wasap.my/60184632320/"
+    },
     {
       "agent": "Kp Wong",
       "property": "Mount Austin",
