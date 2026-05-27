@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-05-27T16:32:15.927331+08:00",
-  "total": 900,
+  "updated_at": "2026-05-27T17:02:10.144593+08:00",
+  "total": 901,
   "today_new": 0,
   "top_properties": [
     "R&F Princess Cove",
@@ -15,6 +15,20 @@
     "Kulai"
   ],
   "listings": [
+    {
+      "agent": "Terence Property",
+      "property": "Bukit Indah",
+      "type": "出租",
+      "property_type": "双层排屋",
+      "rooms": "",
+      "furnishing": "",
+      "rent": "3,200",
+      "phone": "+60147755898",
+      "link": "https://www.facebook.com/groups/1313487628797877/posts/4434409466705662",
+      "remark": "[Group2]",
+      "scraped_at": "2026-05-27 16:31:07",
+      "post_text": "Terence Property For RentHorizon Residence 2 @ Bukit Indah79100 Iskandar Puteri, JohorDouble Storey Superlink HouseLand Size 24 x 80Built Up 2,776 sqft4+1 Bedrooms & 4 BathroomsFreeholdNon Bumi LotIntermediate UnitFacing NorthEastPartial furniture3 unit Aircon 3 unit water heater24hours Gated GuardedRental RM3200 negoPls Call/Whatapp Terence 014-7755 898https://terenceeo.wasap.my/REN 28987THE ROOF REALTY SDN BHDE(1)1605/1United Power Group (UPG)"
+    },
     {
       "agent": "Kok Jun",
       "property": "",
