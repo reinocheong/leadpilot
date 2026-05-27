@@ -15,14 +15,23 @@ const COOKIES = [
 const GROUPS = [{ id: '1467428250213843', name: 'JB新山租房与出租' }, { id: '1313487628797877', name: 'Group2' }, { id: '801784763175081', name: 'Group3-房屋出租' }, { id: 'JBPropertyForSalesRent', name: 'JB Property For Sales/Rent' }, { id: '290627785937141', name: 'Group5-租屋' }];
 const OUTPUT_JSON = '/home/user/fb_data/fb_posts_raw.json';
 
+/** Scroll down incrementally to load more FB posts. */
+async function scrollToLoadPosts(page) {
+  const scrollCount = 5;
+  for (let i = 0; i < scrollCount; i++) {
+    await page.evaluate(() => window.scrollBy(0, window.innerHeight));
+    await page.waitForTimeout(3000);
+  }
+}
+
 async function scrapeGroup(browser, groupId, groupName) {
   console.log(`[scraper/fb_scraper.js][${groupName}] 开始抓取`);
   let context = null, page = null, posts = [];
   try {
     context = await browser.newContext({ userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', locale: 'zh-CN' });
     await context.addCookies(COOKIES); page = await context.newPage();
-    await page.goto(`https://www.facebook.com/groups/${groupId}`, { waitUntil: 'domcontentloaded', timeout: 20000 });
-    const pre = await extractPosts(page, groupId); await clickExpandButtons(page); const post = await extractPosts(page, groupId);
+    await page.goto(`https://www.facebook.com/groups/${groupId}`, { waitUntil: 'domcontentloaded', timeout: 60000 });
+    await scrollToLoadPosts(page); const pre = await extractPosts(page, groupId); await clickExpandButtons(page); const post = await extractPosts(page, groupId);
     const seen = new Set();
     post.forEach(p => { if(p.postLink) seen.add(p.postLink); posts.push(buildPost(groupId, groupName, p)); });
     pre.forEach(p => { if(!seen.has(p.postLink)) posts.push(buildPost(groupId, groupName, p)); });
