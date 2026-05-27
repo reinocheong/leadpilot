@@ -27,6 +27,12 @@ def gen_sitemap(listings):
         'changefreq': 'daily',
         'priority': '1.0',
     })
+    # Crawler page (all listings in one table)
+    pages.append({
+        'loc': BASE_URL + '/crawler-listings.html',
+        'changefreq': 'daily',
+        'priority': '0.9',
+    })
     # Each listing as a filterable URL
     for i, l in enumerate(listings):
         prop = l.get('property') or l.get('property_name') or ''
