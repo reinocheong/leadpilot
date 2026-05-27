@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-05-27T11:24:39.511475+08:00",
-  "total": 890,
+  "updated_at": "2026-05-27T12:31:14.371809+08:00",
+  "total": 892,
   "today_new": 0,
   "top_properties": [
     "R&F Princess Cove",
@@ -10,11 +10,39 @@
     "Mount Austin",
     "Taman Pelangi",
     "Skudai",
-    "KSL Residence",
     "Johor Bahru",
+    "KSL Residence",
     "Kulai"
   ],
   "listings": [
+    {
+      "agent": "Steven Loh",
+      "property": "Indah Court",
+      "type": "出售",
+      "property_type": "双层排屋",
+      "rooms": "",
+      "furnishing": "",
+      "rent": "",
+      "phone": "+60167152662",
+      "link": "https://www.facebook.com/groups/290627785937141/posts/1454175589582349",
+      "remark": "[Group5-租屋] 售价: RM498",
+      "scraped_at": "2026-05-27 11:30:53",
+      "post_text": "Steven Loh 古来 Indahpura Jalan Teratai 全场最低双层排屋出售 原装单位 ·全场最低可"
+    },
+    {
+      "agent": "Jeny Property",
+      "property": "Johor Bahru",
+      "type": "出租",
+      "property_type": "",
+      "rooms": "",
+      "furnishing": "",
+      "rent": "3,000",
+      "phone": "+60116578167",
+      "link": "https://www.facebook.com/groups/1313487628797877/posts/4434134890066453",
+      "remark": "[Group2] 近CIQ",
+      "scraped_at": "2026-05-27 11:30:32",
+      "post_text": "Jeny Property+6MYR 3,000 · Johor Bahru, JHR Iskandar Residences @ Iskandar Puteri\n三房单位出租，附近Legoland, Medini mall ，Eco Botanic ☎️Jeny 011-6578167"
+    },
     {
       "agent": "Velvet Lau",
       "property": "Jalan Hang Jebat",
