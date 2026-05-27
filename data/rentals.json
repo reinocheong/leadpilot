@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-05-27T22:02:39.092697+08:00",
-  "total": 912,
+  "updated_at": "2026-05-27T22:32:32.100807+08:00",
+  "total": 914,
   "today_new": 0,
   "top_properties": [
     "R&F Princess Cove",
@@ -15,6 +15,34 @@
     "Kulai"
   ],
   "listings": [
+    {
+      "agent": "Chai Chai",
+      "property": "",
+      "type": "出租",
+      "property_type": "房间",
+      "rooms": "",
+      "furnishing": "全家私",
+      "rent": "2,800",
+      "phone": "+60186618122",
+      "link": "https://www.facebook.com/groups/1313487628797877/posts/4434738170006125",
+      "remark": "[Group2]",
+      "scraped_at": "2026-05-27 22:01:38",
+      "post_text": "Chai ChaiFor Rent Duplex - V@Summerplace - JB Town2 Bedroom 2 BathroomFully FurnishedAvailable NowRental Fee : RM2800Call / WhatsApp : 0186618122 Ginhttps://wasap.my/60186618122Proplink Union Properties"
+    },
+    {
+      "agent": "",
+      "property": "Tebrau",
+      "type": "出租",
+      "property_type": "公寓",
+      "rooms": "",
+      "furnishing": "",
+      "rent": "",
+      "phone": "+60143013654",
+      "link": "https://www.facebook.com/groups/1467428250213843/posts/4154088031547838",
+      "remark": "[JB新山租房与出租]",
+      "scraped_at": "2026-05-27 22:01:18",
+      "post_text": "CH LiewARC austin Hill apartment Near Aeon Tebrau. Contact : 014-3013654."
+    },
     {
       "agent": "Shirley Pang",
       "property": "The Tate",
