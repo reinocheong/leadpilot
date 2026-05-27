@@ -22,7 +22,7 @@ R&F Cove、Country Garden、TriTower、Paragon 这些盘谁在做什么、什么
 要找 cobroke 不用一个个群翻了，看到合适的直接 WhatsApp 对方谈。每天自动更新。
 
 Google 登录即看，3 天免费试用 👇
-https://leadpilot.dpdns.org/
+https://leadpilot.smart-tenancy-pro.org/
 
 📧 有问题？smarttenancypro@gmail.com""",
 
@@ -33,7 +33,7 @@ https://leadpilot.dpdns.org/
 简单讲：你想找 cobroke partner，搜楼盘名，5 秒找到谁在卖那个盘，直接 WhatsApp 他谈合作。
 
 Google 一键登录，不用填表，先试 3 天 👇
-https://leadpilot.dpdns.org/
+https://leadpilot.smart-tenancy-pro.org/
 
 📧 有问题？smarttenancypro@gmail.com""",
 

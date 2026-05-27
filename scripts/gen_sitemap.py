@@ -8,7 +8,7 @@ Reads rentals.json, produces:
 import json, os
 from datetime import datetime
 
-BASE_URL = 'https://leadpilot.dpdns.org'
+BASE_URL = 'https://leadpilot.smart-tenancy-pro.org'
 DATA_PATH = os.path.join(os.path.dirname(__file__), '..', 'data', 'rentals.json')
 SITEMAP_PATH = os.path.join(os.path.dirname(__file__), '..', 'sitemap.xml')
 
