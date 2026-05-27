@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-05-27T23:02:41.009603+08:00",
-  "total": 915,
+  "updated_at": "2026-05-27T23:32:33.890912+08:00",
+  "total": 916,
   "today_new": 0,
   "top_properties": [
     "R&F Princess Cove",
@@ -15,6 +15,20 @@
     "Kulai"
   ],
   "listings": [
+    {
+      "agent": "许淏珺",
+      "property": "",
+      "type": "出租",
+      "property_type": "",
+      "rooms": "",
+      "furnishing": "",
+      "rent": "",
+      "phone": "+601093308633",
+      "link": "https://www.facebook.com/groups/JBPropertyForSalesRent/posts/3141297396070481",
+      "remark": "[JB Property For Sales/Rent] 包水电; 包设施",
+      "scraped_at": "2026-05-27 23:02:13",
+      "post_text": "许淏珺Dangn bay RM600单人房，包水电网，010-"
+    },
     {
       "agent": "在线状态",
       "property": "Taman Megah Ria",
