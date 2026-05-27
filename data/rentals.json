@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-05-28T01:02:03.555974+08:00",
-  "total": 920,
+  "updated_at": "2026-05-28T01:32:02.170431+08:00",
+  "total": 921,
   "today_new": 0,
   "top_properties": [
     "R&F Princess Cove",
@@ -15,6 +15,20 @@
     "Kulai"
   ],
   "listings": [
+    {
+      "agent": "Hor Chun",
+      "property": "Meridin Medini",
+      "type": "出租",
+      "property_type": "房间",
+      "rooms": "",
+      "furnishing": "",
+      "rent": "2,300",
+      "phone": "+60179690908",
+      "link": "https://www.facebook.com/groups/290627785937141/posts/1454739016192673",
+      "remark": "[Group5-租屋] 有停车位",
+      "scraped_at": "2026-05-28 01:02:02",
+      "post_text": "Hor Chun Yep 9分钟 Meridin BayvueRemark: available after 1/6/26For Rent RM2300Meridin Bayvue Taman Sierra Perdana/Permas3bedrooms 2bathroomsFurnish:Fully FurnishDeposit :1+2+0.5Asking Rental:RM2300Carpark:1 carparksCk Hor 0179690908wa.me/60179690908"
+    },
     {
       "agent": "",
       "property": "R&F Princess Cove",
