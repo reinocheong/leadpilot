@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-05-28T02:32:38.983982+08:00",
-  "total": 921,
+  "updated_at": "2026-05-28T03:02:27.818946+08:00",
+  "total": 923,
   "today_new": 0,
   "top_properties": [
     "R&F Princess Cove",
@@ -15,6 +15,34 @@
     "Kulai"
   ],
   "listings": [
+    {
+      "agent": "Tung Cheong",
+      "property": "Bukit Indah",
+      "type": "出租",
+      "property_type": "房间",
+      "rooms": "",
+      "furnishing": "",
+      "rent": "2,000",
+      "phone": "+60194257636",
+      "link": "https://www.facebook.com/groups/1467428250213843/posts/4154524244837550",
+      "remark": "[JB新山租房与出租] 屋主自租; 有冷气; 可煮",
+      "scraped_at": "2026-05-28 02:31:19",
+      "post_text": "Tung Cheong Wai Bukit Indah | 屋主自租 | 单层排楼 | 三房两厕Jalan Persisiran Sungai Danga位置方便 美食阁/Aeon/巴士站都在几分钟内上班或休闲都是很好的地点选择所有房间都有冷气所有厕所都有热水器有电子炉可以煮饭 无屋主同住 & 无需中介费 租金 RM2000+ / 月 有其他要求或者需要额外家私的话租金另外谈0194257636"
+    },
+    {
+      "agent": "Anita",
+      "property": "R&F Princess Cove",
+      "type": "出租",
+      "property_type": "房间",
+      "rooms": "",
+      "furnishing": "全家私",
+      "rent": "3,000",
+      "phone": "+60168258292",
+      "link": "https://www.facebook.com/groups/1467428250213843/posts/4154519488171359",
+      "remark": "[JB新山租房与出租] 近CIQ; 有停车位",
+      "scraped_at": "2026-05-28 02:31:19",
+      "post_text": "Anita租房日记 · 在 Rnf Tanjung Putri Johor · 新山 租 Rent -RNF 富力公主灣Rnf / Princess Cove / Phase 1 / Jb Town / CiqRnF Princess Cove Phase 1- Rental RM 3000- ⁠2 Bedrooms- ⁠2 Bathrooms- ⁠Fully Furnished- ⁠846 Sqft- ⁠1 Carpark LotDeposit 2-1-0.5 0168258292https://wa.me/60168258292"
+    },
     {
       "agent": "Hor Chun",
       "property": "Meridin Medini",
