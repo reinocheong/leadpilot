@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-05-27T14:32:26.828775+08:00",
-  "total": 894,
+  "updated_at": "2026-05-27T15:02:20.882359+08:00",
+  "total": 897,
   "today_new": 0,
   "top_properties": [
     "R&F Princess Cove",
@@ -8,13 +8,55 @@
     "Bukit Indah",
     "Mount Austin",
     "Johor Jaya",
+    "Johor Bahru",
     "Taman Pelangi",
     "Skudai",
-    "Johor Bahru",
     "KSL Residence",
     "Kulai"
   ],
   "listings": [
+    {
+      "agent": "Yong Shir",
+      "property": "Johor Bahru",
+      "type": "出售",
+      "property_type": "房间",
+      "rooms": "4房2厕",
+      "furnishing": "",
+      "rent": "",
+      "phone": "+60164151447",
+      "link": "https://www.facebook.com/groups/290627785937141/posts/1454289689570939",
+      "remark": "[Group5-租屋] 近CIQ",
+      "scraped_at": "2026-05-27 14:32:26",
+      "post_text": "Yong Shir Yee +9Good Property Johor Bahru · 在 Taman Bukit jaya,ulu Tiram @johor bahru · Ulu Tiram · 分享对象： 公开510K Nego大型1层半22x77Taman Bukit JayaJalan Denai区Ulu Tiram面积22x77平方英尺拥有4间卧室和2间浴室装修单位朝向东北临近Puteri Wangsa/Tmn Pelangi Indah基本装修扩建扩建干、湿厨房UnblockView可停多辆车子 到Aeon Tebrau, IKEA, Toppen Shopping Mall 到Midvalley Southkey 到EDL Highway 抵达JB CIQ ( JB custom @ Woodlands checkpoint) & City Square, Komtar JBCC & etc快来联系预约时间去看房子哦For SaleJalan Denai,Taman Bukit Jaya,Puteri Wangsa, 81800 Ulu TiramUnblockView 1层半22x77 Sqft BasicRenovated - Kitchen Extended,WellCondition 4 Bedrooms 2 BathroomsFreehold Facing Northeast 510K Nego:(速)快速的帮您出售产业，欢迎委托https://www.facebook.com/goodpropertyjohorbahru/Alice Yong Sy(Ren10838)0164151447http://aliceyong.wasap.my/"
+    },
+    {
+      "agent": "Solos Loo",
+      "property": "Tiram",
+      "type": "出租",
+      "property_type": "中房",
+      "rooms": "",
+      "furnishing": "",
+      "rent": "450",
+      "phone": "+601276269112",
+      "link": "https://www.facebook.com/groups/JBPropertyForSalesRent/posts/3140467279486826",
+      "remark": "[JB Property For Sales/Rent] 有冷气; 有洗衣机; 有冰箱",
+      "scraped_at": "2026-05-27 14:32:03",
+      "post_text": "Solos Loo无中介、无外劳。有冷气、有冰箱，有洗衣机，有热水器、有饮水机。新山 Desa Cemerlang 店屋楼上有房间出租。 中房。限一人住。押金RM450，每月租金RM450.4A, Jln Lanjut 11, Tmn Desa Cemerlang 81800 Ulu Tiram . JB JohorTel： 012-"
+    },
+    {
+      "agent": "Jean Lee",
+      "property": "Park Avenue Apartment",
+      "type": "出租",
+      "property_type": "房间",
+      "rooms": "",
+      "furnishing": "",
+      "rent": "800",
+      "phone": "+60109321649",
+      "link": "https://www.facebook.com/groups/1313487628797877/posts/4433547130125229",
+      "remark": "[Group2] 近CIQ; 有停车位; 有冷气",
+      "scraped_at": "2026-05-27 14:31:16",
+      "post_text": "Jean Lee Room For Rent @ Vista Height JB Near Thistle Hotel | Approx 10 mins to CIQ RM800/month only Attached bathroom Queen size bed Cupboard & study table Aircond & ceiling fan Free parking inside guarded area Sheltered parking available RM80/month Deposit: 2+1+0.5 months Clean & comfy room Suitable for working adult / Singapore working people Move in anytime can arrange ya Viewing anytime, just PM me first +6010-9321649Jean LeeTRR-TPG"
+    },
     {
       "agent": "Evonne Khing",
       "property": "Bukit Indah",
