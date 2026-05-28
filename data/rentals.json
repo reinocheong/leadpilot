@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-05-28T10:02:25.087419+08:00",
-  "total": 925,
+  "updated_at": "2026-05-28T10:32:17.234963+08:00",
+  "total": 926,
   "today_new": 0,
   "top_properties": [
     "R&F Princess Cove",
@@ -15,6 +15,20 @@
     "Kulai"
   ],
   "listings": [
+    {
+      "agent": "Chew",
+      "property": "Eco Botanic",
+      "type": "出租",
+      "property_type": "房间",
+      "rooms": "",
+      "furnishing": "半家私",
+      "rent": "4,600",
+      "phone": "+60182056768",
+      "link": "https://www.facebook.com/groups/1313487628797877/posts/4435429846603624",
+      "remark": "[Group2]",
+      "scraped_at": "2026-05-28 10:01:23",
+      "post_text": "Chew BA For Rent*Eco Botanic Davenham Cluster *32x704 bedroom 5 bathroomPartial Furnished-Aircon-Kitchen table top-Stove-Central Water HeaterGood ConditionRemark - No type i- Available nowRental Rm4600Onnzai0182056768"
+    },
     {
       "agent": "黃页淳",
       "property": "",
