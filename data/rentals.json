@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-05-28T12:32:38.604705+08:00",
-  "total": 929,
+  "updated_at": "2026-05-28T13:02:33.589791+08:00",
+  "total": 930,
   "today_new": 0,
   "top_properties": [
     "R&F Princess Cove",
@@ -15,6 +15,20 @@
     "Kulai"
   ],
   "listings": [
+    {
+      "agent": "Angella Wong",
+      "property": "Horizon Hills",
+      "type": "出租",
+      "property_type": "房间",
+      "rooms": "3房",
+      "furnishing": "半家私",
+      "rent": "",
+      "phone": "+60189890802",
+      "link": "https://www.facebook.com/groups/1313487628797877/posts/4435592983253977",
+      "remark": "[Group2]",
+      "scraped_at": "2026-05-28 12:31:35",
+      "post_text": "Angella Wong For Sales*Fairway Suites @ Horizon Hills**3Bedroom & 2bathroom*1020 sqftHigh floorPartial furnishNon Bumi lotFreehold*Asking price 550k*Bank value 600kPlease call / WhatsApp arrange Angella 0189890802http://wasap.my/+60189890802 Jessica 0167596329http://wasap.my/+60167596329✓一站式房屋买卖物业管理✓欢迎咨询我们的专业意见✓OneStopPropertyManagement✓FreePropertyConsultation"
+    },
     {
       "agent": "Yueh Ling",
       "property": "Bukit Indah",
