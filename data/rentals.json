@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-05-28T19:02:01.345563+08:00",
-  "total": 947,
+  "updated_at": "2026-05-28T19:32:00.909670+08:00",
+  "total": 948,
   "today_new": 0,
   "top_properties": [
     "R&F Princess Cove",
@@ -15,6 +15,20 @@
     "Kulai"
   ],
   "listings": [
+    {
+      "agent": "Wee Ong",
+      "property": "Nusa Bestari",
+      "type": "出租",
+      "property_type": "双层排屋",
+      "rooms": "",
+      "furnishing": "",
+      "rent": "3,000",
+      "phone": "+60186602606",
+      "link": "https://www.facebook.com/groups/1313487628797877/posts/4435951759884766",
+      "remark": "[Group2]",
+      "scraped_at": "2026-05-28 19:00:54",
+      "post_text": "Wee Ong For Rent Taman Nusa Bestari- Double Storey Cluster House- 4 Bedrooms- 5 Bathrooms- Fully Furnish- Gated & GuardedRental : Rm3000Whatsapp : +60186602606Wee Ong REN62316http://wasap.my/60186602606Proplink Union Properties"
+    },
     {
       "agent": "呂奇謙",
       "property": "Eco Summer",
