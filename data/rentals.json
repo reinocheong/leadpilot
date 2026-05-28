@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-05-28T14:02:22.867877+08:00",
-  "total": 931,
+  "updated_at": "2026-05-28T14:32:31.229857+08:00",
+  "total": 932,
   "today_new": 0,
   "top_properties": [
     "R&F Princess Cove",
@@ -15,6 +15,20 @@
     "Kulai"
   ],
   "listings": [
+    {
+      "agent": "June",
+      "property": "Taman DayaType : 双层排楼 22x70Autogate 20呎宽",
+      "type": "出租",
+      "property_type": "",
+      "rooms": "",
+      "furnishing": "",
+      "rent": "",
+      "phone": "+601082267864",
+      "link": "https://www.facebook.com/groups/1467428250213843/posts/4154795498143758",
+      "remark": "[JB新山租房与出租] 屋主自租; 有停车位; 有冷气",
+      "scraped_at": "2026-05-28 14:01:01",
+      "post_text": "RelaxingCorgi6689For Rent屋主自租 Direct ownerAgent feeMove in : June 2026Location : Taman DayaType : 双层排楼 22x70Autogate 20呎宽容易parking有冷气有家私Fully Furnish, near bustop, morning marketWS:+"
+    },
     {
       "agent": "Anushka",
       "property": "Havona",
