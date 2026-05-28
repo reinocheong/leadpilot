@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-05-29T04:02:22.717198+08:00",
-  "total": 953,
+  "updated_at": "2026-05-29T04:32:05.999251+08:00",
+  "total": 954,
   "today_new": 0,
   "top_properties": [
     "R&F Princess Cove",
@@ -15,6 +15,20 @@
     "Kulai"
   ],
   "listings": [
+    {
+      "agent": "Jt Homes",
+      "property": "Marina Residence",
+      "type": "出租",
+      "property_type": "房间",
+      "rooms": "1房",
+      "furnishing": "全家私",
+      "rent": "3,000",
+      "phone": "+60172707260",
+      "link": "https://www.facebook.com/groups/290627785937141/posts/1455764482756793",
+      "remark": "[Group5-租屋]",
+      "scraped_at": "2026-05-29 04:02:21",
+      "post_text": "Jt Homes For RentSouthern Marina Residence, Puteri Harbour- 1+1 Bedroom 1 Bathroom- 840 sqft- Mid floor- Seaview- Fully Furnished (no oven)Rental RM3,000/ monthWhatsApp: wa.me/￼⁨ 017-270 7260 Call: +6017-270 7260TheRoofRealty | TPG GroupJT (REN 80116)"
+    },
     {
       "agent": "Caven Properties",
       "property": "Park Avenue Apartment",
