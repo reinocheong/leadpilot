@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-05-28T08:02:28.881085+08:00",
-  "total": 924,
+  "updated_at": "2026-05-28T08:31:56.301389+08:00",
+  "total": 925,
   "today_new": 0,
   "top_properties": [
     "R&F Princess Cove",
@@ -15,6 +15,20 @@
     "Kulai"
   ],
   "listings": [
+    {
+      "agent": "黃页淳",
+      "property": "",
+      "type": "出租",
+      "property_type": "房间",
+      "rooms": "",
+      "furnishing": "全家私",
+      "rent": "4,800",
+      "phone": "+60167221234",
+      "link": "https://www.facebook.com/groups/801784763175081/posts/27424215093838686",
+      "remark": "[Group3-房屋出租] 有停车位",
+      "scraped_at": "2026-05-28 08:01:49",
+      "post_text": "黃页淳 34分钟 +11黃页淳 · 分享对象： 公开Econest Well-designed house for Rent (NYCHFR1)Type C926sqft2bedroom, 2bathroom, 2car park, 1 cloakroomFully furnished 24-hours securityCan light cooking onlyRental RM4800 per monthPls call0167221234 Ng Yong Lin 黄页淳WhatsApphttp://api.whatsapp.com/send?phone=60167221234..."
+    },
     {
       "agent": "Cholas Tung",
       "property": "Trellis Residence",
