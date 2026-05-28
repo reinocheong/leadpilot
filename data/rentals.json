@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-05-28T12:02:03.939314+08:00",
-  "total": 928,
+  "updated_at": "2026-05-28T12:32:38.604705+08:00",
+  "total": 929,
   "today_new": 0,
   "top_properties": [
     "R&F Princess Cove",
@@ -15,6 +15,20 @@
     "Kulai"
   ],
   "listings": [
+    {
+      "agent": "Yueh Ling",
+      "property": "Bukit Indah",
+      "type": "出租",
+      "property_type": "",
+      "rooms": "",
+      "furnishing": "",
+      "rent": "900",
+      "phone": "+601036038704",
+      "link": "https://www.facebook.com/groups/801784763175081/posts/27420525790874283",
+      "remark": "[Group3-房屋出租] 有冰箱",
+      "scraped_at": "2026-05-28 12:01:19",
+      "post_text": "Yueh Ling Choo你好．Bukit indah ok？主人套房．目前还有车位RM 900.950 都有WiFi 、冼衣机．冰箱．饮水机小煮"
+    },
     {
       "agent": "收购买卖",
       "property": "Pasir Gudang",
