@@ -34,6 +34,23 @@
     }
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "LeadPilot — 最新 JB 房源",
+    "description": "Latest Johor Bahru rental listings from Facebook groups",
+    "numberOfItems": 6,
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"item":{"@type":"RealEstateListing","name":"Bukit Indah 房间 RM2,000/月","description":"Bukit Indah 房间出租","offers":{"@type":"Offer","price":2000,"priceCurrency":"MYR"},"address":{"@type":"PostalAddress","addressLocality":"Johor Bahru","addressRegion":"Johor"}}},
+      {"@type":"ListItem","position":2,"item":{"@type":"RealEstateListing","name":"R&F Princess Cove 房间 RM3,000/月","description":"R&F Princess Cove 全装房间出租","offers":{"@type":"Offer","price":3000,"priceCurrency":"MYR"},"address":{"@type":"PostalAddress","addressLocality":"Johor Bahru","addressRegion":"Johor"}}},
+      {"@type":"ListItem","position":3,"item":{"@type":"RealEstateListing","name":"Meridin Medini 房间 RM2,300/月","description":"Meridin Medini 房间出租","offers":{"@type":"Offer","price":2300,"priceCurrency":"MYR"},"address":{"@type":"PostalAddress","addressLocality":"Johor Bahru","addressRegion":"Johor"}}},
+      {"@type":"ListItem","position":4,"item":{"@type":"RealEstateListing","name":"R&F Princess Cove 2房1厕 RM2,700/月","description":"R&F Princess Cove Phase 1 全装出租","offers":{"@type":"Offer","price":2700,"priceCurrency":"MYR"},"address":{"@type":"PostalAddress","addressLocality":"Johor Bahru","addressRegion":"Johor"}}},
+      {"@type":"ListItem","position":5,"item":{"@type":"RealEstateListing","name":"Taman Sentosa 房间 RM800/月","description":"Taman Sentosa 房间出租 近CIQ 适合新加坡上班人士","offers":{"@type":"Offer","price":800,"priceCurrency":"MYR"},"address":{"@type":"PostalAddress","addressLocality":"Johor Bahru","addressRegion":"Johor"}}},
+      {"@type":"ListItem","position":6,"item":{"@type":"RealEstateListing","name":"Taman Megah Ria 双层排屋4房3厕 RM2,500/月","description":"Taman Megah Ria 双层排屋半家私出租","offers":{"@type":"Offer","price":2500,"priceCurrency":"MYR"},"address":{"@type":"PostalAddress","addressLocality":"Johor Bahru","addressRegion":"Johor"}}}
+    ]
+  }
+  </script>
   <link rel="alternate" type="text/html" title="完整房源列表 892条" href="/crawler-listings.html">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -536,6 +553,45 @@
   </style>
 </head>
 <body>
+
+<!-- 
+  ═══════════════════════════════════════════════════
+  ⚡ 爬虫静态数据 — AI搜索引擎无需JS即可读取实际房源
+  925条完整数据见 /crawler-listings.html
+  ═══════════════════════════════════════════════════
+-->
+<div id="crawler-samples" style="max-width:800px;margin:2rem auto;padding:1rem;font-family:sans-serif;color:#333">
+  <h2 style="font-size:1.2rem;margin-bottom:0.5rem">LeadPilot — JB 最新房源（样本）</h2>
+  <p style="font-size:0.85rem;color:#666;margin-bottom:1rem">共 925 条房源，每30分钟自动更新。电话已遮罩。</p>
+  <div style="display:grid;gap:1rem">
+    <div style="border:1px solid #ddd;border-radius:8px;padding:0.8rem;background:#fafafa">
+      <strong>Bukit Indah 房间</strong> · <span style="color:#e67e22">RM2,000/月</span>
+      <div style="font-size:0.8rem;color:#666;margin-top:4px">可煮 · 无中介费 · 三房两厕</div>
+    </div>
+    <div style="border:1px solid #ddd;border-radius:8px;padding:0.8rem;background:#fafafa">
+      <strong>R&amp;F Princess Cove 房间</strong> · <span style="color:#e67e22">RM3,000/月</span>
+      <div style="font-size:0.8rem;color:#666;margin-top:4px">全家私 · 2房2厕 · 846sqft · 近CIQ</div>
+    </div>
+    <div style="border:1px solid #ddd;border-radius:8px;padding:0.8rem;background:#fafafa">
+      <strong>Meridin Medini 房间</strong> · <span style="color:#e67e22">RM2,300/月</span>
+      <div style="font-size:0.8rem;color:#666;margin-top:4px">有停车位 · 3房2厕 · 全家私</div>
+    </div>
+    <div style="border:1px solid #ddd;border-radius:8px;padding:0.8rem;background:#fafafa">
+      <strong>R&amp;F Princess Cove 2房1厕</strong> · <span style="color:#e67e22">RM2,700/月</span>
+      <div style="font-size:0.8rem;color:#666;margin-top:4px">Phase 1 · 873sqft · 低楼层 · 全家私</div>
+    </div>
+    <div style="border:1px solid #ddd;border-radius:8px;padding:0.8rem;background:#fafafa">
+      <strong>Taman Sentosa 房间</strong> · <span style="color:#e67e22">RM800/月</span>
+      <div style="font-size:0.8rem;color:#666;margin-top:4px">近CIQ · 包水电 · 有冷气 · 7-10分钟到CIQ</div>
+    </div>
+    <div style="border:1px solid #ddd;border-radius:8px;padding:0.8rem;background:#fafafa">
+      <strong>Taman Megah Ria 双层排屋4房3厕</strong> · <span style="color:#e67e22">RM2,500/月</span>
+      <div style="font-size:0.8rem;color:#666;margin-top:4px">22x70 · 半家私 · 近Rinting/Kota Puteri</div>
+    </div>
+  </div>
+  <p style="font-size:0.8rem;color:#999;margin-top:1rem">📊 完整925条数据 <a href="/crawler-listings.html">crawler-listings.html</a> · 电话登录后可见</p>
+  <hr style="margin:1.5rem 0;border:none;border-top:1px solid #eee">
+</div>
 
 <div class="top-bar">
   <div class="top-bar-inner">
