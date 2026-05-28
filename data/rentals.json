@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-05-28T17:02:19.911042+08:00",
-  "total": 937,
+  "updated_at": "2026-05-28T17:32:11.383136+08:00",
+  "total": 939,
   "today_new": 0,
   "top_properties": [
     "R&F Princess Cove",
@@ -8,13 +8,41 @@
     "Permas Jaya",
     "Mount Austin",
     "Taman Pelangi",
+    "Skudai",
     "Johor Jaya",
     "Johor Bahru",
-    "Skudai",
     "KSL Residence",
     "Kulai"
   ],
   "listings": [
+    {
+      "agent": "Chia",
+      "property": "Skudai",
+      "type": "出租",
+      "property_type": "",
+      "rooms": "",
+      "furnishing": "",
+      "rent": "6,500",
+      "phone": "+60167468138",
+      "link": "https://www.facebook.com/groups/801784763175081/posts/27429531936640335",
+      "remark": "[Group3-房屋出租]",
+      "scraped_at": "2026-05-28 17:01:35",
+      "post_text": "Chia 16分钟 FACTORY FOR RENT Taman Perindustrian JB Perdana, Skudai. Near Tan Sri YaacobRent RM6,500* 1.5 storey Link Factory* Size 35 x 100 Sqft * Build Up 3900 Sqft (Approx)* Fully covered & extended * Vacant Now* Ready to start business~~~~~~~~~~~~~~~~~~~~~ Ron Chiawww.wasap.my/60167468138REN 28268LuisBa"
+    },
+    {
+      "agent": "郭真妮",
+      "property": "",
+      "type": "出租",
+      "property_type": "",
+      "rooms": "",
+      "furnishing": "",
+      "rent": "",
+      "phone": "+60127920845",
+      "link": "https://www.facebook.com/groups/801784763175081/posts/27429479453312250",
+      "remark": "[Group3-房屋出租]",
+      "scraped_at": "2026-05-28 17:01:35",
+      "post_text": "郭真妮 皇后主人房出租，免仲介費，012-7920845+4"
+    },
     {
       "agent": "Bryan Tan",
       "property": "PARC Regency",
