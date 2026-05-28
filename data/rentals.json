@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-05-28T21:39:05.905068+08:00",
-  "total": 950,
+  "updated_at": "2026-05-28T22:02:42.559810+08:00",
+  "total": 951,
   "today_new": 0,
   "top_properties": [
     "R&F Princess Cove",
@@ -15,6 +15,20 @@
     "Kulai"
   ],
   "listings": [
+    {
+      "agent": "Jin Wei",
+      "property": "",
+      "type": "出租",
+      "property_type": "",
+      "rooms": "",
+      "furnishing": "",
+      "rent": "",
+      "phone": "+60167159038",
+      "link": "https://www.facebook.com/groups/JBPropertyForSalesRent/posts/3142835822583305",
+      "remark": "[JB Property For Sales/Rent] 近CIQ",
+      "scraped_at": "2026-05-28 21:38:43",
+      "post_text": "Jin Wei Chia Dave JB Property 房产顾问 · 分享对象： 公开客户的每一份信任，都值得我全力以赴。我不玩套路，不搞噱头，只把服务做到极致。你若用心，客户自明, 你若真诚，机会自来。我是Dave Lim，服务为王，客户至上！#做就对了#你的最佳房产顾问#RFD_TEAMDave LimHttps://wa.me/0167159038"
+    },
     {
       "agent": "Adrin Teo",
       "property": "Bandar Dato Onn",
