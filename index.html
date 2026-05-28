@@ -37,18 +37,26 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": "LeadPilot — 最新 JB 房源",
-    "description": "Latest Johor Bahru rental listings from Facebook groups",
-    "numberOfItems": 6,
-    "itemListElement": [
-      {"@type":"ListItem","position":1,"item":{"@type":"RealEstateListing","name":"Bukit Indah 房间 RM2,000/月","description":"Bukit Indah 房间出租","offers":{"@type":"Offer","price":2000,"priceCurrency":"MYR"},"address":{"@type":"PostalAddress","addressLocality":"Johor Bahru","addressRegion":"Johor"}}},
-      {"@type":"ListItem","position":2,"item":{"@type":"RealEstateListing","name":"R&F Princess Cove 房间 RM3,000/月","description":"R&F Princess Cove 全装房间出租","offers":{"@type":"Offer","price":3000,"priceCurrency":"MYR"},"address":{"@type":"PostalAddress","addressLocality":"Johor Bahru","addressRegion":"Johor"}}},
-      {"@type":"ListItem","position":3,"item":{"@type":"RealEstateListing","name":"Meridin Medini 房间 RM2,300/月","description":"Meridin Medini 房间出租","offers":{"@type":"Offer","price":2300,"priceCurrency":"MYR"},"address":{"@type":"PostalAddress","addressLocality":"Johor Bahru","addressRegion":"Johor"}}},
-      {"@type":"ListItem","position":4,"item":{"@type":"RealEstateListing","name":"R&F Princess Cove 2房1厕 RM2,700/月","description":"R&F Princess Cove Phase 1 全装出租","offers":{"@type":"Offer","price":2700,"priceCurrency":"MYR"},"address":{"@type":"PostalAddress","addressLocality":"Johor Bahru","addressRegion":"Johor"}}},
-      {"@type":"ListItem","position":5,"item":{"@type":"RealEstateListing","name":"Taman Sentosa 房间 RM800/月","description":"Taman Sentosa 房间出租 近CIQ 适合新加坡上班人士","offers":{"@type":"Offer","price":800,"priceCurrency":"MYR"},"address":{"@type":"PostalAddress","addressLocality":"Johor Bahru","addressRegion":"Johor"}}},
-      {"@type":"ListItem","position":6,"item":{"@type":"RealEstateListing","name":"Taman Megah Ria 双层排屋4房3厕 RM2,500/月","description":"Taman Megah Ria 双层排屋半家私出租","offers":{"@type":"Offer","price":2500,"priceCurrency":"MYR"},"address":{"@type":"PostalAddress","addressLocality":"Johor Bahru","addressRegion":"Johor"}}}
-    ]
+    "@type": "Dataset",
+    "name": "LeadPilot — JB Rental Listings (全量925条)",
+    "description": "Complete Johor Bahru rental listing database from 5 Facebook groups. Covers R&F Princess Cove, Bukit Indah, Mount Austin, Permas Jaya, Taman Pelangi, Johor Jaya, KSL, Skudai, Kulai, and more. Price range RM450-RM7,000/m. Updated every 30 minutes.",
+    "url": "https://leadpilot.smart-tenancy-pro.org",
+    "isAccessibleForFree": true,
+    "dateModified": "2026-05-28",
+    "keywords": ["Johor Bahru", "JB rental", "property for rent", "Malaysia real estate", "JB property", "Mount Austin", "Bukit Indah"],
+    "variableMeasured": [
+      {"@type": "PropertyValue", "name": "Building Name"},
+      {"@type": "PropertyValue", "name": "Rent (RM)"},
+      {"@type": "PropertyValue", "name": "Property Type"},
+      {"@type": "PropertyValue", "name": "Bedrooms"},
+      {"@type": "PropertyValue", "name": "Furnishing Status"},
+      {"@type": "PropertyValue", "name": "Area"}
+    ],
+    "distribution": {
+      "@type": "DataDownload",
+      "contentUrl": "https://leadpilot.smart-tenancy-pro.org/data/rentals.json",
+      "encodingFormat": "application/json"
+    }
   }
   </script>
   <link rel="alternate" type="text/html" title="完整房源列表 892条" href="/crawler-listings.html">
@@ -560,37 +568,150 @@
   925条完整数据见 /crawler-listings.html
   ═══════════════════════════════════════════════════
 -->
-<div id="crawler-samples" style="max-width:800px;margin:2rem auto;padding:1rem;font-family:sans-serif;color:#333">
-  <h2 style="font-size:1.2rem;margin-bottom:0.5rem">LeadPilot — JB 最新房源（样本）</h2>
-  <p style="font-size:0.85rem;color:#666;margin-bottom:1rem">共 925 条房源，每30分钟自动更新。电话已遮罩。</p>
-  <div style="display:grid;gap:1rem">
-    <div style="border:1px solid #ddd;border-radius:8px;padding:0.8rem;background:#fafafa">
-      <strong>Bukit Indah 房间</strong> · <span style="color:#e67e22">RM2,000/月</span>
-      <div style="font-size:0.8rem;color:#666;margin-top:4px">可煮 · 无中介费 · 三房两厕</div>
+<div id="crawler-samples" style="max-width:900px;margin:2rem auto;padding:1.5rem;font-family:-apple-system,BlinkMacSystemFont,sans-serif;color:#1a1a1a">
+  <h2 style="font-size:1.3rem;margin-bottom:0.3rem">JB Rental Data — 925 Listings</h2>
+  <p style="font-size:0.85rem;color:#555;margin-bottom:1rem">
+    From 5 Facebook groups · Updated every 30 min · Phone numbers masked · <a href="/crawler-listings.html" style="color:#2563eb">View all 925 →</a>
+  </p>
+
+  <!-- Market Overview -->
+  <div style="display:flex;flex-wrap:wrap;gap:0.8rem;margin-bottom:1.5rem;font-size:0.8rem">
+    <div style="background:#f0f9ff;border-radius:8px;padding:0.6rem 1rem;flex:1;min-width:120px;text-align:center">
+      <div style="font-size:1.2rem;font-weight:700;color:#0369a1">925</div>
+      <div style="color:#64748b">Total Listings</div>
     </div>
-    <div style="border:1px solid #ddd;border-radius:8px;padding:0.8rem;background:#fafafa">
-      <strong>R&amp;F Princess Cove 房间</strong> · <span style="color:#e67e22">RM3,000/月</span>
-      <div style="font-size:0.8rem;color:#666;margin-top:4px">全家私 · 2房2厕 · 846sqft · 近CIQ</div>
+    <div style="background:#f0fdf4;border-radius:8px;padding:0.6rem 1rem;flex:1;min-width:120px;text-align:center">
+      <div style="font-size:1.2rem;font-weight:700;color:#15803d">RM450 - RM7,000</div>
+      <div style="color:#64748b">Price Range /mo</div>
     </div>
-    <div style="border:1px solid #ddd;border-radius:8px;padding:0.8rem;background:#fafafa">
-      <strong>Meridin Medini 房间</strong> · <span style="color:#e67e22">RM2,300/月</span>
-      <div style="font-size:0.8rem;color:#666;margin-top:4px">有停车位 · 3房2厕 · 全家私</div>
+    <div style="background:#fefce8;border-radius:8px;padding:0.6rem 1rem;flex:1;min-width:120px;text-align:center">
+      <div style="font-size:1.2rem;font-weight:700;color:#a16207">RM1,900</div>
+      <div style="color:#64748b">Median Price</div>
     </div>
-    <div style="border:1px solid #ddd;border-radius:8px;padding:0.8rem;background:#fafafa">
-      <strong>R&amp;F Princess Cove 2房1厕</strong> · <span style="color:#e67e22">RM2,700/月</span>
-      <div style="font-size:0.8rem;color:#666;margin-top:4px">Phase 1 · 873sqft · 低楼层 · 全家私</div>
-    </div>
-    <div style="border:1px solid #ddd;border-radius:8px;padding:0.8rem;background:#fafafa">
-      <strong>Taman Sentosa 房间</strong> · <span style="color:#e67e22">RM800/月</span>
-      <div style="font-size:0.8rem;color:#666;margin-top:4px">近CIQ · 包水电 · 有冷气 · 7-10分钟到CIQ</div>
-    </div>
-    <div style="border:1px solid #ddd;border-radius:8px;padding:0.8rem;background:#fafafa">
-      <strong>Taman Megah Ria 双层排屋4房3厕</strong> · <span style="color:#e67e22">RM2,500/月</span>
-      <div style="font-size:0.8rem;color:#666;margin-top:4px">22x70 · 半家私 · 近Rinting/Kota Puteri</div>
+    <div style="background:#fff1f2;border-radius:8px;padding:0.6rem 1rem;flex:1;min-width:140px;text-align:center">
+      <div style="font-size:1.2rem;font-weight:700;color:#be123c">10+ Areas</div>
+      <div style="color:#64748b">Bukit Indah · Mount Austin · JB Town</div>
     </div>
   </div>
-  <p style="font-size:0.8rem;color:#999;margin-top:1rem">📊 完整925条数据 <a href="/crawler-listings.html">crawler-listings.html</a> · 电话登录后可见</p>
-  <hr style="margin:1.5rem 0;border:none;border-top:1px solid #eee">
+
+  <!-- Property Type Distribution -->
+  <div style="font-size:0.8rem;color:#555;margin-bottom:1rem">
+    <strong>Property Types:</strong> 房间(209) · 公寓(159) · 双层排屋(142) · 单层排屋(63) · Studio(48) · 中房(33) · 排屋(27) · Flat(21)
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:0.6rem">
+    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
+      <div style="font-weight:600;font-size:0.85rem">R&F Princess Cove</div>
+      <div style="color:#dc2626;font-weight:600">RM3,000/m <span style="font-weight:400;color:#666;font-size:0.75rem">房间 · 全家私</span></div>
+      <div style="font-size:0.75rem;color:#888;margin-top:2px">近CIQ · 有停车位</div>
+    </div>
+    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
+      <div style="font-weight:600;font-size:0.85rem">Bukit Indah 房间</div>
+      <div style="color:#dc2626;font-weight:600">RM2,000/m <span style="font-weight:400;color:#666;font-size:0.75rem">房间</span></div>
+      <div style="font-size:0.75rem;color:#888;margin-top:2px">屋主自租 · 有冷气 · 可煮</div>
+    </div>
+    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
+      <div style="font-weight:600;font-size:0.85rem">Meridin Medini 房间</div>
+      <div style="color:#dc2626;font-weight:600">RM2,300/m <span style="font-weight:400;color:#666;font-size:0.75rem">房间</span></div>
+      <div style="font-size:0.75rem;color:#888;margin-top:2px">有停车位</div>
+    </div>
+    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
+      <div style="font-weight:600;font-size:0.85rem">R&F Princess Cove 2房1厕</div>
+      <div style="color:#dc2626;font-weight:600">RM2,700/m <span style="font-weight:400;color:#666;font-size:0.75rem">全装</span></div>
+      <div style="font-size:0.75rem;color:#888;margin-top:2px">Phase 1 · 873sqft</div>
+    </div>
+    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
+      <div style="font-weight:600;font-size:0.85rem">Taman Sentosa 房间</div>
+      <div style="color:#dc2626;font-weight:600">RM800/m <span style="font-weight:400;color:#666;font-size:0.75rem">房间</span></div>
+      <div style="font-size:0.75rem;color:#888;margin-top:2px">近CIQ · 包水电 · 有冷气</div>
+    </div>
+    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
+      <div style="font-weight:600;font-size:0.85rem">Taman Megah Ria 双层排屋</div>
+      <div style="color:#dc2626;font-weight:600">RM2,500/m <span style="font-weight:400;color:#666;font-size:0.75rem">4房3厕</span></div>
+      <div style="font-size:0.75rem;color:#888;margin-top:2px">半家私 · 22x70</div>
+    </div>
+    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
+      <div style="font-weight:600;font-size:0.85rem">KSL Residence 单层排屋</div>
+      <div style="color:#dc2626;font-weight:600">RM2,600/m</div>
+      <div style="font-size:0.75rem;color:#888;margin-top:2px">近班兰华小</div>
+    </div>
+    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
+      <div style="font-weight:600;font-size:0.85rem">Twin Tower</div>
+      <div style="color:#dc2626;font-weight:600">RM500/m <span style="font-weight:400;color:#666;font-size:0.75rem">近CIQ</span></div>
+    </div>
+    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
+      <div style="font-weight:600;font-size:0.85rem">The Tate 双层排屋</div>
+      <div style="color:#dc2626;font-weight:600">RM4,000/m <span style="font-weight:400;color:#666;font-size:0.75rem">有冷气</span></div>
+      <div style="font-size:0.75rem;color:#888;margin-top:2px">Eco Botani 2 · 4房</div>
+    </div>
+    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
+      <div style="font-weight:600;font-size:0.85rem">Taman Pelangi 双层排屋</div>
+      <div style="color:#dc2626;font-weight:600">RM2,800/m</div>
+    </div>
+    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
+      <div style="font-weight:600;font-size:0.85rem">Park Avenue Apartment</div>
+      <div style="color:#dc2626;font-weight:600">RM2,000/m <span style="font-weight:400;color:#666;font-size:0.75rem">3房全装</span></div>
+      <div style="font-size:0.75rem;color:#888;margin-top:2px">有停车位</div>
+    </div>
+    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
+      <div style="font-weight:600;font-size:0.85rem">Taman Daya</div>
+      <div style="color:#dc2626;font-weight:600">RM? <span style="font-weight:400;color:#666;font-size:0.75rem">双排 · 全装</span></div>
+      <div style="font-size:0.75rem;color:#888;margin-top:2px">屋主自租 · 近Mount Austin</div>
+    </div>
+    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
+      <div style="font-weight:600;font-size:0.85rem">Tiram 中房</div>
+      <div style="color:#dc2626;font-weight:600">RM450/m <span style="font-weight:400;color:#666;font-size:0.75rem">中房</span></div>
+      <div style="font-size:0.75rem;color:#888;margin-top:2px">有冷气 · 洗衣机 · 冰箱</div>
+    </div>
+    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
+      <div style="font-weight:600;font-size:0.85rem">Tebrau 公寓</div>
+      <div style="font-size:0.75rem;color:#888;margin-top:2px">近Aeon Tebrau</div>
+    </div>
+    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
+      <div style="font-weight:600;font-size:0.85rem">Veranda Residence 公寓</div>
+      <div style="color:#dc2626;font-weight:600">RM490k sale <span style="font-weight:400;color:#666;font-size:0.75rem">1房</span></div>
+      <div style="font-size:0.75rem;color:#888;margin-top:2px">近CIQ · RTS · 有停车位</div>
+    </div>
+    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
+      <div style="font-weight:600;font-size:0.85rem">Gelang Patah 双层排屋</div>
+      <div style="color:#dc2626;font-weight:600">RM600k sale <span style="font-weight:400;color:#666;font-size:0.75rem">4房3厕</span></div>
+      <div style="font-size:0.75rem;color:#888;margin-top:2px">近Second Link</div>
+    </div>
+    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
+      <div style="font-weight:600;font-size:0.85rem">Taman Johor Jaya 中房</div>
+      <div style="font-size:0.75rem;color:#888;margin-top:2px">双排楼中房/主人房出租</div>
+    </div>
+    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
+      <div style="font-weight:600;font-size:0.85rem">Linda Chua Crescent Bay</div>
+      <div style="color:#dc2626;font-weight:600">RM1,800/m <span style="font-weight:400;color:#666;font-size:0.75rem">Studio</span></div>
+      <div style="font-size:0.75rem;color:#888;margin-top:2px">有冰箱 · 洗衣机</div>
+    </div>
+    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
+      <div style="font-weight:600;font-size:0.85rem">Mount Austin 公寓</div>
+      <div style="font-size:0.75rem;color:#888;margin-top:2px">Austin Suites · 有车位</div>
+    </div>
+    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
+      <div style="font-weight:600;font-size:0.85rem">Taman Tasek</div>
+      <div style="color:#dc2626;font-weight:600">RM800/m <span style="font-weight:400;color:#666;font-size:0.75rem">包水电冷气</span></div>
+    </div>
+    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
+      <div style="font-weight:600;font-size:0.85rem">Trellis Residence</div>
+      <div style="font-size:0.75rem;color:#888;margin-top:2px">大房出租</div>
+    </div>
+    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
+      <div style="font-weight:600;font-size:0.85rem">Pasir Gudang Flat</div>
+      <div style="color:#dc2626;font-weight:600">RM160k sale <span style="font-weight:400;color:#666;font-size:0.75rem">3房</span></div>
+      <div style="font-size:0.75rem;color:#888;margin-top:2px">Leasehold · 570sqft</div>
+    </div>
+    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
+      <div style="font-weight:600;font-size:0.85rem">Johor Bahru 房间</div>
+      <div style="font-size:0.75rem;color:#888;margin-top:2px">4房2厕 · 近CIQ</div>
+    </div>
+  </div>
+  <p style="font-size:0.75rem;color:#999;margin-top:1rem;text-align:center">
+    📞 Phone numbers visible after login → <a href="https://leadpilot.smart-tenancy-pro.org" style="color:#2563eb">leadpilot.smart-tenancy-pro.org</a>
+  </p>
+  <hr style="margin:1.5rem 0;border:none;border-top:1px solid #e2e8f0">
 </div>
 
 <div class="top-bar">
