@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-05-28T18:02:07.664715+08:00",
-  "total": 941,
+  "updated_at": "2026-05-28T18:31:57.498974+08:00",
+  "total": 946,
   "today_new": 0,
   "top_properties": [
     "R&F Princess Cove",
@@ -15,6 +15,76 @@
     "Kulai"
   ],
   "listings": [
+    {
+      "agent": "Livon Property",
+      "property": "Taman Ungku Tun Aminah",
+      "type": "出售",
+      "property_type": "排屋",
+      "rooms": "2房1厕",
+      "furnishing": "",
+      "rent": "",
+      "phone": "+60199162278",
+      "link": "https://www.facebook.com/groups/290627785937141/posts/1455366289463279",
+      "remark": "[Group5-租屋] 售价: RM450; 近CIQ",
+      "scraped_at": "2026-05-28 18:02:02",
+      "post_text": "Livon Property JB 新山房地产 皇后 Laksamana 国光学校后面｜单层廉价屋出售 Jalan Laksamana X @ Taman Ungku Tun Aminah 国光华小后面 靠近店屋｜生活便利 全屋翻新｜Fully Renovated 单层廉价排屋 2房1浴 Fully Extended 20x52 Intermediate Lot Freehold｜Non-Bumi 环境舒服整洁 售价 RM450K Bank Value Match Nearby:* Taman Sutera Utama* Mutiara Rini* Kempas PM 看屋 & 了解详情 Livon Lee 0199162278 The Roof Realty - Amigos Group 𝗪𝗵𝗮𝘁𝘀𝗔𝗽𝗽 𝗰𝗼𝗻𝘁𝗮𝗰𝘁 : https://wapp.my/60199162278/LaksamanaSslowcost450k#JohorBahruProperty#JBProperty#TamanUngkuTunAminah#TUTA#Laksamana#SingleStorey#LowCostHouse#TerraceHouse#HouseForSale#JBHouseForSale#FreeholdProperty#FullyRenovated#FullyExtended#NonBumiLot#PropertyJohor#JohorProperty#RumahUntukDijual#皇后花园#国光学校后面#新山房产"
+    },
+    {
+      "agent": "萧垂篥",
+      "property": "30'X100'*Built Up : 3509Sq.Ft Rental Rm",
+      "type": "出租",
+      "property_type": "单层排屋",
+      "rooms": "",
+      "furnishing": "",
+      "rent": "4,500",
+      "phone": "+60127922749",
+      "link": "https://www.facebook.com/groups/1313487628797877/posts/4435629299917012",
+      "remark": "[Group2]",
+      "scraped_at": "2026-05-28 18:01:01",
+      "post_text": "萧垂篥 30 Units Exclusive Rental Empire Park@Kulai 1.5 Storey ,轻型工业排厂*Land Area : 30'x100'*Built up : 3509sq.ft Rental Rm 5500----------------------Single Storey ,工业排厂*Land Area : 24'x 97'*Built up : 2270 sq.ft Rental Rm 5000----------------------Single Storey ,工业排厂*Land Area : 24'x 80'*Built up : 1853 sq.ft Rental Rm 4500~Power Supply - 100AMP ~Floor Loading - 10Kn/m2 ~Single Storey Ceiling Height 5meter ~1.5 Storey Ceiling Height 7.5meter ~ Target CCC on May 2026Code ：VL1180Chris 012-7922749"
+    },
+    {
+      "agent": "Lau Jf",
+      "property": "Gelang Patah",
+      "type": "出售",
+      "property_type": "房间",
+      "rooms": "4房3厕",
+      "furnishing": "全家私",
+      "rent": "",
+      "phone": "+60124497455",
+      "link": "https://www.facebook.com/groups/1313487628797877/posts/4435802263233049",
+      "remark": "[Group2] 近CIQ",
+      "scraped_at": "2026-05-28 18:01:01",
+      "post_text": "Lau Jf *For Rent*Nusa Bayu 双层排楼出租 Taman Nusa Bayu( Nearby / 靠近 Gelang Patah • Nusa Jaya • Iskandar Puteri • Tuas ) Property Details / 房产详情： • Land size / 地契面积：20 x 60 sqft • 4 Bedrooms | 3 Bathrooms / 4房 3浴室 • Intermediate Unit / 中间单位 • Facing South / 朝南 • Unblocked view / 视野无阻 • Fully Furnished / 全家私 • Prefer C&M&Company • Auto Gate Rental ：Rm 2400 nego快！联络JF LAU www.wasap.my/60124497455 www.wasap.my/60124497455http://www.wasap.my/60124497455Welcome Property Wanted 欢迎产业委托Property Wanted Rent / Sale 征求产业 出租 / 出售 Free Bank Value Check 免费提供产业估价"
+    },
+    {
+      "agent": "Carmen Lee",
+      "property": "",
+      "type": "出租",
+      "property_type": "",
+      "rooms": "",
+      "furnishing": "",
+      "rent": "2,514",
+      "phone": "+601125142554",
+      "link": "https://www.facebook.com/groups/1467428250213843/posts/4154881404801834",
+      "remark": "[JB新山租房与出租]",
+      "scraped_at": "2026-05-28 18:00:42",
+      "post_text": "Carmen LeeCan whatsapp contact my owner \"Ellie\" for detail^^011-2514"
+    },
+    {
+      "agent": "Haven Co",
+      "property": "Medini",
+      "type": "出租",
+      "property_type": "大房",
+      "rooms": "",
+      "furnishing": "",
+      "rent": "",
+      "phone": "+601172438119",
+      "link": "https://www.facebook.com/groups/1467428250213843/posts/4155437881412853",
+      "remark": "[JB新山租房与出租] 包水电; 包设施; 无中介; 近CIQ; 新马通勤; 可煮",
+      "scraped_at": "2026-05-28 18:00:42",
+      "post_text": "Haven CoLiving Management Iskandar Residences @ Medini Sub-Master Room适合新马来回的朋友Bus To Tuas LinkNear Tuas, Eco Botanic, Gelang Patah, Nusajaya, Bukit Indah No Agent Fee 无需中介费 No Owner Inside 无屋主同住Full furnitured 拎包入住Free Access any time 自由出入 Utilities Provided 包水电网*AC fees by individual meter*有兴趣可以pm +601172438119 Whatsapp link: https://wa.me/601172438119#IskandarPuteri租房 #马来西亚租房 #新山租房 #留学生租房 #拎包入住 #交通便利 #IskandarPuteri租房 #新马来回 #Medini #GelangPatah #EcoBotanic #新山租房 #JB租房 #主人房出租 #房间出租 #靠近Tuas #拎包入住 #马来西亚租房 #johorbahru租房 #JB房源 收起📍Iskandar Residences @ Medini🛏️ Sub-Master Room🔁适合新马来回的朋友🤩\n🚍Bus To Tuas Link\n🤩Near Tuas, Eco Botanic, Gelang Patah, Nusajaya, Bukit Indah 🙅No Agent Fee 无需中介费 🙅No Owner Inside 无屋主同住\n🧳Full furnitured 拎包入住\n🤩Free Access any time 自由出入 😍Utilities Provided 包水电网*AC fees by individual meter*有兴趣可以pm +601172438119 📲Whatsapp link: https://wa.me/601172438119#IskandarPuteri租房 #马来西亚租房 #新山租房 #留学生租房 #拎包入住 #交通便利 #IskandarPuteri租房 #新马来回 #Medini #GelangPatah #EcoBotanic #新山租房 #JB租房 #主人房出租 #房间出租 #靠近Tuas #拎包入住 #马来西亚租房 #johorbahru租房 #JB房源 收起\n::-webkit-scrollbar { -webkit-appearance: none; width: 7px;\n} ::-webkit-scrollbar-thumb { border-radius: 4px; background: var(--scroll-thumb);\n}Haven CoLiving Management · 原声Haven CoLiving Management · 原声Haven CoLiving Management · 原声Haven CoLiving Management 5月19日 ·"
+    },
     {
       "agent": "Chriscy Property",
       "property": "Taman Setia Indah",
