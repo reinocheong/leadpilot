@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-05-28T13:02:33.589791+08:00",
-  "total": 930,
+  "updated_at": "2026-05-28T13:32:30.692814+08:00",
+  "total": 931,
   "today_new": 0,
   "top_properties": [
     "R&F Princess Cove",
@@ -15,6 +15,20 @@
     "Kulai"
   ],
   "listings": [
+    {
+      "agent": "Anushka",
+      "property": "Havona",
+      "type": "出租",
+      "property_type": "公寓",
+      "rooms": "",
+      "furnishing": "全家私",
+      "rent": "1,850",
+      "phone": "+60165995597",
+      "link": "https://www.facebook.com/groups/290627785937141/posts/1455156876150887",
+      "remark": "[Group5-租屋] 近CIQ",
+      "scraped_at": "2026-05-28 13:02:27",
+      "post_text": "Anushka JB Property Anushka JB Property · 分享对象： 公开 MOVE-IN READY STUDIO FOR RENT @ HAVONA, MOUNT AUSTIN ​ All-Inclusive: Rental includes Water & Electricity! Stay Connected: WiFi can be included if needed! Zero Waiting: Move in anytime! Fully furnished with a modern layout.​ Rental: RM 1,850 / month Open to all races ​Interested? Let's chat! WhatsApp Ms. Anushka Mishra at 016-599 5597 to secure a viewing today!​#HavonaApartment #MountAustinProperty #JBStudioForRent #RumahSewaJB #MountAustin #FullyFurnishedJB #RentInclusiveUtilities #JBRealEstate #sewarumah #johorbahru #realestate #singapore #rent #rumahsewa #ciqcondo"
+    },
     {
       "agent": "Angella Wong",
       "property": "Horizon Hills",
