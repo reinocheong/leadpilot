@@ -1,4 +1,4 @@
-# ARCHITECTURE.md — Smart Tenancy Pro 全景架构
+# ARCHITECTURE.md — LeadPilot 全景架构
 
 ## 🗺️ 系统拓扑图
 
@@ -6,18 +6,18 @@
 graph TD
     %% 外部数据源
     FB[(Facebook Groups)] -- "① 采集" --> Scraper[scraper/fb_scraper.js]
-    
+
     %% 第一阶段：采集
     subgraph Stage1 [Phase 1: Scraping]
         Scraper -->|提取文本/号码| RawJSON[(fb_posts_raw.json)]
     end
-    
+
     %% 第二阶段：解析
     subgraph Stage2 [Phase 2: Processing]
         RawJSON -- "② 解析" --> Parser[processors/fb_parser.py]
         Parser -->|结构化字段| Sheets[(Google Sheets: JB Rentals)]
     end
-    
+
     %% 第三阶段：推广
     subgraph Stage3 [Phase 3: Outreach]
         Sheets -->|读取 Agent| Maintainer[outreach/lib/maintain_agents.py]
@@ -26,15 +26,19 @@ graph TD
         Engine -->|调用| WADaemon[wa/wa_daemon.js]
         WADaemon -->|发送| WA((WhatsApp))
     end
-    
-    %% 第四五阶段：订阅与支付
-    subgraph Stage45 [Phase 4 & 5: Subscription & Payment]
-        User[Agent/User] -->|④ 登录/试用| AuthServer[auth/auth_server.py]
-        AuthServer -->|读写| SubDB[(subscribers.db)]
-        User -->|⑤ 付费| Stripe((Stripe Checkout))
-        Stripe -->|通知| StripeChecker[stripe_checker.py]
-        StripeChecker -->|更新状态| SubMgr[sub_mgr.py]
-        SubMgr --> SubDB
+
+    %% 第四阶段：数据展示 + 认证
+    subgraph Stage4 [Phase 4: Web App & Auth]
+        Browser[用户浏览器] -->|访问 index.html| GHPages[GitHub Pages]
+        GHPages -->|静态 HTML+JS| Browser
+        Browser -->|④a 预览数据（电话遮罩）| PreviewAPI[GET /preview]
+        Browser -->|④b 登录解锁电话| AuthAPI[POST /google-auth]
+        Browser -->|④c 完整数据（电话可见）| DataAPI[GET /data?token=xxx]
+        PreviewAPI -->|读取全部房源| Sheets
+        AuthAPI -->|验证 Google Token| AuthServer[auth/auth_server.py]
+        AuthServer -->|查/写| SubDB[(授权用户 Sheet)]
+        DataAPI -->|验证 Session| AuthServer
+        AuthServer -->|读取房源+电话| Sheets
     end
 
     %% 日志监控
@@ -43,6 +47,11 @@ graph TD
     Parser -.-> LogService
     Engine -.-> LogService
     AuthServer -.-> LogService
+
+    %% 外部基础设施
+    subgraph Infra [Infrastructure]
+        Tunnel[Cloudflare Tunnel] -->|公网入口| AuthServer
+    end
 ```
 
 ## 🌊 核心数据流
@@ -53,29 +62,60 @@ sequenceDiagram
     participant Scraper as 爬虫 (Node.js)
     participant Parser as 解析器 (Python)
     participant Sheets as Google Sheets
-    participant Engine as 推广引擎
-    participant User as 最终用户
+    participant Web as 网页 (index.html)
+    participant Auth as 认证服务 (auth_server)
+    participant User as 访客/用户
 
     FB->>Scraper: 滚动抓取帖子文本
     Scraper->>Scraper: 提取电话 (Regex)
     Scraper->>Parser: 写入原始 JSON
     Parser->>Parser: 清洗噪音/识别楼盘
     Parser->>Sheets: 更新 JB Rentals 表
-    Sheets->>Engine: 读取最新 Agent
-    Engine->>User: 发送 WhatsApp 邀请
-    User->>User: 登录 rentals.html
+
+    Note over Web,Auth: ⭐ 数据优先流程
+    User->>Web: 访问 leadpilot.smart-tenancy-pro.org
+    Web->>Auth: GET /preview (无需 Token)
+    Auth->>Sheets: 读取全部房源
+    Sheets-->>Auth: 返回数据（电话明文字段）
+    Auth-->>Web: 返回 JSON（电话已遮罩为 +601*******）
+    Web->>Web: 渲染全部房源卡片 + 统计 + 筛选器
+    Note over Web: 电话显示 🔒 +601******（模糊+点击锁）
+
+    User->>Web: 点击遮罩电话
+    Web->>Web: 弹出 Google 登录弹窗
+    User->>Auth: Google 登录（POST /google-auth）
+    Auth->>Auth: 验证 Google Token，创建 Session
+    Auth-->>Web: 返回 Token + 用户信息
+
+    Web->>Auth: GET /data?token=xxx（完整数据）
+    Auth->>Sheets: 读取房源（含完整电话）
+    Auth-->>Web: 返回数据（电话明文）
+    Web->>Web: 刷新页面：电话解锁，可点击拨打
+    Web-->>User: 完整功能可用
 ```
 
 ## 🧩 模块依赖与状态边界
 
 - **Global Context (全局状态):** 
-    - `subscribers.db`: 订阅者生命周期。
-    - `Google Sheets`: 房源与推广记录的 SSOT。
+    - `Google Sheets`（JB Rentals）: 房源数据的 SSOT。
+    - `授权用户 Sheet`: 用户订阅状态。
     - `.env`: 敏感凭据 (Stripe/Google Key)。
+    - `AUTH_URL`: Cloudflare Tunnel 的公网 URL（地址会漂移）。
 - **Local State (局部状态):**
     - `wa_session/`: WhatsApp 认证会话。
     - `fb_posts_raw.json`: 采集阶段的中间缓存。
-    - `.form_processed.json`: 注册表单处理位点。
+    - `sessions`（内存）: auth_server 的登录会话（重启丢失）。
+
+## 🎯 认证与数据访问规则
+
+| 状态 | 可见数据 | 电话 |
+|------|---------|------|
+| 未登录（预览） | 全部房源 + 统计 + 筛选 | 🚫 遮罩 `+601*******` |
+| 已登录 | 全部房源 + 统计 + 筛选 | ✅ 可见，可点击拨打 |
+
+- **登录触发时机**：仅当用户点击遮罩的电话号码时，才弹出 Google 登录
+- **不弹登录页**：打开网站直接看到房源数据，没有 login gate
+- **预览失败回退**：若 Cloudflare Tunnel 断开导致预览数据获取失败，显示登录页作为兜底
 
 ## 🚨 日志与异常边界
 

@@ -76,7 +76,7 @@ bash auth/start_auth.sh
 
 ```bash
 # 启动（首次会生成 QR 码扫码登录）
-node wa/wa_daemon.js
+node wa/wa_daemon3.js
 
 # 检测 Daemon 健康
 curl -s http://localhost:3456/health
@@ -160,15 +160,15 @@ python3 scripts/export_rentals_json.py
 Cron 每 30 分钟跑 `scripts/export_rentals_json.py`，仅导出到本地 `data/rentals.json`（不再公开推送）。
 数据通过 auth_server 按需提供 — 用户登录后动态获取。
 
-### 登录机制（2026-05-15 新增，2026-05-21 重构）
+### 登录机制（2026-05-15 新增，2026-05-29 重构为数据优先）
 
-- **预览模式**：未登录用户直接看到8条最新完整房源（楼盘名+agent+电话），骨架屏加载 → 卡片填充，零等待零跳转
-- **登录页**：仅在用户点击「Google 登录查看全部」或预览加载失败时出现，默认隐藏
+- **预览模式（数据优先）**：未登录用户直接看到全部房源（960+ 条），含统计、筛选、卡片。电话号码显示为 `+601*******`（CSS 模糊 + 🔒 锁定图标）。零登录障碍
+- **登录触发**：仅在用户点击遮罩电话或底部预览条「订阅查看联系方式」时，才弹出 Google 登录弹窗
 - **登录方式**：Google 一键登录（OAuth），自动创建3天试用
 - **后端**：`auth/auth_server.py`（Python HTTP）验证 Google ID token → 查/建内部运营 Sheet「授权用户」tab
 - **隧道**：通过 Cloudflare Tunnel 暴露公网 HTTPS，URL 变化由 `scripts/auto_sync_tunnel.sh` 每5分钟自动同步
 - **Token**：24h 有效，存 localStorage，登录后无需重复输入
-- **预览数据源**：auth_server 的 `GET /preview` 端点从 Sheet 实时读取，按 `scraped_at` 倒序展示最新8条完整房源
+- **预览数据源**：auth_server 的 `GET /preview` 端点从 Sheet 实时读取全部房源，对 phone 字段执行遮罩后返回（无需登录）
 - **用户管理**：在内部运营 Sheet →「授权用户」tab 加行即可
 
 ### 页面特性
@@ -372,7 +372,7 @@ Parser 已集成 `normalize_property_name()` + `_is_valid_property_name()`，新
 | 爬虫 0 条帖子 | FB Cookie 过期 | 重新获取 Cookie，日志里出现 "browser context has been closed" 也可能提示 cookie 问题 |
 | `browser has been closed` / `page has been closed` | ① FB Cookie 过期 → 部分群组重定向到登录页 ② 浏览器资源耗尽（多实例同时启动） | ① 更新 Cookie ② 2026-05-18 已重构为单浏览器复用，基本消除 |
 | 单个群组超时 | FB 页面加载慢 / DOM 结构变化 / 反爬 | 超时自动跳过不阻塞后续群组，无需手动干预 |
-| WhatsApp 发不出去 | Daemon 掉线 | 重启 `node wa/wa_daemon.js` |
+| WhatsApp 发不出去 | Daemon 掉线 | 重启 `node wa/wa_daemon3.js` |
 | `RefreshError: invalid_scope` | SA Key 没共享给目标 Sheet | 在 Sheet 中共享给 SA 邮箱（编辑者） |
 | Stripe 检测不到付款 | Token 过期 | 检查 `.env` 中 `STRIPE_SECRET_KEY` |
 | `googleapiclient` 找不到 | 用错 Python | 使用 Hermes Agent venv 的 `python3` |

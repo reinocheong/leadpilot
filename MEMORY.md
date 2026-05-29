@@ -46,12 +46,34 @@
 - **现象：** `leadpilot.dpdns.org` (DigitalPlat 免费域名) 在某些 ISP 返回 NXDOMAIN。
 - **原因：** DigitalPlat 的 NS (ns1/ns2/ns3.dpdns.org) → Cloudflare NS 的委托链，部分 DNS 解析器（如用户家用路由器 DNS）跟不过去。
 - **对策：** 迁移到 Cloudflare 注册的正规域名 `leadpilot.smart-tenancy-pro.org`，A 记录直指 GitHub Pages IP。
-- **教训：** 免费域名服务（DigitalPlat）的委托链有兼容性风险，正规域名直接托管在 Cloudflare 更稳定。
+| - **教训：** 免费域名服务（DigitalPlat）的委托链有兼容性风险，正规域名直接托管在 Cloudflare 更稳定。
 
-### 🔧 诊断教训 (2026-05-27)
+### 10. wa_daemon3.js sock scope 错误 (2026-05-28)
+- **现象：** `outreach_engine.py` 发送时每人都报 `❌ sock is not defined`，消息全送不出去。
+- **根因：** `wa_daemon3.js` 的 HTTP `/send` 处理器在模块层级检查 `if (!sock)`，但 `sock` 用 `const` 声明在 `startSock()` 函数内（局部变量）→ `ReferenceError`。
+- **修复：** 声明模块级 `let sock = null;`，`startSock()` 内改为 `sock = makeWASocket(...)`（去掉 const）。
+- **教训：** 跨函数 / HTTP handler 共享的对象必须声明在模块级作用域。daemon 代码中 `sock` 是全局唯一的 WhatsApp 连接，绝不能藏在函数闭包里。
+
+### 9. WA QR 码过期无法扫码 (2026-05-28)
+- **现象：** Baileys 生成 QR 码，用户扫了说「二维码已过期」。
+- **根因（多因素）：**
+  1. **进程提前退出：** gen_qr.js 生成 QR 后 5 秒自动 exit，QR 绑定到已死进程。WhatsApp 服务器拒绝扫码因为连接已终止。
+  2. **无即时可视化：** daemon 只输出 QR 文本到 console + /tmp/wa_qr.txt，通过 Telegram 文本传递时超过 20 秒有效窗口。
+  3. **端口冲突 EADDRINUSE：** 旧 wa_daemon 占着端口 3456，新 daemon 启动即崩溃，根本没活着等扫码。
+  4. **旧 session 残留：** wa_session/ 目录有部分残留数据，Baileys 行为不确定（可能生成无效 QR 或不生成新 QR）。
+  5. **auto-clear session：** wa_daemon3.js 每次启动 `rm -rf wa_session/`，清空刚才用户扫码保存的凭据，导致再次启动必须重新扫码。**这是用户重复扫码的根本原因。**
+- **对策：**
+  - wa_daemon3.js：QR 事件触发时 `spawn('python3') qrcode` 即时生成 /tmp/wa_qr.png
+  - HTTP server 在模块顶层（只创建一次），消除重连 EADDRINUSE
+  - 启动前 `rm -rf wa_session/` 确保干净状态
+  - daemon 保持运行等待扫码（不自主退出）
+- **教训：** QR 码配对必须满足三个条件同时成立：① 生成 QR 的进程活着 ② 端口可用 ③ QR 图片及时送达用户。缺任一条件都会让用户看到「过期」。
+
+### 🔧 诊断教训 (2026-05-27/28)
 - **先检查工具装没装再信结论**：`dig` 未安装时输出空不代表域名不可解析。用 `which dig` 或 Python socket 多路验证。
 - **用户说「之前没问题」时不要坚持理论**：先怀疑自己的证据链，重新验证。
 - **多路交叉验证 DNS**：系统 DNS + Google DNS API + Cloudflare DNS API，三路一致才算确认。
+- **多因素渐进排查**（2026-05-28 QR 配对教训）：一个问题可能有多个独立根因。不要锁定一个理论就加倍下注。逐一排查：①进程活着吗？②端口可用吗？③依赖/数据干净吗？④输出格式对吗？⑤还有没其他因素？每个都要验，验一个划掉一个，直到找到全部原因。
 
 ### 1. 正则 vs LLM 提取
 - **决策：** 核心字段（电话、价格、楼盘）优先使用本地正则匹配。
@@ -65,6 +87,18 @@
 - **决策：** 通过 `auto_sync_tunnel.sh` 检测 URL 变化并自动 git push 修改 `rentals.html`。
 - **理由：** 临时解决方案，避免手动更新 URL。长期应考虑固定二级域名。
 
+### 11. WA error 463 — 账号级限制 (2026-05-28)
+- **现象：** daemon 连接正常、`/send` 正常，但每条消息报 `error 463: account restricted or missing tctoken for contact`，用户 WhatsApp 看不到消息发出。
+- **根因：** 05-26 的 403 封禁后，账号被 WhatsApp 限制「禁止向陌生联系人发起新对话」。重新扫码配对恢复了连接，但没有解除限制。
+- **验证线索：** daemon 每次 `sock.sendMessage()` 不抛异常、返回 `{"ok":true}`，但 Baileys 异步收到 `error 463`。恢复机制（issuePrivacyTokens）也因账号限制失败。所有发送 `+601****5678` 等测试号均 463，即使同一号码重复发。
+- **之前发送成功（05-12~05-19）：** 当时账号未受限，原 wa_daemon.js 正常投递。
+- **复查计划：**
+  - 2026-05-29（冷却1天）- cron 自动检测 463 是否消失
+  - 2026-06-01（冷却3天）- 再次检测
+  - 2026-06-04（冷却7天）- 若仍 463，可确认非冷却问题，需换号或放弃 WA 推广
+- **教训：** WhatsApp 的 403/463 是账号级限制，重新扫码配对只能恢复连接不能恢复发送权限。冷却时间不确定，至少 24-72h，可能长达 7 天以上。
+
 ## 🤖 AI 行为约束
 - **严禁静默重构：** 任何涉及模块拆分或核心逻辑变更的操作，必须先输出 `Proposed Changes`。
 - **双日志制度：** 必须同时向 Console 和 `.logs/error.log` 输出结构化日志。
+- **数据优先原则（核心教训 2026-05-29）：** 访客打开网站应直接看到房源数据，不是登录页。登录应发生在「用户需要电话」时才触发。这个项目不是「登录才能看数据」，而是「数据全公开，电话要登录」。SSOT 文档必须明确记录这个设计原则，任何修改都必须从 SSOT 文档开始核验。

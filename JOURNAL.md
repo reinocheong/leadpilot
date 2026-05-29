@@ -94,3 +94,56 @@
   - start_auth.sh 的 6s sleep 不够，未抓到新 URL；/tmp/cf_active_url.txt 残留旧 URL → auto_sync_tunnel 认为没变化
   - 修复：更新 index.html / rentals.html / index.html.bak 中 AUTH_URL
   - 修复：start_auth.sh 增加 retry 循环（sleep 10 + 最多重试 3 次），防止下次 URL 抓不到
+
+- **2026-05-28 08:22 [AI] (WA 重新配对 + QR 可视化修复)**
+  - 域名迁移后首次尝试重新配对 WA 号码 60134431104
+  - 问题：QR 码每次生成后用户扫不了——Baileys QR 有效期 ~20 秒，通过 Telegram 文本传递时已过期
+  - 解决：编写 wa_daemon3.js，在 QR 事件触发时即时 spawn Python qrcode 库生成 /tmp/wa_qr.png 图片
+  - 图片通过 MEDIA: 直传 Telegram，用户即时扫码
+  - ✅ 2026-05-28 08:24 MYT 成功配对！daemon 正常运行
+  - 修复 wa_daemon3.js EADDRINUSE（旧 wa_daemon.js 占着端口 3456），kill 后重启成功
+
+- **2026-05-28 08:30 [AI] (WA 修复 & cron 恢复)**
+  - 发现 wa_daemon3.js bug：每次启动自动 `rm -rf wa_session/` → 清空已配对凭据 → 用户重复扫码
+  - 修复：去掉 auto-clear session 代码，保留配对凭据
+  - wa_daemon3.js 补上 `/send` HTTP 接口（缺了 outreach 用不了）
+  - 更新 `start_daemon.sh` → 使用 wa_daemon3.js 替代 wa_daemon.js
+  - 恢复 8 个暂停 cron：5 推广 + 2 订阅 + 1 健康检查
+  - 用户指出 daemon 仍触发 history sync（`got history notification` 日志）
+  - 修复：`shouldSyncLogicMessage: () => false` 彻底禁用 sync
+  - 修复：wa_daemon3.js 重连从固定 5 秒改为指数退避（5min→60min），防快速重连被封
+  - 📝 同步更新 TODO.md / JOURNAL.md / MEMORY.md（SSOT 对齐）
+  - 🧹 清理调试遗留文件（gen_qr.js / daemon_with_qr.js / run_qr_daemon.py）
+
+- **2026-05-28 10:43 [AI] (WA 修复：sock scope + 发送节奏)**
+  - **Bug 1 — `sock` scope 错误**：`wa_daemon3.js` 中 `sock` 用 `const` 声明在 `startSock()` 函数内，但 HTTP `/send` 处理器在模块层级引用 → `ReferenceError: sock is not defined`
+  - **修复**：`sock` 改为模块级 `let sock = null;`，`startSock()` 内 `sock = makeWASocket(...)`（去掉 const）
+  - **Bug 2 — 批量发送**：每个 cron slot 一次发出 4 条消息（daily_quota=20 ÷ 5 slots），违反用户「五分钟一条」的要求
+  - **修复**：每个 slot 只发 1 条消息（slot 改为 `[:1]`），1 小时间隔的 cron 本身提供自然节奏
+  - ✅ 测试：`curl POST /send` 返回 `{"ok":true}`，`outreach_engine.py --send` 成功发送 1 条
+
+- **2026-05-28 11:00 [AI] (WA error 463 — 账号限制检测)**
+  - 用户反馈 WhatsApp 看不到发出的消息
+  - 查 daemon 日志发现每条发送后都有 `error 463: account restricted or missing tctoken for contact`
+  - 查 Baileys 源码确认：463 是 WhatsApp 限制「禁止向陌生联系人发起新对话」，连接正常但投递被拒绝
+  - 根因：05-26 的 403 封禁后，账号被限制，重新扫码只能恢复连接不能恢复发送
+  - 修复 `shouldSyncLogicMessage: () => false` 改回 `true` — 但问题不是这参数（改前改后都 463）
+  - 📝 写入 MEMORY.md 记录 463 根因 + 验证线索
+  - ⏸️ 暂停 5 个 WA 推广 cron，避免每天报错
+  - 📅 设置 3 个复查 cron：05-29（冷却1天）、06-01（冷却3天）、06-04（冷却7天终审）
+
+- **2026-05-29 [AI] (FOUC fix + SEO favicon)**
+  - 新增 STP logo favicon（.ico + 多尺寸 PNG）+ Apple Touch Icon + manifest.json
+  - 补全 Twitter Card、OG:image、theme-color 标签
+  - **修复 0.1 秒内部UI闪烁问题**：
+    - `.top-bar` / `#listings` / `.footnote` 初始设为 `display:none`
+    - `load()` 成功后才设为可见（自动登录 + Google 登录双路径）
+    - 消除未登录状态下「退出登录」链接和骨架屏的瞬间暴露
+  - **⚠️ 设计方向修正 — 数据优先**（2026-05-29）：
+    - ❌ 之前错误地将登录页作为默认入口，房源数据隐藏（`display:none`）
+    - ✅ 正确设计：访客看到全部房源（电话遮罩），登录仅用于解锁电话
+    - 恢复 `loadPreview()` 渲染房源卡片 + 显示 dashboard
+    - 电话遮罩加 `onclick="showLoginFromPreview()"` → 点击触发登录
+    - `#crawler-samples` SEO 数据区隐藏（`display:none`，爬虫照读 DOM）
+    - 更新 Cloudflare Tunnel URL → `authorization-alpha-etc-searched.trycloudflare.com`
+    - **七文档SSOT同步**：USER/README/ARCHITECTURE/DEPLOY/TODO/JOURNAL/MEMORY 全部对齐
