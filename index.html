@@ -898,9 +898,13 @@ async function loadPreview() {
   const r = await fetch(AUTH_URL + '/preview');
   DATA = await r.json();
   if (DATA.error) throw new Error(DATA.error);
-  // Don't render into #listings / .top-bar — those are for authenticated users only.
-  // Preview mode only shows the small preview bar + login overlay's built-in cards.
   DATA.preview = true;
+  // Show listing dashboard with masked phone numbers
+  document.querySelector('.top-bar').style.display = '';
+  document.getElementById('listings').style.display = '';
+  renderStats();
+  renderTags();
+  filter();
 }
 
 function showLoginFromPreview() {
@@ -1115,7 +1119,7 @@ function renderListings(q) {
     let agentHtml = '';
     if (l.agent || l.phone) {
       const phoneHtml = DATA.preview
-        ? '<span class="agent-phone agent-phone-locked">🔒 <span>' + esc(l.phone) + '</span></span>'
+        ? '<span class="agent-phone agent-phone-locked" onclick="showLoginFromPreview()">🔒 <span>' + esc(l.phone) + '</span></span>'
         : (l.phone ? '<a class="agent-phone" href="tel:' + esc(l.phone) + '">📞 ' + esc(l.phone) + '</a>' : '');
       agentHtml = '<div class="agent-row">' +
         '<span class="agent-avatar">' + esc(initial) + '</span>' +
