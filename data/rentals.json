@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-05-30T06:01:48.674543+08:00",
-  "total": 961,
+  "updated_at": "2026-05-30T06:32:17.652396+08:00",
+  "total": 962,
   "today_new": 0,
   "top_properties": [
     "R&F Princess Cove",
@@ -15,6 +15,20 @@
     "Kulai"
   ],
   "listings": [
+    {
+      "agent": "Bella Ho",
+      "property": "Sutera Utama",
+      "type": "出租",
+      "property_type": "双层排屋",
+      "rooms": "1房",
+      "furnishing": "全家私",
+      "rent": "",
+      "phone": "+60167992922",
+      "link": "https://www.facebook.com/groups/290627785937141/posts/1456757405990834",
+      "remark": "[Group5-租屋]",
+      "scraped_at": "2026-05-30 06:01:47",
+      "post_text": "Bella Ho +13Bella Ho · 分享对象： 公开*Exclusive Unit* *五福城 半独立 领包入住 全装修 全扩建 全家私 耗资 500k 屋况很好* For SaleSutera Utama @ Jalan ChengalDouble Storey Semi D40x803400 sqft4+1 Bed 6 BathFully RenovatedFully Furnished (Included Massage Chair & Red Wine)FreeholdIndivitual TitleInternational LotIntermediate LotHouse Year 15Gated Guarded Rm300Nice ConditionsAsking Sale Rm1.7milPlease Contact Bella Ho 0167992922wa.me/60167992922"
+    },
     {
       "agent": "赞评论",
       "property": "Taman Century @ Jln Landak Kawan 2 - JB",
