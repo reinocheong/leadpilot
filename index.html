@@ -898,10 +898,9 @@ async function loadPreview() {
   const r = await fetch(AUTH_URL + '/preview');
   DATA = await r.json();
   if (DATA.error) throw new Error(DATA.error);
+  // Don't render into #listings / .top-bar — those are for authenticated users only.
+  // Preview mode only shows the small preview bar + login overlay's built-in cards.
   DATA.preview = true;
-  renderStats();
-  renderTags();
-  filter();
 }
 
 function showLoginFromPreview() {
