@@ -14,13 +14,24 @@ const COOKIES = [
 ];
 const GROUPS = [{ id: '1467428250213843', name: 'JB新山租房与出租' }, { id: '1313487628797877', name: 'Group2' }, { id: '801784763175081', name: 'Group3-房屋出租' }, { id: 'JBPropertyForSalesRent', name: 'JB Property For Sales/Rent' }, { id: '290627785937141', name: 'Group5-租屋' }];
 const OUTPUT_JSON = '/home/user/fb_data/fb_posts_raw.json';
+const MAX_SCROLL_ATTEMPTS = 10;
+const SCROLL_WAIT_MS = 4000;
 
-/** Scroll down incrementally to load more FB posts. */
+/** Scroll until no new content loads (stops when page height stops growing). */
 async function scrollToLoadPosts(page) {
-  const scrollCount = 5;
-  for (let i = 0; i < scrollCount; i++) {
-    await page.evaluate(() => window.scrollBy(0, window.innerHeight));
-    await page.waitForTimeout(3000);
+  let prevHeight = 0;
+  let stuckCount = 0;
+  for (let i = 0; i < MAX_SCROLL_ATTEMPTS; i++) {
+    const curHeight = await page.evaluate(() => document.body.scrollHeight);
+    if (curHeight === prevHeight) {
+      stuckCount++;
+      if (stuckCount >= 2) break; // no new content after 2 tries
+    } else {
+      stuckCount = 0;
+    }
+    prevHeight = curHeight;
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.waitForTimeout(SCROLL_WAIT_MS);
   }
 }
 
@@ -29,15 +40,22 @@ async function scrapeGroup(browser, groupId, groupName) {
   let context = null, page = null, posts = [];
   try {
     context = await browser.newContext({ userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', locale: 'zh-CN' });
-    await context.addCookies(COOKIES); page = await context.newPage();
-    await page.goto(`https://www.facebook.com/groups/${groupId}`, { waitUntil: 'domcontentloaded', timeout: 60000 });
-    await scrollToLoadPosts(page); const pre = await extractPosts(page, groupId); await clickExpandButtons(page); const post = await extractPosts(page, groupId);
+    await context.addCookies(COOKIES);
+    page = await context.newPage();
+    // Sort by recent activity to avoid FB's "most relevant" filtering
+    await page.goto(`https://www.facebook.com/groups/${groupId}?sorting_setting=RECENT_ACTIVITY`, { waitUntil: 'domcontentloaded', timeout: 60000 });
+    await page.waitForTimeout(3000);
+    await scrollToLoadPosts(page);
+    const pre = await extractPosts(page, groupId);
+    await clickExpandButtons(page);
+    await page.waitForTimeout(1500);
+    const post = await extractPosts(page, groupId);
     const seen = new Set();
     post.forEach(p => { if(p.postLink) seen.add(p.postLink); posts.push(buildPost(groupId, groupName, p)); });
     pre.forEach(p => { if(!seen.has(p.postLink)) posts.push(buildPost(groupId, groupName, p)); });
     console.log(`[scraper/fb_scraper.js][${groupName}] 结束: 抓取到 ${posts.length} 条`);
   } catch (e) {
-    fs.appendFileSync('/home/user/leadpilot/.logs/error.log', `[${new Date().toISOString()}] [scraper/fb_scraper.js] [L22] -> ${e.stack}\n`);
+    fs.appendFileSync('/home/user/leadpilot/.logs/error.log', `[${new Date().toISOString()}] [scraper/fb_scraper.js] [scrapeGroup] -> ${e.stack}\n`);
     if (isBrowserDeadError(e.message)) throw e;
   } finally { if(page) await page.close(); if(context) await context.close(); }
   return posts;
@@ -52,10 +70,16 @@ function buildPost(groupId, groupName, p) {
   let allPosts = [], browser = null;
   for (const g of GROUPS) {
     try {
-      if (!browser) browser = await launchBrowser();
-      const p = await scrapeGroup(browser, g.id, g.name); allPosts = allPosts.concat(p || []);
+      if (!browser || !browser.isConnected()) {
+        if (browser) await browser.close().catch(() => {});
+        browser = await launchBrowser();
+      }
+      const p = await scrapeGroup(browser, g.id, g.name);
+      allPosts = allPosts.concat(p || []);
     } catch (e) {
-      if (browser) await browser.close(); browser = null;
+      console.log(`[scraper/fb_scraper.js][${g.name}] 失败: ${e.message}，重新启动浏览器`);
+      if (browser) await browser.close().catch(() => {});
+      browser = null;
     }
   }
   if (browser) await browser.close();

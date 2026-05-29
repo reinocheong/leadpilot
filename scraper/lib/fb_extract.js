@@ -15,16 +15,15 @@ async function extractPosts(page, groupId) {
     const results = [];
 
     // FB generated username: two+ CamelCase words glued together
-    // e.g. AmbitiousMouse6348, ThrillingGrapefruit, RelaxingDachshund5812Rnf
     const isFbGeneratedName = (name) => /^[A-Z][a-z]{3,}[A-Z][a-z]{3,}\d*$/.test(name);
 
-    // Try to find a real name in the post text (Chinese or English)
+    // Try to find a real name anywhere in the post text (Chinese or English)
     const findRealName = (text) => {
-      // Chinese name: 2-4 Chinese chars near start
-      const m = text.match(/^.{0,30}?([\u4e00-\u9fff]{2,4})(?:\s*[·火速关注])/);
+      // Chinese name: 2-4 Chinese chars, often followed by space or action word
+      const m = text.match(/([\u4e00-\u9fff]{2,4})(?:\s*(?:分享|回复|赞|在|·|小时|分钟|秒|刚刚))/);
       if (m) return m[1];
-      // English name: Capitalized First Last
-      const m2 = text.match(/(?:^|\s)([A-Z][a-z]+(?:\s[A-Z][a-z]+)?)(?:\s*\d)/);
+      // English name: Capitalized First Last near start
+      const m2 = text.match(/^.{0,50}?\b([A-Z][a-z]+(?:\s[A-Z][a-z]+)?)\b/);
       if (m2 && !isFbGeneratedName(m2[1])) return m2[1];
       return '';
     };
@@ -36,15 +35,29 @@ async function extractPosts(page, groupId) {
       if (text.length < 40) continue;
       if (/^你的\d+年wira/.test(text)) continue;
 
-      // Extract agent name
+      // Extract agent name — try multiple strategies
       let agentName = '';
-      const m = text.match(/^([^\d•·\s]{2,30}?)(?:\d|·|小时|分钟|天|周|月|年|赞|关注)/);
+
+      // Strategy 1: name at start followed by time indicator (most common for FB posts)
+      let m = text.match(/^([\u4e00-\u9fffA-Za-z][^\d•·\s]{1,20}?)(?:\s*\d|\s*[·•]|\s*(?:小时|分钟|秒|刚刚|天|周|月|年))/);
       if (m) agentName = m[1].trim();
+
+      // Strategy 2: look for Chinese name (2-4 chars) followed by "分享" or "回复"
+      if (!agentName) {
+        m = text.match(/([\u4e00-\u9fff]{2,4})\s*(?:分享|回复|赞|在)/);
+        if (m) agentName = m[1].trim();
+      }
+
+      // Strategy 3: English name pattern (not FB-generated) within first 60 chars
+      if (!agentName) {
+        m = text.substring(0, 60).match(/([A-Z][a-z]+(?:\s[A-Z][a-z]+)?)\s*(?:分享|回复|赞|·)/);
+        if (m && !isFbGeneratedName(m[1])) agentName = m[1].trim();
+      }
 
       // Filter FB generated usernames — try to find real name instead
       if (agentName && isFbGeneratedName(agentName)) {
         const real = findRealName(text);
-        agentName = real || '';  // empty = let Python parser try
+        agentName = real || '';
       }
 
       // Extract Facebook post permalink
