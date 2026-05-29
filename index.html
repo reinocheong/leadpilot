@@ -338,6 +338,7 @@
     .empty { text-align: center; padding: 3rem 1rem; color: var(--text-muted); font-size: 0.8rem; }
 
     .footnote {
+      display: none;
       text-align: center; padding: 1.5rem 0.5rem 1rem;
       font-size: 0.6rem; color: #334155;
     }
@@ -726,7 +727,7 @@
   <hr style="margin:1.5rem 0;border:none;border-top:1px solid #e2e8f0">
 </div>
 
-<div class="top-bar">
+<div class="top-bar" style="display:none">
   <div class="top-bar-inner">
     <div class="brand">
       <div class="brand-dot"></div>
@@ -843,7 +844,7 @@
   </div>
 </div>
 
-<div class="listings" id="listings">
+<div class="listings" id="listings" style="display:none">
   <div class="skeleton"><div class="sk-line"></div><div class="sk-line w3"></div><div class="sk-line w2"></div></div>
   <div class="skeleton"><div class="sk-line"></div><div class="sk-line w3"></div><div class="sk-line w2"></div></div>
   <div class="skeleton"><div class="sk-line"></div><div class="sk-line w3"></div><div class="sk-line w2"></div></div>
@@ -1003,6 +1004,10 @@ async function load() {
   if (r.status === 401) { clearAuth(); throw new Error('会话已过期'); }
   DATA = await r.json();
   if (DATA.error) throw new Error(DATA.error);
+  // Show app UI — hides by default to prevent FOUC
+  document.querySelector('.top-bar').style.display = '';
+  document.getElementById('listings').style.display = '';
+  document.querySelector('.footnote').style.display = '';
   renderStats();
   renderTags();
   filter();
