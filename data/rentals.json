@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-05-30T23:02:16.303150+08:00",
-  "total": 969,
+  "updated_at": "2026-05-30T23:31:40.699596+08:00",
+  "total": 970,
   "today_new": 0,
   "top_properties": [
     "R&F Princess Cove",
@@ -15,6 +15,20 @@
     "Trellis Residence"
   ],
   "listings": [
+    {
+      "agent": "Wesker Tan",
+      "property": "",
+      "type": "出租",
+      "property_type": "",
+      "rooms": "",
+      "furnishing": "",
+      "rent": "",
+      "phone": "+601370805214",
+      "link": "https://www.facebook.com/groups/1467428250213843/posts/4125277177762257",
+      "remark": "[JB新山租房与出租] 近CIQ",
+      "scraped_at": "2026-05-30 23:01:13",
+      "post_text": "Wesker Tan这里有，走路 到CIQ 两房两厕 欢迎联系"
+    },
     {
       "agent": "收起",
       "property": "Tampoi",
