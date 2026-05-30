@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-05-30T20:32:18.620659+08:00",
-  "total": 967,
+  "updated_at": "2026-05-30T21:01:47.649737+08:00",
+  "total": 969,
   "today_new": 0,
   "top_properties": [
     "R&F Princess Cove",
@@ -15,6 +15,34 @@
     "Trellis Residence"
   ],
   "listings": [
+    {
+      "agent": "收起",
+      "property": "Tampoi",
+      "type": "出租",
+      "property_type": "大房",
+      "rooms": "",
+      "furnishing": "全家私",
+      "rent": "1,050",
+      "phone": "+60139777517",
+      "link": "https://www.facebook.com/groups/JBPropertyForSalesRent/posts/3144869305713290",
+      "remark": "[JB Property For Sales/Rent] 有冷气",
+      "scraped_at": "2026-05-30 20:32:01",
+      "post_text": "Ka Wai Cozy Room for Rent @ Greenfield Regency Tampoi 新山房间出租，greenfield @tampoi！Looking for a clean and comfortable room in JB?This fully furnished room is ready for move-in!Master Room-RM1050​WifiWaterCommon area eletricRoom eletric ny meter​ Fully Furnished Aircond Included High-Speed WiFi Swimming Pool & Gym Access Safe & Peaceful Environment Convenient Location​ Easy access to Paradigm Mall, Sutera & JB City Area​Suitable for working adults & students.​ Limited rooms available — PM NOW before fully occupied!whatsapp 013-9777517(kawai)"
+    },
+    {
+      "agent": "",
+      "property": "",
+      "type": "出租",
+      "property_type": "",
+      "rooms": "",
+      "furnishing": "",
+      "rent": "",
+      "phone": "+601157786088",
+      "link": "https://www.facebook.com/groups/1467428250213843/posts/4156222441334397",
+      "remark": "[JB新山租房与出租]",
+      "scraped_at": "2026-05-30 20:31:13",
+      "post_text": "JB 工厂人 · 妃妃 Sophia我有 01157786088 不用中介费"
+    },
     {
       "agent": "发消息",
       "property": "Eco Spring",
