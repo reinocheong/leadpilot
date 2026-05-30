@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-05-30T11:02:03.454524+08:00",
-  "total": 962,
+  "updated_at": "2026-05-30T11:31:32.520878+08:00",
+  "total": 963,
   "today_new": 0,
   "top_properties": [
     "R&F Princess Cove",
@@ -12,9 +12,23 @@
     "Johor Jaya",
     "Johor Bahru",
     "KSL Residence",
-    "Kulai"
+    "Trellis Residence"
   ],
   "listings": [
+    {
+      "agent": "马星",
+      "property": "Trellis Residence",
+      "type": "出租",
+      "property_type": "大房",
+      "rooms": "1房",
+      "furnishing": "全家私",
+      "rent": "",
+      "phone": "+60177528388",
+      "link": "https://www.facebook.com/groups/290627785937141/posts/1456922485974326",
+      "remark": "[Group5-租屋] 屋主自租; 近CIQ; 有停车位",
+      "scraped_at": "2026-05-30 11:02:02",
+      "post_text": "马星 马星将帖子发布到新山 屋主自租＆屋主自售JB Property Rent & Sale by Owner 17日23:03 +8马星 17日23:01 Trellis residence 全新单位寻找诚心租客 屋主诚心出租-Master Room1+1Bed Room unit with 1 parking lot-Fully furnish (包全家私）（有要求可谈）-CIQ 8min-10min-Deposit （押金）2+1+0.5WA +60177528388RM2300Nego)"
+    },
     {
       "agent": "Bella Ho",
       "property": "Sutera Utama",
