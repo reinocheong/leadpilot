@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-05-30T14:01:28.534458+08:00",
-  "total": 964,
+  "updated_at": "2026-05-30T14:31:47.880233+08:00",
+  "total": 966,
   "today_new": 0,
   "top_properties": [
     "R&F Princess Cove",
@@ -15,6 +15,34 @@
     "Trellis Residence"
   ],
   "listings": [
+    {
+      "agent": "赞评论",
+      "property": "Taman Ungku Tun Aminah",
+      "type": "出租",
+      "property_type": "房间",
+      "rooms": "",
+      "furnishing": "",
+      "rent": "500",
+      "phone": "+60107100173",
+      "link": "https://www.facebook.com/groups/JBPropertyForSalesRent/posts/3144583535741867",
+      "remark": "[JB Property For Sales/Rent]",
+      "scraped_at": "2026-05-30 14:01:10",
+      "post_text": "Bryan Lau Sewa bilik Tun aminah皇后房间出租Sewa bilik Tun aminah皇后房间出租Sewa bilik Taman ungku Tun aminahAda single bed , almari baju , peti sejuk, mesin basuh BARU5 min jalan kaki TUTA bus station pergi Singapore5 min jalan kaki TUTA pasarDekat 99 speedmartTermasuk bill air dan letrikSewa RM500 satu orangMin 1 tahun kontrakWa.me/60107100173+2赞评论分享陈凯莉请问在那一座？？"
+    },
+    {
+      "agent": "发消息",
+      "property": "",
+      "type": "出租",
+      "property_type": "",
+      "rooms": "",
+      "furnishing": "",
+      "rent": "860",
+      "phone": "+60187884766",
+      "link": "https://www.facebook.com/groups/1313487628797877/posts/4438432576303351",
+      "remark": "[Group2]",
+      "scraped_at": "2026-05-30 14:00:39",
+      "post_text": "Lee Chen Soo Available now!REDMI K40 PRO→Used - Good condition Unit only DM or WA 018-7884766Grab it before its gone!"
+    },
     {
       "agent": "王蓓凌",
       "property": "Tampoi",
