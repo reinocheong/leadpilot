@@ -88,19 +88,26 @@
 - ~~**理由：** 临时解决方案，避免手动更新 URL。长期应考虑固定二级域名。~~
 - **現狀：** `auth.smart-tenancy-pro.org` CNAME → hermes-webui tunnel，永久穩定，不再需要自動同步
 
-### 11. WA error 463 — 账号级限制 (2026-05-28)
+### 11. WA error 463 — 账号级限制 (2026-05-28，已解决)
 - **现象：** daemon 连接正常、`/send` 正常，但每条消息报 `error 463: account restricted or missing tctoken for contact`，用户 WhatsApp 看不到消息发出。
 - **根因：** 05-26 的 403 封禁后，账号被 WhatsApp 限制「禁止向陌生联系人发起新对话」。重新扫码配对恢复了连接，但没有解除限制。
 - **验证线索：** daemon 每次 `sock.sendMessage()` 不抛异常、返回 `{"ok":true}`，但 Baileys 异步收到 `error 463`。恢复机制（issuePrivacyTokens）也因账号限制失败。所有发送 `+601****5678` 等测试号均 463，即使同一号码重复发。
 - **之前发送成功（05-12~05-19）：** 当时账号未受限，原 wa_daemon.js 正常投递。
-- **复查计划：**
-  - 2026-05-29（冷却1天）- cron 自动检测 463 是否消失
-  - 2026-06-01（冷却3天）- 再次检测
-  - 2026-06-04（冷却7天）- 若仍 463，可确认非冷却问题，需换号或放弃 WA 推广
-- **教训：** WhatsApp 的 403/463 是账号级限制，重新扫码配对只能恢复连接不能恢复发送权限。冷却时间不确定，至少 24-72h，可能长达 7 天以上。
+- **冷却过程：** 05-28 暂停推广 → 05-29 复查仍 463 → **06-01 复查 463 已消失，恢复正常发送** → 冷却有效，无需换号
+- **教训：** WhatsApp 的 403/463 是账号级限制，重新扫码配对只能恢复连接不能恢复发送权限。冷却时间不确定，本次 ~4 天（05-28→06-01）恢复。若 7 天仍 463 才需换号。
 
 ## 🤖 AI 行为约束
 - **Git push 必須用 Windows Git**：WSL 沒有 GitHub credential helper（`fatal: could not read Username`），必須透過 `/mnt/c/Program\ Files/Git/bin/git.exe push` 使用 Windows 端儲存的憑證。
 - **严禁静默重构：** 任何涉及模块拆分或核心逻辑变更的操作，必须先输出 `Proposed Changes`。
 - **双日志制度：** 必须同时向 Console 和 `.logs/error.log` 输出结构化日志。
 - **数据优先原则（核心教训 2026-05-29）：** 访客打开网站应直接看到房源数据，不是登录页。登录应发生在「用户需要电话」时才触发。这个项目不是「登录才能看数据」，而是「数据全公开，电话要登录」。SSOT 文档必须明确记录这个设计原则，任何修改都必须从 SSOT 文档开始核验。
+
+### 12. FB cookie 过期 — 静默空跑 (2026-05-31，已修复)
+- **现象：** 爬虫 cron `last_status=ok` 但 5 个群全部 0 条，`fb_posts_raw.json` 仅 7KB/8条，备份 212KB/283条，最后更新 12 小时前
+- **根因：** FB cookie 中 `xs` 会话 token 过期，Playwright 加载群组被重定向到登录页但不报错
+- **诊断：** 手动跑爬虫全部显示「抓取到 0 条」无报错；浏览器打开群组 URL 显示登录页
+- **修复：** 用 Windows Chrome Control 提取新 cookie → 更新 `scraper/fb_scraper.js` 中 `xs` 和 `fr` 值
+- **自动化：** `C:\Users\User\Desktop\fb-cookie-extract\get_cookies.js`（Playwright + CDP 连接真实 Chrome 取 cookie）
+- **防护：** 爬虫 cron 切为 LLM 模式，产出 < 3 条自动告警
+- **教训：** no_agent 模式无法检测「脚本没崩但产出异常」。静默空跑是最隐蔽的故障。
+  

@@ -187,26 +187,72 @@ Cron 每 30 分钟跑 `scripts/export_rentals_json.py`，仅导出到本地 `dat
 
 ## Cron 调度（全链路自动化）
 
-> **2026-05-16 优化：** 13个任务已切为 `no_agent=true`（纯脚本模式，零LLM费用）。崩了自动发告警，不再每趟调大模型。Form自动检查已删除（用户改用Google登录）。
+> 所有 cron 由 Hermes Agent 调度，统一入口 `~/.hermes/cron/jobs.json`。
+> `no_agent` 模式：纯脚本运行（零 LLM 费用），崩了自动告警。
+> 爬虫已切 **LLM 模式**：自动检查产出，< 3 条时尝试换 cookie，跑不通才告警。
 
-| 时间 | 命令 | 工作目录 | 职责 |
-| 每 30 分钟 | `export_rentals_json.py` | `/home/user/leadpilot` | 🏗️ 导出房源 JSON → `data/rentals.json` |
-| 每 30 分钟 (:00/:30) | `node scraper/fb_scraper.js` | `/home/user/leadpilot` | ① 采集 FB 帖子（5 群组） |
-| 每 30 分钟 (:03/:33) | `python3 processors/fb_parser.py` | `/home/user/leadpilot` | ② 解析入 Google Sheets |
-| 每天 10:29 | `python3 outreach/lib/maintain_agents.py` | `/home/user/leadpilot` | ③ 更新 Agent List（去重） |
-| 每天 10:30 | `python3 outreach/outreach_engine.py --send --slot 1 --total-slots 5` | `/home/user/leadpilot` | ③ 推广时段①（1人） |
-| 每天 11:30 | `python3 outreach/outreach_engine.py --send --slot 2 --total-slots 5` | `/home/user/leadpilot` | ③ 推广时段②（1人） |
-| 每天 12:30 | `python3 outreach/outreach_engine.py --send --slot 3 --total-slots 5` | `/home/user/leadpilot` | ③ 推广时段③（1人） |
-| 每天 13:30 | `python3 outreach/outreach_engine.py --send --slot 4 --total-slots 5` | `/home/user/leadpilot` | ③ 推广时段④（1人） |
-| 每天 14:30 | `python3 outreach/outreach_engine.py --send --slot 5 --total-slots 5` | `/home/user/leadpilot` | ③ 推广时段⑤（1人） |
-| 每 30 分钟 | 导出房源 JSON → git push | `/home/user/leadpilot` | 📋 房源浏览页数据刷新（唯一入口，已去重） |
-| 每 5 分钟 | `python3 sub_mgr.py form-process` | `/home/user/leadpilot` | ④ 新注册 → 自动开试用 |
-| 每天 9:00 | `python3 sub_mgr.py remind` | `/home/user/leadpilot` | ④ 试用到期提醒 |
-| 每天 0:00 | `python3 sub_mgr.py check` | `/home/user/leadpilot` | ④ 到期回收权限 |
-| 每 30 分钟 | `python3 sub_mgr.py stripe-check` | `/home/user/leadpilot` | ⑤ Stripe 付款 → 自动续费 |
-| **每天 9:00** | `python3 outreach/notify_subscribers.py morning` | `/home/user/leadpilot` | 订阅早报推送 |
-| **每天 13:00** | `python3 outreach/notify_subscribers.py afternoon` | `/home/user/leadpilot` | 订阅午间推送 |
-| **每天 18:00** | `python3 outreach/notify_subscribers.py evening` | `/home/user/leadpilot` | 订阅日报推送 |
+### 数据采集管线
+
+| Job ID | 模式 | 时间 | 脚本/命令 | 职责 | 注意 |
+|--------|------|------|-----------|------|------|
+| `79a141939e36` | **LLM** 🧠 | 每30分 (:00/:30) | `timeout 300 node scraper/fb_scraper.js` → 解析器 → 导出 | ①抓取+②解析+📋导出一体 | 自动诊断空跑、换cookie |
+| `2093b59a898a` | no_agent | 每30分 (:03/:33) | `cron_fb_parser.sh` | ②解析入 Google Sheets | 爬虫的冗余备份 |
+
+### 付款与订阅管理
+
+| Job ID | 模式 | 时间 | 职责 |
+|--------|------|------|------|
+| `b40c5eb6c39d` | no_agent | **每小时** | Stripe 付款检测 + 过期回收 + 用量汇总 |
+
+### 推广引擎
+
+| Job ID | 模式 | 时间 | 职责 | 状态 |
+|--------|------|------|------|:----:|
+| `266ebb54fc76` | no_agent | 每天 **10:29** | Agent List 去重维护 | 🟢 运行中 |
+| `dcf83dc15887` | no_agent | 每天 **10:30** | 推广时段①（1人） | 🔴 暂停 |
+| `f92a5034d8b7` | no_agent | 每天 **11:30** | 推广时段②（1人） | 🔴 暂停 |
+| `c69688ec05d2` | no_agent | 每天 **12:30** | 推广时段③（1人） | 🔴 暂停 |
+| `83b802670da9` | no_agent | 每天 **13:30** | 推广时段④（1人） | 🔴 暂停 |
+| `d144825d5f88` | no_agent | 每天 **14:30** | 推广时段⑤（1人） | 🔴 暂停 |
+
+> 推广暂停原因：WA 账号 463 限制（2026-05-28），冷却中。复查 cron 见下方。
+
+### 订阅推送
+
+| Job ID | 模式 | 时间 | 职责 |
+|--------|------|:----:|------|
+| `8027a63fcd89` | no_agent | 每天 **9:00** | 订阅早报（主动推送给付费用户） |
+| `e4b43e14ded2` | no_agent | 每天 **13:00** | 订阅午间推送 |
+| `d6f04922156f` | no_agent | 每天 **18:00** | 订阅日报推送 |
+
+### 监控与报告
+
+| Job ID | 模式 | 时间 | 职责 |
+|--------|------|:----:|------|
+| `f4db2a8a18e0` | no_agent | **8/12/16/20** 点 | 状态汇总报告 |
+| `0726e4d2f86f` | no_agent | 每天 **10-20** 点每小时 | WA daemon 健康检查 |
+
+### 一次性复查
+
+| Job ID | 时间 | 职责 |
+|--------|:----:|------|
+| `cad5e3e1ccb5` | **2026-06-01 14:00** | WA 463 冷却复查 #2（3天） |
+| `c7163ea1eee3` | **2026-06-04 14:00** | WA 463 冷却复查 #3（7天终审） |
+
+### 已废弃 cron（已删除，留档备查）
+
+| 原职责 | 删除日期 | 原因 |
+|--------|:--------:|------|
+| 导出房源 JSON → git push（每30分） | 2026-05-31 | 已合并到 LLM 爬虫 cron |
+| 隧道 URL 自动同步（每5分） | 2026-05-31 | 域名已稳定，不再需要 |
+
+### wrapper 脚本位置
+
+所有 `no_agent` cron 的 wrapper 脚本统一放在：
+```
+~/.hermes/scripts/cron_wrappers/
+```
+命名规则：`cron_<功能>.sh`，每个脚本调用对应模块的入口。
 
 ---
 
@@ -367,7 +413,7 @@ Parser 已集成 `normalize_property_name()` + `_is_valid_property_name()`，新
 
 | 症状 | 可能原因 | 解决 |
 |------|----------|------|
-| 爬虫 0 条帖子 | FB Cookie 过期 | 重新获取 Cookie，日志里出现 "browser context has been closed" 也可能提示 cookie 问题 |
+|| 爬虫 0 条帖子 / 爬虫静默空跑（cron ok 但产出持续 < 3 条） | FB Cookie 过期 | ① 批量关闭所有 Chrome ② Win+R 运行 chrome.exe --remote-debugging-port=9222 --remote-debugging-address=0.0.0.0 --user-data-dir="C:\Users\User\AppData\Local\Google\Chrome\User Data\Default" ③ 在打开的 Chrome 登录 FB ④ WSL 执行 `cmd.exe /c "cd /d C:\Users\User\Desktop\fb-cookie-extract && node get_cookies.js"` ⑤ 将输出的 xs 和 fr 值更新到 scraper/fb_scraper.js 的 COOKIES 数组 |
 | `browser has been closed` / `page has been closed` | ① FB Cookie 过期 → 部分群组重定向到登录页 ② 浏览器资源耗尽（多实例同时启动） | ① 更新 Cookie ② 2026-05-18 已重构为单浏览器复用，基本消除 |
 | 单个群组超时 | FB 页面加载慢 / DOM 结构变化 / 反爬 | 超时自动跳过不阻塞后续群组，无需手动干预 |
 | WhatsApp 发不出去 | Daemon 掉线 | 重启 `node wa/wa_daemon3.js` |

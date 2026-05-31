@@ -3,7 +3,7 @@
 
 /**
  * Extract posts from the current page state.
- * Filters out posts shorter than 40 chars and known spam patterns.
+ * Only keeps elements that have a real post permalink (filters out UI sub-elements).
  *
  * @param {import('playwright').Page} page
  * @param {string} groupId
@@ -17,17 +17,6 @@ async function extractPosts(page, groupId) {
     // FB generated username: two+ CamelCase words glued together
     const isFbGeneratedName = (name) => /^[A-Z][a-z]{3,}[A-Z][a-z]{3,}\d*$/.test(name);
 
-    // Try to find a real name anywhere in the post text (Chinese or English)
-    const findRealName = (text) => {
-      // Chinese name: 2-4 Chinese chars, often followed by space or action word
-      const m = text.match(/([\u4e00-\u9fff]{2,4})(?:\s*(?:分享|回复|赞|在|·|小时|分钟|秒|刚刚))/);
-      if (m) return m[1];
-      // English name: Capitalized First Last near start
-      const m2 = text.match(/^.{0,50}?\b([A-Z][a-z]+(?:\s[A-Z][a-z]+)?)\b/);
-      if (m2 && !isFbGeneratedName(m2[1])) return m2[1];
-      return '';
-    };
-
     for (const article of articles) {
       const text = (article.textContent || '').trim();
 
@@ -35,32 +24,9 @@ async function extractPosts(page, groupId) {
       if (text.length < 40) continue;
       if (/^你的\d+年wira/.test(text)) continue;
 
-      // Extract agent name — try multiple strategies
-      let agentName = '';
-
-      // Strategy 1: name at start followed by time indicator (most common for FB posts)
-      let m = text.match(/^([\u4e00-\u9fffA-Za-z][^\d•·\s]{1,20}?)(?:\s*\d|\s*[·•]|\s*(?:小时|分钟|秒|刚刚|天|周|月|年))/);
-      if (m) agentName = m[1].trim();
-
-      // Strategy 2: look for Chinese name (2-4 chars) followed by "分享" or "回复"
-      if (!agentName) {
-        m = text.match(/([\u4e00-\u9fff]{2,4})\s*(?:分享|回复|赞|在)/);
-        if (m) agentName = m[1].trim();
-      }
-
-      // Strategy 3: English name pattern (not FB-generated) within first 60 chars
-      if (!agentName) {
-        m = text.substring(0, 60).match(/([A-Z][a-z]+(?:\s[A-Z][a-z]+)?)\s*(?:分享|回复|赞|·)/);
-        if (m && !isFbGeneratedName(m[1])) agentName = m[1].trim();
-      }
-
-      // Filter FB generated usernames — try to find real name instead
-      if (agentName && isFbGeneratedName(agentName)) {
-        const real = findRealName(text);
-        agentName = real || '';
-      }
-
-      // Extract Facebook post permalink
+      // --- Step 1: Extract post permalink first ---
+      // If no real post link found, this is likely a UI element (like/share/comment bar)
+      // not the actual post — skip it.
       let postLink = '';
       for (const link of article.querySelectorAll('a')) {
         const href = link.href || '';
@@ -79,6 +45,67 @@ async function extractPosts(page, groupId) {
             break;
           }
         }
+      }
+      // No post link = not a real post element → skip
+      if (!postLink) continue;
+
+      // --- Step 2: Extract agent name from start of text ---
+      let agentName = '';
+
+      // Strategy 1: "Name · 关注/回复/分享/新秀" — Chinese or English name before "关注"
+      // e.g., "黄苇鸿 · 关注1小时 · 分享对象：" or "Kun Yee Lee · 关注新秀贡献者 · 3小时"
+      let m = text.match(/^([\u4e00-\u9fffA-Za-z][\u4e00-\u9fffA-Za-z\s]{1,25}?)\s*[·•]\s*(?:关注|回复|分享|新秀)/);
+      if (m) agentName = m[1].trim();
+
+      // Strategy 2: Name directly followed by time digit (no space)
+      // e.g., "Bread Coffee20小时 ·", "Annie Annie7小时 ·", "Genki Yap1小时 ·"
+      if (!agentName) {
+        m = text.match(/^([A-Za-z\u4e00-\u9fff][\sA-Za-z\u4e00-\u9fff]{1,25}?)\s*(?:\d{1,2}\s*(?:小时|分钟|秒|天|周|月|年|日)|刚刚)/);
+        if (m) agentName = m[1].trim();
+      }
+
+      // Strategy 3: Name directly before Chinese date (月/日)
+      // e.g., "Bibi Wong5月13日16:52 ·"
+      if (!agentName) {
+        m = text.match(/^([\u4e00-\u9fffA-Za-z][\u4e00-\u9fffA-Za-z\s]{1,25}?)\s*\d{1,2}月\d{1,2}日/);
+        if (m) agentName = m[1].trim();
+      }
+
+      // Strategy 4: English name within first 80 chars, before a separator
+      if (!agentName) {
+        m = text.substring(0, 80).match(/([A-Z][a-z]+(?:\s[A-Z][a-z]+)?)\s*[·•]/);
+        if (m && !isFbGeneratedName(m[1])) agentName = m[1].trim();
+      }
+
+      // Strategy 5: Name followed by "新秀贡献者" (FB profile badge)
+      // e.g., "Lau John新秀贡献者 · 3天", "Chin Choy Tan新秀贡献者 · 1天"
+      if (!agentName) {
+        m = text.match(/^([\u4e00-\u9fffA-Za-z][\u4e00-\u9fffA-Za-z\s]{1,25}?)新秀贡献者/);
+        if (m) agentName = m[1].trim();
+      }
+
+      // Strategy 6: English name directly before Chinese text (common FB post openers)
+      // e.g., "Fang Gan你好，我是屋主", "Tracy Yap彩虹花园"
+      if (!agentName) {
+        m = text.match(/^([A-Z][a-z]+(?:[\s'][A-Z][a-z]+){0,3})\s*([\u4e00-\u9fff])/);
+        if (m && !isFbGeneratedName(m[1])) agentName = m[1].trim();
+      }
+
+      // Strategy 7: English name directly before "天赞回复" / "赞回复" / similar
+      // e.g., "Edward Ta Chen TanPandan residence 1 房 全家私 Rm15003天赞回复分享"
+      if (!agentName) {
+        m = text.match(/^([A-Z][a-z]+(?:[\s'][A-Z][a-z]+){0,3}).{0,20}天?赞回复/);
+        if (m && !isFbGeneratedName(m[1])) agentName = m[1].trim();
+      }
+
+      // Filter FB generated usernames
+      if (agentName && isFbGeneratedName(agentName)) {
+        agentName = '';
+      }
+
+      // FB anonymous placeholder — keep it as-is (not an error)
+      if (agentName === '匿名互动者') {
+        // valid FB behavior, no action needed
       }
 
       results.push({ agentName, text, postLink });

@@ -144,7 +144,19 @@
 - **網站狀態**：用戶可訪問網站但未見到房源列表（可能 GitHub Pages 部署延遲或瀏覽器快取）
 - **Tunnel URL 更新**：index.html 中 AUTH_URL=`https://savings-feeling-tips-sellers.trycloudflare.com`
 
-#### 2026-05-31 [AI] (SSOT 同步 + 隧道 cron 清理)
+#### 2026-05-31 [AI] (cookie 过期修复 + 提取逻辑重构 + cron 切 LLM 模式)
+- **故障：** FB cookie 过期导致爬虫静默空跑 12+ 小时（cron last_status=ok 但 5 群 0 条）
+- **修复：** 用 Windows Chrome Control 提取新 cookie（xs+fr 更新）
+- **Windows Chrome Control 流程自动化：** 脚本 `C:\Users\User\Desktop\fb-cookie-extract\get_cookies.js`，连接用户真实 Chrome 提取 FB cookie
+- **fb_extract.js 重构：**
+  - 新增 postLink 过滤：跳过无真实帖子链接的 UI 元素（赞评论、发消息等）
+  - 7 套正则策略提取 agent 名，准确率从 ~30% → 86%
+- **fb_scraper.js 优化：**
+  - 滚动次数 10→5，间隔 4s→2s（4倍提速，单群 ~40s）
+  - 每群 2 分钟超时保护，防止单群挂死
+  - 逐群保存，中断不丢数据
+- **cron 切换：** 爬虫从 no_agent 纯脚本 → LLM 模式，爬取 < 3 条自动告警
+- **SSOT 同步：** MEMORY.md / DEPLOY.md / JOURNAL.md 全部对齐
 - **SSOT 同步**：按 AI Architect Protocol 同步七文檔
 - **刪除隧道自動同步 cron**（`f508f32bed96`）：域名已穩定
 - **MEMORY.md**：新增「Git push 必須用 Windows Git」約束
@@ -156,6 +168,13 @@
 - **auth_server.py**：新增 `/preview` 記憶體快取（TTL 5min），載入從 1.3s → 0.007s
 - **SSOT 同步**：README.md / DEPLOY.md 清除 start_auth.sh / auto_sync_tunnel.sh 全部引用
 - **TODO.md**：新增 ⑤ Infra 完成項（刪隧道 cron）
+
+#### 2026-06-01 [AI] (WA 463 解除 + 恢复推广)
+- **WA 463 已解除（冷却 4 天有效）：** 05-28→06-01，账号恢复正常，可发送消息
+- **确认 daemon 状态：** PID 455，connected=true，`curl POST /send` 返回 `{"ok":true}`
+- **恢复 5 个推广 cron**（时段①~⑤ 10:30-14:30，每个 slot 发 1 人）
+- **取消 2 个 463 复查 cron**（#2 06-01、#3 06-04 无需再跑）
+- **SSOT 同步：** MEMORY.md / TODO.md 更新 463 解决状态
 
 - **2026-05-29 [AI] (FOUC fix + SEO favicon)**
   - 新增 STP logo favicon（.ico + 多尺寸 PNG）+ Apple Touch Icon + manifest.json
