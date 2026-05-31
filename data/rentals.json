@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-05-31T19:32:06.316072+08:00",
-  "total": 974,
+  "updated_at": "2026-05-31T20:03:57.790057+08:00",
+  "total": 975,
   "today_new": 0,
   "top_properties": [
     "R&F Princess Cove",
@@ -15,6 +15,20 @@
     "Trellis Residence"
   ],
   "listings": [
+    {
+      "agent": "Low Chuan Wen",
+      "property": "Sky 88",
+      "type": "出租",
+      "property_type": "公寓",
+      "rooms": "1房",
+      "furnishing": "全家私",
+      "rent": "2,500",
+      "phone": "+60143600945",
+      "link": "https://www.facebook.com/groups/290627785937141/posts/1458191319180776",
+      "remark": "[Group5-租屋] 近CIQ",
+      "scraped_at": "2026-05-31 19:51:36",
+      "post_text": "Low Chuan Wen 29分钟 For Rent JB Town Nearby CIQLOCATIONSetia Sky 88 condo 743sqft1+1 bedroom 2 bathroom Fully furnished Rent 2500━━━━━━━━━━━━━━Wendy Low http://www.wasap.my/60143600945The Roof Realty-TSG Sean Lee http://www.wasap.my/601120797992The Roof Realty-TSG"
+    },
     {
       "agent": "Lovely",
       "property": "",
