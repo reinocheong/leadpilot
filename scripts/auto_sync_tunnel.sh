@@ -5,7 +5,7 @@
 LOCK_FILE="/tmp/auto_sync_tunnel.lock"
 LAST_URL_FILE="/tmp/cf_last_synced_url.txt"
 CURRENT_URL_FILE="/tmp/cf_active_url.txt"
-RENTALS_HTML="/home/user/leadpilot/rentals.html"
+RENTALS_HTML="/home/user/leadpilot/index.html"
 PROJECT_DIR="/home/user/leadpilot"
 
 exec 200>"$LOCK_FILE"
@@ -28,8 +28,8 @@ if [[ "$CURRENT_URL" == "$LAST_URL" ]]; then
     exit 0
 fi
 
-# URL 变了 — 更新 rentals.html
-sed -i "s|const AUTH_URL = 'https://[^']*\.trycloudflare\.com';|const AUTH_URL = '${CURRENT_URL}';|" "$RENTALS_HTML"
+# URL 变了 — 更新 index.html（支援有空格和無空格兩種格式）
+sed -i "s|const AUTH_URL *= *'https://[^']*';|const AUTH_URL='${CURRENT_URL}';|" "$RENTALS_HTML"
 
 # 验证修改是否生效
 if ! grep -qF "$CURRENT_URL" "$RENTALS_HTML"; then
