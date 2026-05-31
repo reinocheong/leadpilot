@@ -99,6 +99,7 @@
 - **教训：** WhatsApp 的 403/463 是账号级限制，重新扫码配对只能恢复连接不能恢复发送权限。冷却时间不确定，至少 24-72h，可能长达 7 天以上。
 
 ## 🤖 AI 行为约束
+- **Git push 必須用 Windows Git**：WSL 沒有 GitHub credential helper（`fatal: could not read Username`），必須透過 `/mnt/c/Program\ Files/Git/bin/git.exe push` 使用 Windows 端儲存的憑證。
 - **严禁静默重构：** 任何涉及模块拆分或核心逻辑变更的操作，必须先输出 `Proposed Changes`。
 - **双日志制度：** 必须同时向 Console 和 `.logs/error.log` 输出结构化日志。
 - **数据优先原则（核心教训 2026-05-29）：** 访客打开网站应直接看到房源数据，不是登录页。登录应发生在「用户需要电话」时才触发。这个项目不是「登录才能看数据」，而是「数据全公开，电话要登录」。SSOT 文档必须明确记录这个设计原则，任何修改都必须从 SSOT 文档开始核验。

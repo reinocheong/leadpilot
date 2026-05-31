@@ -51,8 +51,7 @@
 │
 ├── 🔐 auth/                        ← 阶段④：Google 登录认证
 │   ├── auth_server.py              # 8777端口 (google-auth / data)
-│   ├── lib/sheet_ops.py            # Sheets 读取封装
-│   └── start_auth.sh               # 启动脚本
+│   └── lib/sheet_ops.py            # Sheets 读取封装
 │
 ├── 🌐 index.html                    ← 房源浏览页（数据优先：全部房源可见，电话遮罩，点击弹登录）
 │
@@ -80,7 +79,7 @@
 | ② | 解析 | `python3 processors/fb_parser.py` |
 | ③ | 推广 | `python3 outreach/outreach_engine.py --send` |
 | ④ | 注册 | `python3 sub_mgr.py form-process` |
-| 🔐 | 登录服务 | `bash auth/start_auth.sh` |
+| 🔐 | 登录服务 | `python3 auth/auth_server.py &` |
 | 📊 | 报告 | `python3 scripts/summary_report.py` |
 
 ## 🚨 日志与监控

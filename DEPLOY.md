@@ -64,13 +64,12 @@ pip install google-auth google-api-python-client stripe
 
 ## 启动服务
 
-### Auth Server + Cloudflare Tunnel
+### Auth Server
 
 ```bash
-bash auth/start_auth.sh
+cd /home/user/leadpilot
+python3 auth/auth_server.py &
 ```
-
-启动后 HTTPS 隧道 URL 保存在 `/tmp/cf_active_url.txt`。
 
 ### WhatsApp Daemon — 指数退避重连（2026-05-26）
 
@@ -166,7 +165,7 @@ Cron 每 30 分钟跑 `scripts/export_rentals_json.py`，仅导出到本地 `dat
 - **登录触发**：仅在用户点击遮罩电话或底部预览条「订阅查看联系方式」时，才弹出 Google 登录弹窗
 - **登录方式**：Google 一键登录（OAuth），自动创建3天试用
 - **后端**：`auth/auth_server.py`（Python HTTP）验证 Google ID token → 查/建内部运营 Sheet「授权用户」tab
-- **隧道**：通过 Cloudflare Tunnel 暴露公网 HTTPS，URL 变化由 `scripts/auto_sync_tunnel.sh` 每5分钟自动同步
+- **隧道**：`auth.smart-tenancy-pro.org`（CNAME → hermes-webui tunnel）→ `localhost:8777`，穩定不變
 - **Token**：24h 有效，存 localStorage，登录后无需重复输入
 - **预览数据源**：auth_server 的 `GET /preview` 端点从 Sheet 实时读取全部房源，对 phone 字段执行遮罩后返回（无需登录）
 - **用户管理**：在内部运营 Sheet →「授权用户」tab 加行即可
@@ -191,8 +190,7 @@ Cron 每 30 分钟跑 `scripts/export_rentals_json.py`，仅导出到本地 `dat
 > **2026-05-16 优化：** 除隧道同步外，13个任务已切为 `no_agent=true`（纯脚本模式，零LLM费用）。崩了自动发告警，不再每趟调大模型。Form自动检查已删除（用户改用Google登录）。
 
 | 时间 | 命令 | 工作目录 | 职责 |
-|------|------|----------|------|
-| 每 5 分钟 | `auto_sync_tunnel.sh` | `/home/user/leadpilot` | 🔐 检测 Cloudflare Tunnel URL 变化 → 自动同步 `rentals.html` + commit + push |
+| 每 30 分钟 | `export_rentals_json.py` | `/home/user/leadpilot` | 🏗️ 导出房源 JSON → `data/rentals.json` |
 | 每 30 分钟 (:00/:30) | `node scraper/fb_scraper.js` | `/home/user/leadpilot` | ① 采集 FB 帖子（5 群组） |
 | 每 30 分钟 (:03/:33) | `python3 processors/fb_parser.py` | `/home/user/leadpilot` | ② 解析入 Google Sheets |
 | 每天 10:29 | `python3 outreach/lib/maintain_agents.py` | `/home/user/leadpilot` | ③ 更新 Agent List（去重） |
@@ -382,8 +380,7 @@ Parser 已集成 `normalize_property_name()` + `_is_valid_property_name()`，新
 | Rent 列为空但帖文有价格 | ① 价格被清洗函数吃掉 ② MYR 不被识别 | 已修：提取前先读 raw text + 支持 MYR；回填脚本见 /tmp/backfill_v2.py |
 | Phone 列格式混乱 | ① 旧数据未清洗 ② 新帖 Parser 未规范化 | ① `python3 scripts/clean_phones.py` ② Parser 已集成（2026-05-14） |
 | Sheet 美化后想还原 | 格式太花/不合口味 | `python3 scripts/reset_sheet_format.py` 一键清回裸数据 |
-| rentals.html 登录报错 | auth_server 或 Cloudflare Tunnel 挂了 | `bash auth/start_auth.sh` 重启，检查 `curl .../health`；隧道 URL 变化由 `auto_sync_tunnel.sh` 自动同步，无需手动更新 |
-| 隧道 URL 变了但 rentals.html 仍指向旧地址 | auto_sync 脚本未运行或失败 | 检查 cron `f508f32bed96` 状态；手动执行 `bash /home/user/leadpilot/scripts/auto_sync_tunnel.sh` |
+| rentals.html 登录报错 | auth_server 挂了 | 检查 `curl localhost:8777/health`；运行 `python3 auth/auth_server.py &` 重启 |
 
 ---
 
@@ -397,6 +394,5 @@ Parser 已集成 `normalize_property_name()` + `_is_valid_property_name()`，新
 | 楼盘名清洗 | `scripts/clean_property_names.py` | 一次性标准化 Property Name + 去垃圾 |
 | 租金回填 | `/tmp/backfill_v2.py` | 从 raw JSON 补填空租金（一次性的） |
 | Agent 名清理 | `/tmp/clean_agent_only.py` | 清掉FB随机用户名（一次性的） |
-| 🔐 Auth 服务 | `auth/start_auth.sh` | 启动 auth_server + Cloudflare Tunnel（@reboot cron） |
-| 🔐 隧道同步 | `scripts/auto_sync_tunnel.sh` | 每5分钟检测 Tunnel URL 变化 → 自动更新 `rentals.html` + push（cron 静默） |
+| 🔐 Auth 服务 | `python3 auth/auth_server.py &` | 启动 auth_server（后台常驻，无隧道进程） |
 | 🔐 手动登录测试 | 打开 `https://leadpilot.smart-tenancy-pro.org/` | 测试用户: test@example.com / test123 |

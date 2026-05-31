@@ -51,7 +51,7 @@ graph TD
     subgraph Stage3["③ 推广引擎 (Python)"]
         AgentMaint["maintain_agents.py<br/>标准化·去重·更新"]:::module
         Outreach["outreach_engine.py<br/>配额分配·冷却过滤·发送"]:::module
-        WADaemon["wa_daemon.js<br/>Baileys WS :3456"]:::module
+        WADaemon["wa_daemon3.js<br/>Baileys WS :3456"]:::module
     end
     SheetPublic -->|read| AgentMaint
     AgentMaint -->|write| SheetInternal

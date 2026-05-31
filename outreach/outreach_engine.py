@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import sys, os, json
+import sys, os, json, time
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 sys.path.insert(0, "/home/user/leadpilot")
@@ -23,15 +23,20 @@ def run(dry_run=True, slot=0, total_slots=1):
     
     daily_quota = calculate_dynamic_quota(len(agents), len(records))
     candidates = [a for a in agents if a.get('phone') not in subscribed] # Simplified for brevity
-    slot_candidates = pick_slot_candidates(candidates, slot, total_slots)[:max(1, daily_quota // total_slots)]
+    slot_candidates = pick_slot_candidates(candidates, slot, total_slots)[:1]
     
     sent = 0
     for i, c in enumerate(slot_candidates):
         template = "A" if i % 2 == 0 else "B"
-        if dry_run: log(f"🧪 干跑: {c['phone']} ({template})"); sent += 1
+        if dry_run:
+            log(f"🧪 干跑: {c['phone']} ({template})"); sent += 1
         elif send_whatsapp(c["phone"], template)["ok"]:
             append_outreach_record({"phone": c["phone"], "agent": c["agent"], "template": template, "status": "已发送"})
             sent += 1
+        # 模拟真人：每条间隔 5 分钟，防止被 WhatsApp 判定为批量/机器人行为
+        if i < len(slot_candidates) - 1:
+            log(f"⏳ 等待 5 分钟后发下一条...")
+            time.sleep(300)
     log(f"✅ 完成: 发送 {sent}")
     return {"sent": sent}
 

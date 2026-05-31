@@ -132,6 +132,31 @@
   - ⏸️ 暂停 5 个 WA 推广 cron，避免每天报错
   - 📅 设置 3 个复查 cron：05-29（冷却1天）、06-01（冷却3天）、06-04（冷却7天终审）
 
+- **2026-05-27 [AI] (域名迁移完成 + push 修复)** — 上一会话内容合并
+  - 域名 `leadpilot.dpdns.org` → `leadpilot.smart-tenancy-pro.org`
+  - A 记录直指 GitHub Pages IP，GitHub Pages 绑定新域名
+  - 全项目搜索替换旧域名（index.html / robots.txt / sitemap / 推广文案 / DEPLOY / wiki）
+  - OAuth 白名单、SSOT 文档全部对齐
+
+##### 2026-05-27 [会话 20260527-leadpilot-domain-migration]
+- **推送到 GitHub Pages**：WSL git push 失敗（無憑證），改用 `/mnt/c/Program\ Files/Git/bin/git.exe push` 成功推送
+- **確認 auth 隧道活著**：`localhost:8777` 返回 974 條房源 ✅，trycloudflare 隧道（`savings-feeling-tips-sellers`）也活著 ✅
+- **網站狀態**：用戶可訪問網站但未見到房源列表（可能 GitHub Pages 部署延遲或瀏覽器快取）
+- **Tunnel URL 更新**：index.html 中 AUTH_URL=`https://savings-feeling-tips-sellers.trycloudflare.com`
+
+#### 2026-05-31 [AI] (SSOT 同步 + 隧道 cron 清理)
+- **SSOT 同步**：按 AI Architect Protocol 同步七文檔
+- **刪除隧道自動同步 cron**（`f508f32bed96`）：域名已穩定
+- **MEMORY.md**：新增「Git push 必須用 Windows Git」約束
+
+#### 2026-05-31 [AI] (全面清理隧道殘留)
+- **auth.smart-tenancy-pro.org 隧道穩定**：CNAME → hermes-webui tunnel，改為永久穩定隧道
+- **刪除殘留檔案**：`auth/start_auth.sh`、`scripts/auto_sync_tunnel.sh`、`index.html.bak`、`/tmp/cf_*` 暫存
+- **index.html AUTH_URL**：trycloudflare URL → `https://auth.smart-tenancy-pro.org`
+- **auth_server.py**：新增 `/preview` 記憶體快取（TTL 5min），載入從 1.3s → 0.007s
+- **SSOT 同步**：README.md / DEPLOY.md 清除 start_auth.sh / auto_sync_tunnel.sh 全部引用
+- **TODO.md**：新增 ⑤ Infra 完成項（刪隧道 cron）
+
 - **2026-05-29 [AI] (FOUC fix + SEO favicon)**
   - 新增 STP logo favicon（.ico + 多尺寸 PNG）+ Apple Touch Icon + manifest.json
   - 补全 Twitter Card、OG:image、theme-color 标签

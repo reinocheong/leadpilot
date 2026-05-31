@@ -6,11 +6,15 @@ const { launchBrowser, isBrowserDeadError } = require('./lib/browser');
 
 const COOKIES = [
   { name: 'c_user', value: '100000390330536', domain: '.facebook.com', path: '/' },
-  { name: 'xs', value: '22%3ABP076DDNtD7PnQ%3A2%3A1773550824%3A-1%3A-1%3A%3AAcyGP4bjxP_DCJ2_0QtWjXOyixuonqEp9GVZVBFHKxqA', domain: '.facebook.com', path: '/' },
-  { name: 'fr', value: '1PiOKIuPaPOaaiFOy.AWej3InpwamINJaEWsAoWpdEgyE-4MjsC5A785H0v4lInCXe3yw.BqFbk9..AAA.0.0.BqFcXw.AWdUZnfAzasyV7dQqZA3VzfpxW0', domain: '.facebook.com', path: '/' },
-  { name: 'presence', value: 'C%7B%22t3%22%3A%5B%5D%2C%22utc3%22%3A1779811834430%2C%22v%22%3A1%7D', domain: '.facebook.com', path: '/' },
-  { name: 'datr', value: 'xzy2aXZW-Tjo2NZkem0HL33m', domain: '.facebook.com', path: '/' },
-  { name: 'sb', value: 'yDy2aQZz1vMBpEuPxjI8V2lQ', domain: '.facebook.com', path: '/' }
+  { name: 'xs', value: '23%3AlDHjtTjx1d6-Vg%3A2%3A1776737000%3A-1%3A-1%3A%3AAcxdOaOQwi5foEXD_AP0mhTzRCaw_d96pJ_-qpRqu7k', domain: '.facebook.com', path: '/' },
+  { name: 'fr', value: '17RoKhRsIcHxGAFIl.AWdJRKNs0EI1LSoo9y_1DnxGXF9tEGH_c0wLxmlTdJfuf3688so.BqGbcr..AAA.0.0.BqGbdM.AWfBdFNqGMgSyp9vPHd_KO_uslc', domain: '.facebook.com', path: '/' },
+  { name: 'presence', value: 'C%7B%22t3%22%3A%5B%5D%2C%22utc3%22%3A1780070224796%2C%22v%22%3A1%7D', domain: '.facebook.com', path: '/' },
+  { name: 'datr', value: 'ntrmaR6rfHD9rJJPpRayknuD', domain: '.facebook.com', path: '/' },
+  { name: 'sb', value: 'ntrmaWofpCMZddKjNupoUhwo', domain: '.facebook.com', path: '/' },
+  { name: 'dpr', value: '1.25', domain: '.facebook.com', path: '/' },
+  { name: 'ps_l', value: '1', domain: '.facebook.com', path: '/', sameSite: 'Lax' },
+  { name: 'ps_n', value: '1', domain: '.facebook.com', path: '/' },
+  { name: 'wd', value: '982x826', domain: '.facebook.com', path: '/', sameSite: 'Lax' }
 ];
 const GROUPS = [{ id: '1467428250213843', name: 'JB新山租房与出租' }, { id: '1313487628797877', name: 'Group2' }, { id: '801784763175081', name: 'Group3-房屋出租' }, { id: 'JBPropertyForSalesRent', name: 'JB Property For Sales/Rent' }, { id: '290627785937141', name: 'Group5-租屋' }];
 const OUTPUT_JSON = '/home/user/fb_data/fb_posts_raw.json';

@@ -203,3 +203,17 @@ Browser logs:
 [pid=35938][err] 
     at async scrapeGroup (/home/user/jb-rental-intel/scraper/fb_scraper.js:15:15)
     at async /home/user/jb-rental-intel/scraper/fb_scraper.js:40:17
+[2026-05-26T00:01:49.625Z] [scraper/fb_scraper.js] [L22] -> page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/290627785937141", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:17:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:40:17
+[2026-05-28T15:18:55.966Z] [scraper/fb_scraper.js] [L22] -> page.waitForTimeout: Target page, context or browser has been closed
+    at scrollToLoadPosts (/home/user/leadpilot/scraper/fb_scraper.js:23:16)
+    at async scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:34:5)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:56:17
+[2026-05-29T06:31:41.209Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.waitForTimeout: Target page, context or browser has been closed
+    at scrollToLoadPosts (/home/user/leadpilot/scraper/fb_scraper.js:34:16)
+    at async scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:48:5)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:77:17

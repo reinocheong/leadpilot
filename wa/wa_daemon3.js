@@ -1,44 +1,29 @@
 const { default: makeWASocket, useMultiFileAuthState } = require("@whiskeysockets/baileys");
 const http = require('http');
-const { handleIncomingMessage } = require('./lib/message_router');
+const fs = require('fs');
+const path = require('path');
+const { spawn } = require('child_process');
+
+const SESSION_DIR = path.resolve(__dirname, 'wa_session');
+const QR_TEXT_FILE = '/tmp/wa_qr.txt';
+const QR_IMAGE_FILE = '/tmp/wa_qr.png';
+
+// Do NOT clear session — preserve paired credentials
+// Only clear when explicitly re-pairing
 
 let sock = null;
 let wsConnected = false;
-
-// ── 指数退避重连（防封） ──
 let backoffMinutes = 0;
 let reconnectTimer = null;
 
-// ── 配对码支持 ──
-const PHONE_NUMBER = process.env.WA_PHONE || '60134431104';
-
+// HTTP server
 const server = http.createServer((req, res) => {
   res.setHeader('Content-Type', 'application/json');
-
   if (req.url === '/health') {
     res.end(JSON.stringify({ ok: true, pid: process.pid, connected: wsConnected, uptime: process.uptime().toFixed(0) }));
     return;
   }
-
-  // GET /pair — 生成配对码
-  if (req.url.startsWith('/pair')) {
-    if (!sock) {
-      res.end(JSON.stringify({ ok: false, error: 'sock not ready' }));
-      return;
-    }
-    const phone = new URL(req.url, 'http://localhost').searchParams.get('phone') || PHONE_NUMBER;
-    sock.requestPairingCode(phone).then(code => {
-      const formatted = code.match(/.{1,4}/g)?.join('-') || code;
-      console.log(`[wa_daemon] 🔑 配对码: ${formatted} (${phone})`);
-      require('fs').writeFileSync('/tmp/wa_pairing_code.txt', formatted);
-      res.end(JSON.stringify({ ok: true, code: formatted, phone }));
-    }).catch(e => {
-      res.end(JSON.stringify({ ok: false, error: e.message }));
-    });
-    return;
-  }
-
-  if (req.url.startsWith('/send') && req.method === 'POST') {
+  if (req.url === '/send' && req.method === 'POST') {
     let body = '';
     req.on('data', chunk => body += chunk);
     req.on('end', async () => {
@@ -49,7 +34,7 @@ const server = http.createServer((req, res) => {
         if (!sock) { res.end(JSON.stringify({ ok: false, error: 'WhatsApp not connected' })); return; }
         await sock.sendMessage(jid, { text: message });
         console.log(`[wa_daemon] ✅ 已发送给 ${phone}`);
-        res.end(JSON.stringify({ ok: true, queued: false }));
+        res.end(JSON.stringify({ ok: true }));
       } catch (e) {
         console.error(`[wa_daemon] ❌ 发送失败: ${e.message}`);
         res.statusCode = 500; res.end(JSON.stringify({ ok: false, error: e.message }));
@@ -57,15 +42,14 @@ const server = http.createServer((req, res) => {
     });
     return;
   }
-
   res.statusCode = 404;
-  res.end(JSON.stringify({ ok: false, error: 'not found' }));
+  res.end(JSON.stringify({ ok: false }));
 });
 server.listen(3456);
-console.log('[wa/wa_daemon.js] 服务运行在 3456');
+console.log('[wa_daemon] HTTP server on :3456');
 
 async function startSock() {
-  const { state, saveCreds, saveState } = await useMultiFileAuthState('wa_session');
+  const { state, saveCreds } = await useMultiFileAuthState(SESSION_DIR);
   sock = makeWASocket({
     auth: state,
     shouldSyncLogicMessage: () => true,
@@ -75,41 +59,50 @@ async function startSock() {
     browser: ['Chrome (Linux)', '', ''],
   });
 
-  // ── Connection state tracking + 指数退避重连 ──
   sock.ev.on('connection.update', ({ connection, lastDisconnect, qr }) => {
     if (qr) {
-      console.log('[wa_daemon] 📱 QR code:');
-      console.log(qr);
-      require('fs').writeFileSync('/tmp/wa_qr.txt', qr);
-      require('fs').appendFileSync('/home/user/leadpilot/.logs/wa_daemon.log', `[${new Date().toISOString()}] QR generated\n`);
+      console.log('[wa_daemon] 📱 QR generated');
+      fs.writeFileSync(QR_TEXT_FILE, qr);
+
+      // Spawn Python to generate QR image immediately
+      const py = spawn('python3', ['-c', `
+import qrcode, sys
+qr_str = sys.stdin.read().strip()
+qr = qrcode.QRCode(version=None, error_correction=qrcode.constants.ERROR_CORRECT_M, box_size=10, border=4)
+qr.add_data(qr_str)
+qr.make(fit=True)
+img = qr.make_image(fill_color="black", back_color="white")
+img.save("/tmp/wa_qr.png")
+print("QR_IMAGE_SAVED")
+      `]);
+      py.stdin.write(qr);
+      py.stdin.end();
+      py.stdout.on('data', d => console.log('[qrgen]', d.toString().trim()));
+      py.stderr.on('data', d => console.error('[qrgen]', d.toString().trim()));
+
       wsConnected = false;
-      backoffMinutes = 0;
       return;
     }
 
     if (connection === 'open') {
       wsConnected = true;
       backoffMinutes = 0;
-      console.log('[wa_daemon] 🔗 WhatsApp 已连接（退避已重置）');
+      console.log('[wa_daemon] ✅ CONNECTED - WhatsApp linked!（退避已重置）');
+      // Write a signal file so we know it's connected
+      fs.writeFileSync('/tmp/wa_connected.txt', new Date().toISOString());
     } else if (connection === 'close') {
       wsConnected = false;
-      const errInfo = {
-        statusCode: lastDisconnect?.error?.output?.statusCode,
-        message: lastDisconnect?.error?.message,
-        data: lastDisconnect?.error?.data,
-      };
-      console.log('[wa_daemon] 🔌 断开详情:', JSON.stringify(errInfo));
-      require('fs').appendFileSync('/home/user/leadpilot/.logs/wa_daemon.log', `[${new Date().toISOString()}] Disconnect: ${JSON.stringify(errInfo)}\n`);
-
       const statusCode = lastDisconnect?.error?.output?.statusCode;
-      const shouldReconnect =
-        statusCode !== 401 &&  // 401 = logout, 不重连
-        statusCode !== 403;    // 403 = 被封/限流, 不重连
+      const errInfo = {
+        statusCode,
+        message: lastDisconnect?.error?.message,
+      };
+      console.log('[wa_daemon] 🔌 Disconnected:', JSON.stringify(errInfo));
 
-      if (shouldReconnect) {
-        // 指数退避：5分 → 10分 → 20分 → 40分 → 60分（上限）
+      if (statusCode !== 401 && statusCode !== 403) {
+        // 指数退避重连：5分 → 10分 → 20分 → 40分 → 60分（上限）
         backoffMinutes = Math.min(Math.max(backoffMinutes * 2, 5), 60);
-        console.log(`[wa_daemon] ⏳ ${backoffMinutes} 分钟后重连...`);
+        console.log(`[wa_daemon] ⏳ ${backoffMinutes} 分钟后重连...（防封）`);
 
         if (reconnectTimer) clearTimeout(reconnectTimer);
         reconnectTimer = setTimeout(() => {
@@ -120,13 +113,15 @@ async function startSock() {
         }, backoffMinutes * 60 * 1000);
       } else {
         console.log(`[wa_daemon] 🛑 停止重连（statusCode=${statusCode}，需手动处理）`);
+        process.exit(1);
       }
     }
   });
 
   sock.ev.on('creds.update', saveCreds);
-  sock.ev.on('messages.upsert', m => handleIncomingMessage(sock, m));
-
 }
 
-startSock();
+startSock().catch(e => {
+  console.error('[wa_daemon] Fatal:', e.message);
+  process.exit(1);
+});
