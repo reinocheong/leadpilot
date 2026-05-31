@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import json, hashlib, secrets, os, sys, urllib.request
+import json, hashlib, secrets, os, sys, urllib.request, time
 from datetime import datetime, timedelta
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
@@ -21,6 +21,19 @@ def gen_token(): return secrets.token_urlsafe(36)
 
 # ── Session 存储（内存，重启后失效——token 24h 内有效）──
 sessions = {}  # token -> {"email": ..., "name": ..., "expires": ...}
+
+# ── Preview 快取（TTL 5 分鐘，減少 Sheets API 調用）──
+preview_cache = {"data": None, "ts": 0}
+PREVIEW_CACHE_TTL = 300  # 5 分钟
+
+def get_preview_cached():
+    now = time.time()
+    if now - preview_cache["ts"] < PREVIEW_CACHE_TTL and preview_cache["data"] is not None:
+        return preview_cache["data"]
+    data = get_preview_data()
+    preview_cache["data"] = data
+    preview_cache["ts"] = now
+    return data
 
 def find_user(email):
     rows = read_sheet(INTERNAL_SHEET_ID, '授权用户!A:F')
@@ -195,8 +208,22 @@ class AuthHandler(BaseHTTPRequestHandler):
             self._json({'ok': True})
 
         elif path == '/preview':
-            data = get_preview_data()
+            data = get_preview_cached()
             self._json(data)
+
+        elif path == '/':
+            # Serve pre-rendered index.html (static site)
+            index_path = os.path.join(os.path.dirname(__file__), '..', 'index.html')
+            if os.path.exists(index_path):
+                with open(index_path, 'rb') as f:
+                    html = f.read()
+                self.send_response(200)
+                self.send_header('Content-Type', 'text/html; charset=utf-8')
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
+                self.wfile.write(html)
+            else:
+                self._json({'error': 'Static site not found'}, 500)
 
         elif path == '/data':
             token = params.get('token', [None])[0]
