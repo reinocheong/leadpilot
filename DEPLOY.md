@@ -187,7 +187,7 @@ Cron 每 30 分钟跑 `scripts/export_rentals_json.py`，仅导出到本地 `dat
 
 ## Cron 调度（全链路自动化）
 
-> **2026-05-16 优化：** 除隧道同步外，13个任务已切为 `no_agent=true`（纯脚本模式，零LLM费用）。崩了自动发告警，不再每趟调大模型。Form自动检查已删除（用户改用Google登录）。
+> **2026-05-16 优化：** 13个任务已切为 `no_agent=true`（纯脚本模式，零LLM费用）。崩了自动发告警，不再每趟调大模型。Form自动检查已删除（用户改用Google登录）。
 
 | 时间 | 命令 | 工作目录 | 职责 |
 | 每 30 分钟 | `export_rentals_json.py` | `/home/user/leadpilot` | 🏗️ 导出房源 JSON → `data/rentals.json` |

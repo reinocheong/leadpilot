@@ -83,9 +83,10 @@
 - **决策：** 每天仅推广 5-10 人，且分 5 个时段。
 - **理由：** 马来西亚 WhatsApp 账号成本高，安全第一，牺牲速度换取账号持久度。
 
-### 3. 隧道 URL 自动同步
-- **决策：** 通过 `auto_sync_tunnel.sh` 检测 URL 变化并自动 git push 修改 `rentals.html`。
-- **理由：** 临时解决方案，避免手动更新 URL。长期应考虑固定二级域名。
+### 3. 隧道 URL 自动同步（已廢除 2026-05-31）
+- ~~**决策：** 通过 `auto_sync_tunnel.sh` 检测 URL 变化并自动 git push 修改 `rentals.html`。~~
+- ~~**理由：** 临时解决方案，避免手动更新 URL。长期应考虑固定二级域名。~~
+- **現狀：** `auth.smart-tenancy-pro.org` CNAME → hermes-webui tunnel，永久穩定，不再需要自動同步
 
 ### 11. WA error 463 — 账号级限制 (2026-05-28)
 - **现象：** daemon 连接正常、`/send` 正常，但每条消息报 `error 463: account restricted or missing tctoken for contact`，用户 WhatsApp 看不到消息发出。
