@@ -191,3 +191,8 @@
     - `#crawler-samples` SEO 数据区隐藏（`display:none`，爬虫照读 DOM）
     - 更新 Cloudflare Tunnel URL → `authorization-alpha-etc-searched.trycloudflare.com`
     - **七文档SSOT同步**：USER/README/ARCHITECTURE/DEPLOY/TODO/JOURNAL/MEMORY 全部对齐
+
+#### 2026-06-02 [AI] (修复 Telegram Bot 链接)
+- **问题：** `index.html` 和 `rentals.html` 的 📄 合同Bot链接指向 `@smarttenancypro_bot`，这不是真正的 Telegram Bot（t.me 返回 "Contact" 而非 "Launch"），用户点击后无法聊天
+- **根因：** 正确 bot 用户名是 `@smarttenancy_bot`（`landing.html` 已正确引用），但 index/rentals 用了错误的旧名 `smarttenancypro_bot`
+- **修复：** 3 个文件 6 处 `smarttenancypro_bot` → `smarttenancy_bot`（index.html×2, rentals.html×2, notify_subscribers.py×2）

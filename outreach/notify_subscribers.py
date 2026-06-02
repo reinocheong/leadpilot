@@ -24,9 +24,9 @@ NOTIFY_CMD = ["node", os.path.join(PROJECT_ROOT, "wa", "wa_notify.js"), "send"]
 MY_TZ_OFFSET = timedelta(hours=8)
 
 SHEET_URL = "https://leadpilot.smart-tenancy-pro.org/"
-BOT_LINK = "→ @smarttenancypro_bot"
+BOT_LINK = "→ @smarttenancy_bot"
 
-BOT_PITCH = "需要做租约合同或 stamping？试试我们的 Telegram Bot → @smarttenancypro_bot"
+BOT_PITCH = "需要做租约合同或 stamping？试试我们的 Telegram Bot → @smarttenancy_bot"
 
 # ── Time-of-day messages ──
 MESSAGES = {
