@@ -196,3 +196,11 @@
 - **问题：** `index.html` 和 `rentals.html` 的 📄 合同Bot链接指向 `@smarttenancypro_bot`，这不是真正的 Telegram Bot（t.me 返回 "Contact" 而非 "Launch"），用户点击后无法聊天
 - **根因：** 正确 bot 用户名是 `@smarttenancy_bot`（`landing.html` 已正确引用），但 index/rentals 用了错误的旧名 `smarttenancypro_bot`
 - **修复：** 3 个文件 6 处 `smarttenancypro_bot` → `smarttenancy_bot`（index.html×2, rentals.html×2, notify_subscribers.py×2）
+
+#### 2026-06-03 [AI] (修复 Auth Server 不稳定 + WA health check)
+- **问题：** auth server 每天不定时崩溃（`BrokenPipeError`），导致网页兜底显示登录页
+- **根因：** Python `http.server` 在客户端断连时抛 `BrokenPipeError` 未被捕获 → 进程崩溃
+- **修复：**
+  - 代码层：`main()` 函数加 `while True` + try/except，崩了 3s 内自恢复
+  - 系统层：建 systemd 用户服务 `leadpilot-auth.service`（`Restart=always` + 开机自启）
+- **WA health check (0726e4d2f86f)：** 当时 daemon 刚重启未连接，下次调度已通过

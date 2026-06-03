@@ -110,4 +110,12 @@
 - **自动化：** `C:\Users\User\Desktop\fb-cookie-extract\get_cookies.js`（Playwright + CDP 连接真实 Chrome 取 cookie）
 - **防护：** 爬虫 cron 切为 LLM 模式，产出 < 3 条自动告警
 - **教训：** no_agent 模式无法检测「脚本没崩但产出异常」。静默空跑是最隐蔽的故障。
+
+### 13. Auth Server BrokenPipeError 崩溃 (2026-06-03，已修复)
+- **现象：** auth server 每天不定时挂掉，网页显示登录页而非房源数据
+- **根因：** Python 内置 `http.server`（`HTTPServer`）的 `BaseHTTPRequestHandler` 在客户端断连时抛 `BrokenPipeError` → 进程死 → tunnel 继续转发返回 502
+- **修复：**
+  1. 代码：`main()` 函数改为 `while True` + `try/except Exception`，崩了 3s 内自重启
+  2. 系统：创建 systemd user service（`leadpilot-auth.service`），`Restart=always` + 开机自启
+- **教训：** Python `http.server` 不适合线上使用。`BrokenPipeError` 是常见但隐蔽的崩溃源（进程死但无 traceback 写到日志文件）。生产服务需要（1）代码层自恢复循环（2）系统层守护双重防护。
   

@@ -315,9 +315,19 @@ class AuthHandler(BaseHTTPRequestHandler):
             self._json({'error': 'Not found'}, 404)
 
 def main():
-    server = HTTPServer(('0.0.0.0', PORT), AuthHandler)
-    log_msg(f"Auth server running on {PORT}")
-    server.serve_forever()
+    while True:
+        try:
+            server = HTTPServer(('0.0.0.0', PORT), AuthHandler)
+            server.timeout = 60
+            log_msg(f"Auth server running on {PORT}")
+            server.serve_forever()
+        except KeyboardInterrupt:
+            log_msg("Server stopped by user")
+            break
+        except Exception as e:
+            log_msg(f"Server crashed: {e}, restarting in 3s...")
+            time.sleep(3)
+            continue
 
 if __name__ == '__main__':
     main()
