@@ -27,23 +27,12 @@ def gen_sitemap(listings):
         'changefreq': 'daily',
         'priority': '1.0',
     })
-    # Crawler page (all listings in one table)
+    # Crawler page (all listings pre-rendered for AI search / Google)
     pages.append({
         'loc': BASE_URL + '/crawler-listings.html',
-        'changefreq': 'daily',
+        'changefreq': 'hourly',
         'priority': '0.9',
     })
-    # Each listing as a filterable URL
-    for i, l in enumerate(listings):
-        prop = l.get('property') or l.get('property_name') or ''
-        slug = prop.lower().replace(' ', '-')[:50]
-        slug = ''.join(c for c in slug if c.isalnum() or c == '-') or f'listing-{i}'
-        pages.append({
-            'loc': f'{BASE_URL}/?id={i}',
-            'changefreq': 'weekly',
-            'priority': '0.6',
-            'lastmod': (l.get('scraped_at') or '')[:10],
-        })
     return pages
 
 def write_sitemap(pages):

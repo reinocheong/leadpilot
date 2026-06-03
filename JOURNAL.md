@@ -204,3 +204,8 @@
   - 代码层：`main()` 函数加 `while True` + try/except，崩了 3s 内自恢复
   - 系统层：建 systemd 用户服务 `leadpilot-auth.service`（`Restart=always` + 开机自启）
 - **WA health check (0726e4d2f86f)：** 当时 daemon 刚重启未连接，下次调度已通过
+
+#### 2026-06-03 [AI] (v2 — 修复 SEO sitemap 塞满无意义参数链接)
+- **问题：** Google Search Console 显示 893 条「已发现 - 尚未索引」
+- **根因：** `gen_sitemap.py` 给 1067 个 `?id=N` 参数链接提 sitemap（全是同一个 SPA 页面），Google 发现大量重复内容 → 全不索引，浪费抓取配额
+- **修复：** 删掉 `?id=N` 批量生成，sitemap 只保留 2 个真实页面（`/` 和 `/crawler-listings.html`）
