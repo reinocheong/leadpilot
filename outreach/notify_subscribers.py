@@ -202,7 +202,6 @@ def main():
     # Production: send to all active subscribers
     subscribers = get_active_subscribers()
     if not subscribers:
-        print(f"⚠️ 没有活跃订阅用户，跳过 {BATCH_LABELS.get(batch, batch)}")
         return
 
     msg_template = MESSAGES[batch]
