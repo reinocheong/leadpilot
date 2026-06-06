@@ -5,17 +5,20 @@ const { extractPosts } = require('./lib/fb_extract');
 const { launchBrowser, isBrowserDeadError } = require('./lib/browser');
 
 const COOKIES = [
-  { name: 'c_user', value: '100000390330536', domain: '.facebook.com', path: '/' },
-  { name: 'xs', value: '5%3A7C-XPHI0mcU5uA%3A2%3A1780704101%3A-1%3A-1%3A%3AAcxJAE6C474aQBKhf5qextbKqC5TjIzFCz6NXKXLOw', domain: '.facebook.com', path: '/' },
-  { name: 'fr', value: '1F6T698gkEKiosGmv.AWfxtdOWmiTcYJZGEG6o15t2qnoYN5ushRwOId8lMbZOqMLA3Ys.BqI4JH..AAA.0.0.BqI4Zb.AWe-5Si-I9lMSQDiZZ_WESbj840', domain: '.facebook.com', path: '/' },
-  { name: 'datr', value: 'ntrmaR6rfHD9rJJPpRayknuD', domain: '.facebook.com', path: '/' },
-  { name: 'sb', value: 'ntrmaWofpCMZddKjNupoUhwo', domain: '.facebook.com', path: '/' },
-  { name: 'dpr', value: '1.25', domain: '.facebook.com', path: '/' },
-  { name: 'ps_l', value: '1', domain: '.facebook.com', path: '/', sameSite: 'Lax' },
-  { name: 'ps_n', value: '1', domain: '.facebook.com', path: '/' },
-  { name: 'wd', value: '982x826', domain: '.facebook.com', path: '/', sameSite: 'Lax' }
+  { name: 'c_user', value: '61590420160900', domain: '.facebook.com', path: '/' },
+  { name: 'xs', value: '40%3AtWLTACkXlASbLw%3A2%3A1780720566%3A-1%3A-1%3A%3AAcz6FCSCBXq9kN2dZxiaNC6SpQnRFkRFI38yWL8izg', domain: '.facebook.com', path: '/' },
+  { name: 'fr', value: '1FjuMbNPuMuIWDYAo.AWf56g2CWiX89IiRg9Z6eunuIQp6W9wVnO3I9bxrfMO-nlICg6M.BqI6O6..AAA.0.0.BqI6j7.AWeDSUBK8II6CWgWBP-VVMmZbrg', domain: '.facebook.com', path: '/' },
 ];
-const GROUPS = [{ id: '1467428250213843', name: 'JB新山租房与出租' }, { id: '1313487628797877', name: 'Group2' }, { id: '801784763175081', name: 'Group3-房屋出租' }, { id: 'JBPropertyForSalesRent', name: 'JB Property For Sales/Rent' }, { id: '290627785937141', name: 'Group5-租屋' }];
+const GROUPS = [
+  { id: '1467428250213843', name: 'JB新山租房与出租' },
+  { id: '1729282070619968', name: 'Group2' },
+  { id: '858717724308696', name: 'JB Property For Sales/Rent' },
+  { id: '457010468361601', name: 'Group4' },
+  { id: '801784763175081', name: 'Group3-房屋出租' },
+  { id: '290627785937141', name: 'Group5-租屋' },
+  { id: '1146057718813207', name: 'Group6' },
+  { id: '1918174271803095', name: 'Group7' },
+];
 const OUTPUT_JSON = '/home/user/fb_data/fb_posts_raw.json';
 const MAX_SCROLL_ATTEMPTS = 5;
 const SCROLL_WAIT_MS = 2000;
@@ -42,7 +45,7 @@ async function scrapeGroup(browser, groupId, groupName) {
   console.log(`[scraper/fb_scraper.js][${groupName}] 开始抓取`);
   let context = null, page = null, posts = [];
   let timedOut = false;
-  const TIMEOUT_MS = 120000; // 2 min per group max
+  const TIMEOUT_MS = 90000; // 90s per group max (8 groups × 90s = 12min worst case)
   try {
     context = await browser.newContext({ userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', locale: 'zh-CN' });
     await context.addCookies(COOKIES);
