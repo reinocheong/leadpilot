@@ -24,3 +24,4 @@ outreach/agent_phones.txt
 # Node
 package-lock.json
 node_modules/
+data/rentals-preview.json
