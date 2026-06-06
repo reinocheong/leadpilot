@@ -138,6 +138,19 @@ def mask_phone(phone):
         return p + '****'
     return p[:5] + '****'
 
+def paginate_listings(listings, limit=50, offset=0):
+    """Slice listings into a page with pagination metadata."""
+    total = len(listings)
+    page = listings[offset:offset + limit]
+    has_more = (offset + limit) < total
+    next_off = offset + limit if has_more else None
+    return {
+        'listings': page,
+        'total': total,
+        'has_more': has_more,
+        'pagination': {'limit': limit, 'offset': offset, 'next_offset': next_off}
+    }
+
 def get_preview_data():
     """Return ALL listings for unauthenticated preview, with masked phone numbers.
     Reads from local rentals.json (updated every 30min by crawler cron) for speed."""
@@ -253,7 +266,31 @@ class AuthHandler(BaseHTTPRequestHandler):
 
         elif path == '/preview':
             data = get_preview_cached()
-            self._json(data)
+            limit = min(int(params.get('limit', [50])[0]), 200)
+            offset = int(params.get('offset', [0])[0])
+            result = paginate_listings(data.get('listings', []), limit, offset)
+            result['updated_at'] = data.get('updated_at')
+            result['top_properties'] = data.get('top_properties', [])
+            self._json(result)
+
+        elif path == '/preview/search':
+            data = get_preview_cached()
+            q = params.get('q', [''])[0].lower().strip()
+            limit = min(int(params.get('limit', [50])[0]), 200)
+            offset = int(params.get('offset', [0])[0])
+            if q:
+                items = data.get('listings', [])
+                q_parts = q.split()
+                filtered = [l for l in items if all(
+                    p in '|'.join(str(v or '') for v in l.values()).lower()
+                    for p in q_parts
+                )]
+                result = paginate_listings(filtered, limit, offset)
+            else:
+                result = paginate_listings(data.get('listings', []), limit, offset)
+                result['updated_at'] = data.get('updated_at')
+            result['top_properties'] = data.get('top_properties', [])
+            self._json(result)
 
         elif path == '/':
             # Serve pre-rendered index.html (static site)

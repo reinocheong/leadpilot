@@ -850,6 +850,8 @@
   <div class="skeleton"><div class="sk-line"></div><div class="sk-line w3"></div><div class="sk-line w2"></div></div>
   <div class="skeleton"><div class="sk-line"></div><div class="sk-line w3"></div><div class="sk-line w2"></div></div>
 </div>
+<div id="sentinel" style="height:1px"></div>
+<div id="loadMoreIndicator" style="display:none;text-align:center;padding:0.8rem 0.5rem;color:#64748b;font-size:0.7rem">⏳ 加载更多...</div>
 
 <p class="footnote">每 30 分钟自动更新 · 数据只读不写 Sheets · <a href="#" onclick="doLogout()" style="color:var(--text-muted)">退出登录</a></p>
 
@@ -863,6 +865,20 @@ const NAME_KEY = 'jb_rentals_name';
 // ── Data ──────────────────────────────────────────────────
 let DATA = { total: 0, today_new: 0, listings: [], top_properties: [] };
 let activeTag = '';
+
+// Preview pagination state
+const PAGE_SIZE = 50;
+let previewState = {
+  listings: [],
+  total: 0,
+  hasMore: true,
+  loading: false,
+  offset: 0,
+  searchQuery: '',
+  isSearching: false,
+  observer: null,
+  _fetchGen: 0,
+};
 
 // ── Auth ──────────────────────────────────────────────────
 function getToken() { return localStorage.getItem(TOKEN_KEY); }
@@ -894,19 +910,99 @@ function showPayWall() {
   document.getElementById('listings').style.display = 'none';
 }
 
-// ── Preview mode ──────────────────────────────────────────
+// ── Preview mode (paginated) ──────────────────────────────
 async function loadPreview() {
-  const r = await fetch(AUTH_URL + '/preview');
-  // Using AUTH_URL direct: auth server reads from local file (0.04s) + gzip (178KB)
-  DATA = await r.json();
-  if (DATA.error) throw new Error(DATA.error);
-  DATA.preview = true;
-  // Show listing dashboard with masked phone numbers
+  // Reset pagination state
+  previewState = { ...previewState, listings: [], total: 0, hasMore: true, loading: false, offset: 0, searchQuery: '', isSearching: false };
+  await loadMorePreviews();
+  // Show listing dashboard
   document.querySelector('.top-bar').style.display = '';
   document.getElementById('listings').style.display = '';
-  renderStats();
-  renderTags();
-  filter();
+  document.getElementById('previewCount').textContent = previewState.total + ' 套房源';
+  // Setup infinite scroll
+  setupInfiniteScroll();
+}
+
+async function loadMorePreviews() {
+  if (previewState.loading || !previewState.hasMore) return;
+  previewState.loading = true;
+  const myGen = previewState._fetchGen;
+  document.getElementById('loadMoreIndicator').style.display = '';
+
+  let url;
+  if (previewState.isSearching) {
+    url = AUTH_URL + '/preview/search?q=' + encodeURIComponent(previewState.searchQuery)
+      + '&limit=' + PAGE_SIZE + '&offset=' + previewState.offset;
+  } else {
+    url = AUTH_URL + '/preview?limit=' + PAGE_SIZE + '&offset=' + previewState.offset;
+  }
+
+  try {
+    const r = await fetch(url);
+    const data = await r.json();
+    if (data.error) throw new Error(data.error);
+    // Discard if a newer search has superseded this fetch
+    if (myGen !== previewState._fetchGen) {
+      previewState.loading = false;
+      document.getElementById('loadMoreIndicator').style.display = 'none';
+      return;
+    }
+
+    previewState.total = data.total || 0;
+    previewState.hasMore = data.has_more || false;
+    previewState.offset = (data.pagination && data.pagination.next_offset) || previewState.offset;
+    DATA.total = previewState.total;
+    DATA.today_new = 0;
+    DATA.top_properties = data.top_properties || [];
+
+    if (previewState.offset === PAGE_SIZE) {
+      // First page — replace
+      DATA.preview = true;
+      previewState.listings = data.listings || [];
+      DATA.listings = previewState.listings;
+      renderStats();
+      renderTags();
+      renderListings();
+    } else {
+      // Subsequent pages — append
+      const newItems = data.listings || [];
+      previewState.listings = previewState.listings.concat(newItems);
+      DATA.listings = previewState.listings;
+      appendListings(newItems);
+    }
+
+    if (!previewState.hasMore) {
+      document.getElementById('loadMoreIndicator').textContent = '— 已加载全部 ' + previewState.total + ' 条 —';
+      if (previewState.observer) previewState.observer.disconnect();
+    }
+  } catch(e) {
+    document.getElementById('loadMoreIndicator').textContent = '⚠ 加载失败';
+  } finally {
+    previewState.loading = false;
+    if (!previewState.hasMore) return;
+    document.getElementById('loadMoreIndicator').style.display = 'none';
+  }
+}
+
+function setupInfiniteScroll() {
+  const sentinel = document.getElementById('sentinel');
+  if (!sentinel) return;
+  if (previewState.observer) previewState.observer.disconnect();
+  previewState.observer = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && previewState.hasMore && !previewState.loading) {
+      loadMorePreviews();
+    }
+  }, { rootMargin: '400px' });
+  previewState.observer.observe(sentinel);
+}
+
+function resetPreviewSearch() {
+  previewState._fetchGen++;
+  previewState.listings = [];
+  previewState.offset = 0;
+  previewState.hasMore = true;
+  previewState.isSearching = !!previewState.searchQuery;
+  loadMorePreviews();
 }
 
 function showLoginFromPreview() {
@@ -1048,8 +1144,24 @@ function selectTag(tag, el) {
   filter();
 }
 
+let searchDebounce = null;
+
 function filter() {
   const q = document.getElementById('search').value.toLowerCase().trim();
+  
+  if (DATA.preview) {
+    clearTimeout(searchDebounce);
+    searchDebounce = setTimeout(() => {
+      if (q !== previewState.searchQuery || (!q && previewState.isSearching)) {
+        previewState.searchQuery = q;
+        previewState.isSearching = !!q;
+        resetPreviewSearch();
+      }
+    }, 350);
+    return;
+  }
+  
+  // Authenticated mode — client-side search (fast, data already loaded)
   renderListings(q);
 }
 
@@ -1087,9 +1199,12 @@ function accentClass(type) {
 }
 
 function renderListings(q) {
-  let items = DATA.listings;
-  if (activeTag) items = items.filter(l => (l.property || '').includes(activeTag));
-  if (q) {
+  let items = DATA.listings || [];
+  if (!DATA.preview && activeTag) {
+    items = items.filter(l => (l.property || '').includes(activeTag));
+  }
+  if (q && !DATA.preview) {
+    // Client-side search (authenticated mode)
     items = items.filter(l => {
       const blob = [l.property, l.agent, l.property_type, l.type, l.remark, l.furnishing, l.post_text].join('|').toLowerCase();
       return blob.includes(q);
@@ -1101,62 +1216,68 @@ function renderListings(q) {
     return;
   }
 
-  const html = items.map(l => {
-    const isNew = isToday(l.scraped_at);
-    const postText = l.post_text || '';
-    const short = postText.length <= 80;
-    let postCls = short ? '' : 'collapsed';
-    let postClick = short ? '' : ' onclick="togglePost(this)"';
+  document.getElementById('listings').innerHTML = items.map(cardHtml).join('');
+}
 
-    let chips = [];
-    if (l.type) chips.push(`<span class="chip type-chip">${esc(l.type)}</span>`);
-    if (l.property_type) chips.push(`<span class="chip">${esc(l.property_type)}</span>`);
-    if (l.rooms) chips.push(`<span class="chip">${esc(l.rooms)}</span>`);
-    if (l.furnishing) chips.push(`<span class="chip furnish-chip">${esc(l.furnishing)}</span>`);
-    if (l.remark) chips.push(`<span class="chip">${esc(l.remark)}</span>`);
+function appendListings(newItems) {
+  if (!newItems || !newItems.length) return;
+  const el = document.getElementById('listings');
+  el.insertAdjacentHTML('beforeend', newItems.map(cardHtml).join(''));
+}
 
-    const rent = l.rent ? fmtRent(l.rent) : '';
+function cardHtml(l) {
+  const isNew = isToday(l.scraped_at);
+  const postText = l.post_text || '';
+  const short = postText.length <= 80;
+  let postCls = short ? '' : 'collapsed';
+  let postClick = short ? '' : ' onclick="togglePost(this)"';
 
-    const initial = (l.agent || '?')[0];
-    let agentHtml = '';
-    if (l.agent || l.phone) {
-      const phoneHtml = DATA.preview
-        ? '<span class="agent-phone agent-phone-locked" onclick="showLoginFromPreview()">🔒 <span>' + esc(l.phone) + '</span></span>'
-        : (l.phone ? '<a class="agent-phone" href="tel:' + esc(l.phone) + '">📞 ' + esc(l.phone) + '</a>' : '');
-      agentHtml = '<div class="agent-row">' +
-        '<span class="agent-avatar">' + esc(initial) + '</span>' +
-        (l.agent ? '<span>' + esc(l.agent) + '</span>' : '') +
-        phoneHtml +
-        '</div>';
-    }
+  let chips = [];
+  if (l.type) chips.push(`<span class="chip type-chip">${esc(l.type)}</span>`);
+  if (l.property_type) chips.push(`<span class="chip">${esc(l.property_type)}</span>`);
+  if (l.rooms) chips.push(`<span class="chip">${esc(l.rooms)}</span>`);
+  if (l.furnishing) chips.push(`<span class="chip furnish-chip">${esc(l.furnishing)}</span>`);
+  if (l.remark) chips.push(`<span class="chip">${esc(l.remark)}</span>`);
 
-    let postHtml = '';
-    if (postText) {
-      postHtml = '<div class="post-block ' + postCls + '"' + postClick + '>' + esc(postText) + '</div>';
-    }
+  const rent = l.rent ? fmtRent(l.rent) : '';
 
-    const accent = accentClass(l.property_type || l.type);
+  const initial = (l.agent || '?')[0];
+  let agentHtml = '';
+  if (l.agent || l.phone) {
+    const phoneHtml = DATA.preview
+      ? '<span class="agent-phone agent-phone-locked" onclick="showLoginFromPreview()">🔒 <span>' + esc(l.phone) + '</span></span>'
+      : (l.phone ? '<a class="agent-phone" href="tel:' + esc(l.phone) + '">📞 ' + esc(l.phone) + '</a>' : '');
+    agentHtml = '<div class="agent-row">' +
+      '<span class="agent-avatar">' + esc(initial) + '</span>' +
+      (l.agent ? '<span>' + esc(l.agent) + '</span>' : '') +
+      phoneHtml +
+      '</div>';
+  }
 
-    return `
-      <div class="card ${accent}">
-        <div class="card-body">
-          <div class="card-name">
-            ${isNew ? '<span class="badge-new">NEW</span>' : ''}
-            ${esc(l.property || '(未识别)')}
-            ${rent ? '<span class="rent-tag">' + esc(rent) + '</span>' : ''}
-          </div>
-          ${chips.length ? '<div class="info-chips">' + chips.join('') + '</div>' : ''}
-          ${agentHtml}
-          ${postHtml}
-          <div class="card-foot">
-            <span class="time">${timeAgo(l.scraped_at)}</span>
-            ${!DATA.preview && l.link ? '<a class="fb-link" href="' + esc(l.link) + '" target="_blank">FB 原文 ↗</a>' : '<span></span>'}
-          </div>
+  let postHtml = '';
+  if (postText) {
+    postHtml = '<div class="post-block ' + postCls + '"' + postClick + '>' + esc(postText) + '</div>';
+  }
+
+  const accent = accentClass(l.property_type || l.type);
+
+  return `
+    <div class="card ${accent}">
+      <div class="card-body">
+        <div class="card-name">
+          ${isNew ? '<span class="badge-new">NEW</span>' : ''}
+          ${esc(l.property || '(未识别)')}
+          ${rent ? '<span class="rent-tag">' + esc(rent) + '</span>' : ''}
         </div>
-      </div>`;
-  }).join('');
-
-  document.getElementById('listings').innerHTML = html;
+        ${chips.length ? '<div class="info-chips">' + chips.join('') + '</div>' : ''}
+        ${agentHtml}
+        ${postHtml}
+        <div class="card-foot">
+          <span class="time">${timeAgo(l.scraped_at)}</span>
+          ${!DATA.preview && l.link ? '<a class="fb-link" href="' + esc(l.link) + '" target="_blank">FB 原文 ↗</a>' : '<span></span>'}
+        </div>
+      </div>
+    </div>`;
 }
 
 function esc(s) {
