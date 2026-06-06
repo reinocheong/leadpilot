@@ -6,8 +6,8 @@ const { launchBrowser, isBrowserDeadError } = require('./lib/browser');
 
 const COOKIES = [
   { name: 'c_user', value: '61590420160900', domain: '.facebook.com', path: '/' },
-  { name: 'xs', value: '40%3AtWLTACkXlASbLw%3A2%3A1780720566%3A-1%3A-1%3A%3AAcz6FCSCBXq9kN2dZxiaNC6SpQnRFkRFI38yWL8izg', domain: '.facebook.com', path: '/' },
-  { name: 'fr', value: '1FjuMbNPuMuIWDYAo.AWf56g2CWiX89IiRg9Z6eunuIQp6W9wVnO3I9bxrfMO-nlICg6M.BqI6O6..AAA.0.0.BqI6j7.AWeDSUBK8II6CWgWBP-VVMmZbrg', domain: '.facebook.com', path: '/' },
+  { name: 'xs', value: '40%3AyLyhOJU9s6y-7A%3A2%3A1780729726%3A-1%3A-1%3A%3AAczuDnShlPNc0jH1apr45-WY9Dtktn7lF5-KtihycA', domain: '.facebook.com', path: '/' },
+  { name: 'fr', value: '1bLDr7nrXnTWDvKM5.AWfe6IIGL3q_ewtZ31S8536DA3776y9ou5V5PYDFuiIKLsaDSJs.BqI8eB..AAA.0.0.BqI8fp.AWe6Ru1aplYVlnux6VaEhWjzJ0s', domain: '.facebook.com', path: '/' },
 ];
 const GROUPS = [
   { id: '1467428250213843', name: 'JB新山租房与出租' },
