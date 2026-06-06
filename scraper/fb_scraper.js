@@ -6,9 +6,8 @@ const { launchBrowser, isBrowserDeadError } = require('./lib/browser');
 
 const COOKIES = [
   { name: 'c_user', value: '100000390330536', domain: '.facebook.com', path: '/' },
-  { name: 'xs', value: '50%3Af49oO3FFuLZmUQ%3A2%3A1778657326%3A-1%3A-1%3A%3AAczLXaATEqvoz9CDgho4BzPXS4JdQMTfd_4yswowuw', domain: '.facebook.com', path: '/' },
-  { name: 'fr', value: '1ScyOHkookkJKSuQq.AWdIUPlRTiWlrxD7LELdFXC34LW9IFilpfv-ekqOegW4HPIbS58.BqHBdw..AAA.0.0.BqHBfj.AWe3gLYvSobbS19mVjMSad9CQKQ', domain: '.facebook.com', path: '/' },
-  { name: 'presence', value: 'C%7B%22t3%22%3A%5B%5D%2C%22utc3%22%3A1780070224796%2C%22v%22%3A1%7D', domain: '.facebook.com', path: '/' },
+  { name: 'xs', value: '5%3A7C-XPHI0mcU5uA%3A2%3A1780704101%3A-1%3A-1%3A%3AAcxJAE6C474aQBKhf5qextbKqC5TjIzFCz6NXKXLOw', domain: '.facebook.com', path: '/' },
+  { name: 'fr', value: '1F6T698gkEKiosGmv.AWfxtdOWmiTcYJZGEG6o15t2qnoYN5ushRwOId8lMbZOqMLA3Ys.BqI4JH..AAA.0.0.BqI4Zb.AWe-5Si-I9lMSQDiZZ_WESbj840', domain: '.facebook.com', path: '/' },
   { name: 'datr', value: 'ntrmaR6rfHD9rJJPpRayknuD', domain: '.facebook.com', path: '/' },
   { name: 'sb', value: 'ntrmaWofpCMZddKjNupoUhwo', domain: '.facebook.com', path: '/' },
   { name: 'dpr', value: '1.25', domain: '.facebook.com', path: '/' },
