@@ -20,8 +20,8 @@ const GROUPS = [
   { id: '1918174271803095', name: 'Group7' },
 ];
 const OUTPUT_JSON = '/home/user/fb_data/fb_posts_raw.json';
-const MAX_SCROLL_ATTEMPTS = 5;
-const SCROLL_WAIT_MS = 2000;
+const MAX_SCROLL_ATTEMPTS = 4;
+const SCROLL_WAIT_MS = 1500;
 
 /** Scroll until no new content loads (stops when page height stops growing). */
 async function scrollToLoadPosts(page) {
@@ -45,12 +45,13 @@ async function scrapeGroup(browser, groupId, groupName) {
   console.log(`[scraper/fb_scraper.js][${groupName}] 开始抓取`);
   let context = null, page = null, posts = [];
   let timedOut = false;
-  const TIMEOUT_MS = 90000; // 90s per group max (8 groups × 90s = 12min worst case)
+  const PAGE_GOTO_TIMEOUT = 120000;   // 2min for page load (FB is slow)
+  const TIMEOUT_MS = 180000;          // 3min per group max
   try {
-    context = await browser.newContext({ userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', locale: 'zh-CN' });
+    context = await browser.newContext({ userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36', locale: 'en-US' });
     await context.addCookies(COOKIES);
     page = await context.newPage();
-    await page.goto(`https://www.facebook.com/groups/${groupId}?sorting_setting=RECENT_ACTIVITY`, { waitUntil: 'domcontentloaded', timeout: 60000 });
+    await page.goto(`https://www.facebook.com/groups/${groupId}?sorting_setting=RECENT_ACTIVITY`, { waitUntil: 'domcontentloaded', timeout: PAGE_GOTO_TIMEOUT });
     await page.waitForTimeout(3000);
     // Race: scrape with a per-group timeout so one slow group can't hang the whole run
     await Promise.race([
@@ -83,22 +84,28 @@ function buildPost(groupId, groupName, p) {
   console.log('[scraper/fb_scraper.js][main] 开始');
   let allPosts = [], browser = null;
   for (const g of GROUPS) {
-    try {
-      if (!browser || !browser.isConnected()) {
+    let attempts = 0;
+    while (attempts < 2) {
+      attempts++;
+      try {
+        if (!browser || !browser.isConnected()) {
+          if (browser) await browser.close().catch(() => {});
+          browser = await launchBrowser();
+        }
+        const p = await scrapeGroup(browser, g.id, g.name);
+        allPosts = allPosts.concat(p || []);
+        // Save after each group so partial results aren't lost on interruption
+        if (allPosts.length > 0) fs.writeFileSync(OUTPUT_JSON, JSON.stringify(allPosts, null, 2));
+        break; // success — exit retry loop
+      } catch (e) {
+        console.log(`[scraper/fb_scraper.js][${g.name}] 第${attempts}次失败: ${e.message}${attempts < 2 ? '，重试...' : ''}`);
         if (browser) await browser.close().catch(() => {});
-        browser = await launchBrowser();
+        browser = null;
+        if (attempts < 2) await new Promise(r => setTimeout(r, 5000)); // wait 5s before retry
       }
-      const p = await scrapeGroup(browser, g.id, g.name);
-      allPosts = allPosts.concat(p || []);
-      // Save after each group so partial results aren't lost on interruption
-      if (allPosts.length > 0) fs.writeFileSync(OUTPUT_JSON, JSON.stringify(allPosts, null, 2));
-    } catch (e) {
-      console.log(`[scraper/fb_scraper.js][${g.name}] 失败: ${e.message}，重新启动浏览器`);
-      if (browser) await browser.close().catch(() => {});
-      browser = null;
     }
   }
   if (browser) await browser.close();
   if (allPosts.length > 0) fs.writeFileSync(OUTPUT_JSON, JSON.stringify(allPosts, null, 2));
-  console.log('[scraper/fb_scraper.js][main] 结束');
+  console.log(`[scraper/fb_scraper.js][main] 结束: 共抓取 ${allPosts.length} 条`);
 })();
