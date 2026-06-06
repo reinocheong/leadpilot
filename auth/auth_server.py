@@ -24,7 +24,7 @@ sessions = {}  # token -> {"email": ..., "name": ..., "expires": ...}
 
 # ── Preview 快取（TTL 5 分鐘，減少 Sheets API 調用）──
 preview_cache = {"data": None, "ts": 0}
-PREVIEW_CACHE_TTL = 300  # 5 分钟
+PREVIEW_CACHE_TTL = 1800  # 30分钟快取（匹配爬虫频率）
 
 def get_preview_cached():
     now = time.time()
@@ -139,7 +139,37 @@ def mask_phone(phone):
     return p[:5] + '****'
 
 def get_preview_data():
-    """Return ALL listings for unauthenticated preview, with masked phone numbers."""
+    """Return ALL listings for unauthenticated preview, with masked phone numbers.
+    Reads from local rentals.json (updated every 30min by crawler cron) for speed."""
+    local_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'rentals.json')
+    try:
+        with open(local_path) as f:
+            cached = json.load(f)
+        listings = cached.get('listings', [])
+        result = {
+            'updated_at': cached.get('updated_at'),
+            'total': cached.get('total', len(listings)),
+            'today_new': cached.get('today_new', 0),
+            'top_properties': cached.get('top_properties', []),
+            'listings': [{
+                'agent': l.get('agent'),
+                'property': l.get('property'),
+                'rent': l.get('rent'),
+                'phone': mask_phone(l.get('phone', '')),
+                'link': l.get('link'),
+                'property_type': l.get('property_type'),
+                'type': l.get('type'),
+                'furnishing': l.get('furnishing'),
+                'rooms': l.get('rooms'),
+                'remark': l.get('remark'),
+                'post_text': (mask_phone_in_text(l.get('post_text', '')) or '')[:200],
+                'scraped_at': l.get('scraped_at'),
+            } for l in listings],
+        }
+        return result
+    except (FileNotFoundError, json.JSONDecodeError):
+        pass
+    # Fallback: read from Google Sheets
     rows = read_sheet(RENTALS_SHEET_ID, 'JB Rentals!A:L')
     if len(rows) < 2:
         return {'preview': True, 'total': 0, 'listings': [], 'top_properties': []}
@@ -163,7 +193,7 @@ def get_preview_data():
             'furnishing': d.get('furnishing'),
             'rooms': d.get('rooms'),
             'remark': d.get('remark'),
-            'post_text': mask_phone_in_text(d.get('post text')),
+            'post_text': (mask_phone_in_text(d.get('post text')) or '')[:200],
             'scraped_at': scraped or None
         }
         all_listings.append(entry)
@@ -184,13 +214,27 @@ def get_preview_data():
 class AuthHandler(BaseHTTPRequestHandler):
     def _json(self, data, status=200):
         body = json.dumps(data).encode('utf-8')
-        self.send_response(status)
-        self.send_header('Content-Type', 'application/json; charset=utf-8')
-        self.send_header('Access-Control-Allow-Origin', '*')
-        self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
-        self.end_headers()
-        self.wfile.write(body)
+        # Gzip 压缩大响应（Cloudflare Tunnel 传输无压缩，gzip 可加速 10x+）
+        accept_gzip = self.headers.get('Accept-Encoding', '')
+        if 'gzip' in accept_gzip and len(body) > 4096:
+            import gzip
+            compressed = gzip.compress(body)
+            self.send_response(status)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.send_header('Content-Encoding', 'gzip')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+            self.send_header('Access-Control-Allow-Headers', 'Content-Type')
+            self.end_headers()
+            self.wfile.write(compressed)
+        else:
+            self.send_response(status)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+            self.send_header('Access-Control-Allow-Headers', 'Content-Type')
+            self.end_headers()
+            self.wfile.write(body)
 
     def do_OPTIONS(self):
         self.send_response(200)

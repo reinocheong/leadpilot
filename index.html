@@ -31,7 +31,7 @@
     "name": "LeadPilot - JB Rental Listings",
     "description": "Johor Bahru rental property database with daily-updated listings. Data sourced from Facebook rental groups.",
     "url": "https://leadpilot.smart-tenancy-pro.org",
-    "dateModified": "2026-05-27",
+    "dateModified": "2026-06-06",
     "keywords": ["Johor Bahru", "JB rental", "property", "real estate", "Malaysia"],
     "isAccessibleForFree": true,
     "variableMeasured": [
@@ -55,7 +55,7 @@
     "description": "Complete Johor Bahru rental listing database from 5 Facebook groups. Covers R&F Princess Cove, Bukit Indah, Mount Austin, Permas Jaya, Taman Pelangi, Johor Jaya, KSL, Skudai, Kulai, and more. Price range RM450-RM7,000/m. Updated every 30 minutes.",
     "url": "https://leadpilot.smart-tenancy-pro.org",
     "isAccessibleForFree": true,
-    "dateModified": "2026-05-28",
+    "dateModified": "2026-06-06",
     "keywords": ["Johor Bahru", "JB rental", "property for rent", "Malaysia real estate", "JB property", "Mount Austin", "Bukit Indah"],
     "variableMeasured": [
       {"@type": "PropertyValue", "name": "Building Name"},
@@ -896,7 +896,7 @@ function showPayWall() {
 
 // ── Preview mode ──────────────────────────────────────────
 async function loadPreview() {
-  const r = await fetch(AUTH_URL + '/preview');
+  const r = await fetch('/data/rentals-preview.json');
   DATA = await r.json();
   if (DATA.error) throw new Error(DATA.error);
   DATA.preview = true;

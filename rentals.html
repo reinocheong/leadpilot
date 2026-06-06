@@ -665,7 +665,7 @@ function showPayWall() {
 
 // ── Preview mode ──────────────────────────────────────────
 async function loadPreview() {
-  const r = await fetch(AUTH_URL + '/preview');
+  const r = await fetch('/data/rentals-preview.json');
   DATA = await r.json();
   if (DATA.error) throw new Error(DATA.error);
   DATA.preview = true;

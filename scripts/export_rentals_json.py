@@ -3,7 +3,7 @@
 Export JB Rentals Sheet to JSON for rentals.html viewer.
 Read-only — never writes to Sheets.
 """
-import json, os, sys
+import json, os, sys, copy
 from datetime import datetime, timezone, timedelta
 from zoneinfo import ZoneInfo
 from collections import Counter
@@ -127,8 +127,18 @@ def main():
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, indent=2)
 
+    # Also export a phone-masked preview version for GH Pages CDN (faster than tunnel)
+    preview = copy.deepcopy(output)
+    for l in preview["listings"]:
+        if l.get("phone"):
+            l["phone"] = l["phone"][:4] + "***" + l["phone"][-3:]
+    prev_path = os.path.join(PROJECT_ROOT, "data", "rentals-preview.json")
+    with open(prev_path, "w", encoding="utf-8") as f:
+        json.dump(preview, f, ensure_ascii=False, indent=2)
+
     print(f"✅ 导出完成: {len(listings)} 条 ({today_new} 今日新), top: {top_props[:5]}")
     print(f"   → {out_path}")
+    print(f"   → {prev_path} (电话遮罩版)")
 
     # Generate sitemap.xml and dataset JSON-LD
     sys.path.insert(0, os.path.join(PROJECT_ROOT, "scripts"))
