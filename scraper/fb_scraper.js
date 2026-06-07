@@ -6,8 +6,8 @@ const { launchBrowser, isBrowserDeadError } = require('./lib/browser');
 
 const COOKIES = [
   { name: 'c_user', value: '61590420160900', domain: '.facebook.com', path: '/' },
-  { name: 'xs', value: '40%3AyLyhOJU9s6y-7A%3A2%3A1780729726%3A-1%3A-1%3A%3AAczuDnShlPNc0jH1apr45-WY9Dtktn7lF5-KtihycA', domain: '.facebook.com', path: '/' },
-  { name: 'fr', value: '1bLDr7nrXnTWDvKM5.AWfe6IIGL3q_ewtZ31S8536DA3776y9ou5V5PYDFuiIKLsaDSJs.BqI8eB..AAA.0.0.BqI8fp.AWe6Ru1aplYVlnux6VaEhWjzJ0s', domain: '.facebook.com', path: '/' },
+  { name: 'xs', value: '30%3AKUUZA9NYF4t35g%3A2%3A1780738638%3A-1%3A-1%3A%3AAcwkapuq9tbXFIwZzHmqmNx_-MwiV14PiKqvp_nLXQ', domain: '.facebook.com', path: '/' },
+  { name: 'fr', value: '1d1VCzj8AxaP0PpYy.AWeChL9mMcE1FEDIo1FIRGn_vpvf7zzliFoPs7h_RhtJ2pMHiSM.BqJCWO..AAA.0.0.BqJClr.AWfuvYDy4q_xBBJPLpuKJqI0JXY', domain: '.facebook.com', path: '/' },
 ];
 const GROUPS = [
   { id: '1467428250213843', name: 'JB新山租房与出租' },
@@ -88,8 +88,13 @@ function buildPost(groupId, groupName, p) {
     while (attempts < 2) {
       attempts++;
       try {
-        if (!browser || !browser.isConnected()) {
-          if (browser) await browser.close().catch(() => {});
+        // Safe browser-alive check — handles dead browser objects gracefully
+        let needNew = !browser;
+        if (browser) {
+          try { needNew = !browser.isConnected(); } catch (_) { needNew = true; }
+        }
+        if (needNew) {
+          try { if (browser) await browser.close().catch(() => {}); } catch (_) {}
           browser = await launchBrowser();
         }
         const p = await scrapeGroup(browser, g.id, g.name);
@@ -99,7 +104,7 @@ function buildPost(groupId, groupName, p) {
         break; // success — exit retry loop
       } catch (e) {
         console.log(`[scraper/fb_scraper.js][${g.name}] 第${attempts}次失败: ${e.message}${attempts < 2 ? '，重试...' : ''}`);
-        if (browser) await browser.close().catch(() => {});
+        try { if (browser) await browser.close().catch(() => {}); } catch (_) {}
         browser = null;
         if (attempts < 2) await new Promise(r => setTimeout(r, 5000)); // wait 5s before retry
       }
