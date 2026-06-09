@@ -1,7 +1,7 @@
 {
   "name": "leadpilot",
   "version": "1.0.0",
-  "description": "",
+  "description": "> 从 FB 抓取房源 + Agent 号码 → 数据全公开（电话遮罩）→ Google 登录解锁电话 → WhatsApp 自动推广 → Stripe 付费续费，全链路自动化。",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,8 +12,20 @@
   "dependencies": {
     "@whiskeysockets/baileys": "^7.0.0-rc13",
     "chrome-remote-interface": "^0.34.0",
+    "cloakbrowser": "^0.3.31",
     "link-preview-js": "^3.2.0",
     "qrcode": "^1.5.4",
     "qrcode-terminal": "^0.12.0"
-  }
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reinocheong/leadpilot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/reinocheong/leadpilot/issues"
+  },
+  "homepage": "https://github.com/reinocheong/leadpilot#readme"
 }

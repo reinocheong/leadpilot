@@ -20,10 +20,9 @@
 │   ├── README.md                    ← 本文档
 │   └── DEPLOY.md                    ← 部署与 Cron 配置
 │
-├── 🔧 scraper/                      ← 阶段①：FB 爬虫 (CDP)
+├── 🔧 scraper/                      ← 阶段①：FB 爬虫 (CloakBrowser MCP)
 │   ├── fb_scraper.js                # (退役) 旧 headless Playwright
-│   ├── cloak_scraper.js             # CloakBrowser 反检测爬虫(备选)
-│   ├── cdp_scraper.js               # 🎯 主爬虫 — Windows CDP 真实Chrome
+│   ├── cloak_scraper.mjs            # CloakBrowser 独立脚本(备选)
 │   └── lib/
 │       ├── browser.js               # 浏览器实例管理
 │       ├── fb_phone.js              # 电话提取
@@ -98,7 +97,7 @@
 
 | 阶段 | 任务 | 执行命令 | 说明 |
 |:---:|---|---|---|
-|| ① | 抓取(CDP) | `bash cron_wrappers/cron_cdp_scraper.sh` | 需 Windows Chrome CDP 在线 |
+|| ① | 抓取(CloakBrowser) | cron `025c5513a4ac` 每30分自动跑 | 反检测 MCP，8群 |
 | ② | 解析 | `cd /home/user/leadpilot && timeout 120 python3 processors/fb_parser.py` | 入 Google Sheets |
 | ③ | 推广(干跑) | `cd /home/user/leadpilot && python3 outreach/outreach_engine.py` | 不加--send=预览模式 |
 | ③ | 推广(发送) | `cd /home/user/leadpilot && python3 outreach/outreach_engine.py --send --slot 1 --total-slots 5` | 发1人 |
