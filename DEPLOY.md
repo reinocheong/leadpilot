@@ -2,7 +2,7 @@
 
 > 项目：LeadPilot — JB 房产数据 SaaS  
 > 根目录：`/home/user/leadpilot/`  
-> 最后更新：2026-05-27
+> 最后更新：2026-06-09
 
 ---
 
@@ -98,14 +98,12 @@ tail -f .logs/wa_daemon.log
 # 3. 启动 daemon → 扫 QR 码
 ```
 
-### 2. FB 爬虫（手动运行）
+### 2. FB 爬虫（已退役，由 cron 自动 CloakBrowser MCP）
 
-```bash
-cd /home/user/leadpilot/scraper
-node fb_scraper.js
-```
+爬虫不再手动运行。cron `025c5513a4ac` 每 30 分钟自动通过 CloakBrowser MCP 抓取 8 个群组。
+旧 headless Playwright 脚本 `fb_scraper.js` 已退役。
 
-> **2026-05-18 重构：** 改为全局复用 1 个 Chromium 浏览器（而非每个群组启动一个），finally 块逐层 try/catch 防级联崩溃，每群组 60s 超时保护。详见 [README.md#修复记录](README.md)。
+> **迁移历史：** headless Playwright（每群1条）→ Windows CDP（119条，需Chrome）→ **CloakBrowser MCP（87条/群，全自动）**
 
 ### 3. 解析器（手动运行）
 
@@ -268,9 +266,11 @@ Cron 每 30 分钟跑 `scripts/export_rentals_json.py`，仅导出到本地 `dat
    - `fr` — 浏览器指纹
    - `presence` — 在线状态
 
-### 更新 Cookie
+### Cookie 更新
 
-编辑 `scraper/fb_scraper.js` 第 21-26 行的 `COOKIES` 数组。
+编辑 `/home/user/fb_data/cookies_fresh.json` 中的 `fullCookieArray`。
+提取方法：Chrome → F12 → Application → Cookies → facebook.com，复制如下字段：
+`c_user`, `xs`, `fr`, `datr`, `sb`, `dpr`, `ps_l`, `ps_n`, `wd`, `locale`, `dbln`, `presence`
 
 ### Cookie 过期症状
 

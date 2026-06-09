@@ -2,7 +2,7 @@
 
 > 项目：LeadPilot（原名 Smart Tenancy Pro / JB Rental Intel）
 > 根目录：`/home/user/leadpilot/`
-> 最后更新：2026-05-31
+> 最后更新：2026-06-09
 
 ---
 
@@ -16,7 +16,7 @@
 | **3** | 核心模块化拆分 | [-] | 已拆 `sub_mgr/`，`fb_parser`（1065行）待拆 |
 | **4** | 日志系统标准化 | [ ] | 待建 error.log 与统一格式 |
 | **5** | 最终审计校验 | [ ] | 待完成 |
-| **6** | headless → CDP 迁移 | ✅ | fb_scraper.js 退役 → cdp_scraper.js |
+| **6** | headless → CloakBrowser MCP | ✅ | fb_scraper.js 退役 → MCP 工具 |
 
 ---
 
@@ -33,7 +33,7 @@
 
 | 阶段 | 模块 | 状态 | 关键文件 |
 |------|------|:----:|------|
-| ① 数据采集 | FB 爬虫 | ✅ | `scraper/fb_scraper.js` |
+| ① 数据采集 | FB 爬虫 (CloakBrowser MCP) | ✅ | `mcp_cloakbrowser` 工具 |
 | ② 数据解析 | 结构化 → Sheets | ✅ | `processors/fb_parser.py` |
 | ③ 推广触达 | WhatsApp 推广 | ✅ | `outreach/outreach_engine.py` |
 | ④ 试用管理 | 登录/试用/回收 | ✅ | `sub_mgr.py` + `auth/auth_server.py` |
