@@ -176,7 +176,15 @@
 - **取消 2 个 463 复查 cron**（#2 06-01、#3 06-04 无需再跑）
 - **SSOT 同步：** MEMORY.md / TODO.md 更新 463 解决状态
 
-- **2026-05-29 [AI] (FOUC fix + SEO favicon)**
+#### 2026-06-09 [AI] (headless Playwright 退役 → CDP 真实 Chrome)
+- **问题：** headless Playwright 被 FB 限流，每群只给 1 条。cookie 加齐 datr/sb 也没用。
+- **诊断：** CloakBrowser MCP 能拿到 87 条/群（反检测生效），但独立脚本复制不了 stealth 层。
+- **方案：** 用 Windows CDP 真实 Chrome（用户已登录 FB）来抓取。
+- **实现：** 在 Windows 侧写 `cdp_scraper.js`，通过 `cmd.exe /c` 从 WSL 调用，结果复制回 WSL。
+- **效果：** 119 条/30min（之前 8 条），**15 倍提升**。全部 8 群正常。
+- **文档：** DEPLOY.md / README.md / MEMORY.md / TODO.md 同步更新
+- **cron 切换：** 旧 LLM 模式 headless scraper → `no_agent` 纯脚本 `cron_cdp_scraper.sh`
+- **退役：** `fb_scraper.js`（headless Playwright）原地退休
   - 新增 STP logo favicon（.ico + 多尺寸 PNG）+ Apple Touch Icon + manifest.json
   - 补全 Twitter Card、OG:image、theme-color 标签
   - **修复 0.1 秒内部UI闪烁问题**：

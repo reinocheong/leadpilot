@@ -16,6 +16,7 @@
 | **3** | 核心模块化拆分 | [-] | 已拆 `sub_mgr/`，`fb_parser`（1065行）待拆 |
 | **4** | 日志系统标准化 | [ ] | 待建 error.log 与统一格式 |
 | **5** | 最终审计校验 | [ ] | 待完成 |
+| **6** | headless → CDP 迁移 | ✅ | fb_scraper.js 退役 → cdp_scraper.js |
 
 ---
 

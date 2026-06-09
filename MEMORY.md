@@ -22,7 +22,14 @@
 - **原因：** 多个 Cron 任务同时尝试 `git push` 修改 `data/rentals.json`。
 - **对策：** 统一导出入口，确保同一时间只有一个脚本负责更新并推送数据。
 
-### 5. 登录过渡「跳回登录页」
+### 9. headless Playwright 退役：FB 限流 → CDP 真实 Chrome (2026-06-09)
+- **现象：** headless Playwright 每群只抓 1 条（即使加了完整 cookie 含 datr/sb）。
+- **根因：** FB 对 headless 浏览器的反检测越来越严，跟 cookie 无关。
+- **修复：** 废弃 headless 方案，改用 Windows CDP 真实 Chrome。用户保持 Chrome 以 `--remote-debugging-port=9222` 运行。
+- **脚本位置：** Windows 侧 `C:\Users\User\Desktop\fb-cookie-extract\cdp_scraper.js`
+- **调用方式：** WSL 侧 `cron_wrappers/cron_cdp_scraper.sh` 通过 `cmd.exe /c` 调用。
+- **效果：** 119 条/30min（15 倍提升）
+- **坑：** CDP `page.evaluate` 不支持多参数，必须传单对象 `{gid, gname}`。
 - **现象：** 用户登录后，骨架屏闪现，然后页面跳回登录页。
 - **原因：** 旧流程先 fade 登录页再加载数据。若 `/data` 返回 401，`load()` 直接调用 `showLogin()` 重新显示登录页，用户在骨架屏之后看到登录页闪回。
 - **对策：** 新流程 **不提前切画面** —— 登录成功后登录页保留，用跳动圆点动画展示「验证中...」→「加载数据中...」。全部就绪后统一淡出到主界面。加载失败时停动画、显示错误、登录页不动。

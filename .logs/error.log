@@ -217,3 +217,845 @@ Call log:
     at scrollToLoadPosts (/home/user/leadpilot/scraper/fb_scraper.js:34:16)
     at async scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:48:5)
     at async /home/user/leadpilot/scraper/fb_scraper.js:77:17
+[2026-05-31T11:17:01.608Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.waitForTimeout: Target page, context or browser has been closed
+    at scrollToLoadPosts (/home/user/leadpilot/scraper/fb_scraper.js:38:16)
+    at async scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:52:5)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:81:17
+[2026-06-01T05:31:29.470Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.facebook.com/groups/1467428250213843?sorting_setting=RECENT_ACTIVITY
+Call log:
+  - navigating to "https://www.facebook.com/groups/1467428250213843?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-01T05:31:49.557Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.facebook.com/groups/1313487628797877?sorting_setting=RECENT_ACTIVITY
+Call log:
+  - navigating to "https://www.facebook.com/groups/1313487628797877?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-05T15:03:18.830Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/JBPropertyForSalesRent?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-05T15:04:15.076Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/290627785937141?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-05T16:07:28.850Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/290627785937141?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-05T16:31:18.428Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/1467428250213843?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-05T16:32:14.138Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/1313487628797877?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-05T16:33:12.026Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/801784763175081?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-05T16:34:07.751Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/JBPropertyForSalesRent?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-05T17:01:27.414Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/1467428250213843?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-05T17:12:50.272Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/801784763175081?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-05T17:33:50.883Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/JBPropertyForSalesRent?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-05T18:04:19.830Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/JBPropertyForSalesRent?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-05T18:31:30.374Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/1467428250213843?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-05T18:33:18.599Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/801784763175081?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-05T18:34:13.964Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/JBPropertyForSalesRent?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-05T19:05:18.488Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/290627785937141?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-05T19:32:06.307Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/1313487628797877?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-05T19:33:06.348Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/801784763175081?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-05T20:03:13.824Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/801784763175081?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-05T20:05:07.272Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/290627785937141?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-05T20:32:31.531Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/1313487628797877?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-05T21:33:48.453Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/JBPropertyForSalesRent?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-05T21:34:48.493Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/290627785937141?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-05T22:32:11.098Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/1313487628797877?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-05T23:01:18.065Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/1467428250213843?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-05T23:02:18.113Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/1313487628797877?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-05T23:05:13.187Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/290627785937141?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-05T23:12:16.190Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/1313487628797877?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-05T23:14:58.106Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/290627785937141?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-05T23:32:56.040Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/1313487628797877?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-05T23:34:59.577Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/JBPropertyForSalesRent?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-05T23:35:51.569Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/290627785937141?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-06T00:01:50.376Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/1467428250213843?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-06T01:03:45.134Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/JBPropertyForSalesRent?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-06T01:32:02.406Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/1467428250213843?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:51:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-06T01:36:01.983Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.waitForTimeout: Target page, context or browser has been closed
+    at scrollToLoadPosts (/home/user/leadpilot/scraper/fb_scraper.js:38:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:56:9
+    at async scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:5)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:89:17
+[2026-06-06T03:03:23.778Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/JBPropertyForSalesRent?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:50:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:88:17
+[2026-06-06T03:04:23.816Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/290627785937141?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:50:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:88:17
+[2026-06-06T03:32:32.033Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/1313487628797877?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:50:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:88:17
+[2026-06-06T03:34:34.406Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/JBPropertyForSalesRent?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:50:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:88:17
+[2026-06-06T03:35:34.445Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/290627785937141?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:50:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:88:17
+[2026-06-06T04:03:31.224Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/801784763175081?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:50:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:88:17
+[2026-06-06T04:05:38.715Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.facebook.com/groups/290627785937141?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:50:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:88:17
+[2026-06-06T05:02:22.579Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/801784763175081?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:53:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:91:17
+[2026-06-06T05:05:06.141Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1918174271803095?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:53:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:91:17
+[2026-06-06T07:05:52.767Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/290627785937141?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-06T08:35:06.630Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/290627785937141?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-06T09:35:04.076Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.waitForTimeout: Target page, context or browser has been closed
+    at scrollToLoadPosts (/home/user/leadpilot/scraper/fb_scraper.js:40:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:59:9
+    at async scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:57:5)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-06T10:05:57.673Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.waitForTimeout: Target page, context or browser has been closed
+    at scrollToLoadPosts (/home/user/leadpilot/scraper/fb_scraper.js:40:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:59:9
+    at async scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:57:5)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-06T10:35:59.324Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/290627785937141?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-06T11:05:54.860Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1146057718813207?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-06T11:35:55.166Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/290627785937141?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-06T12:05:55.992Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/801784763175081?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-06T12:35:56.491Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.waitForTimeout: Target page, context or browser has been closed
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:55:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-06T13:05:56.018Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/801784763175081?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-06T13:35:56.832Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1146057718813207?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-06T14:05:56.329Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/290627785937141?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-06T14:12:58.872Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1918174271803095?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-06T14:36:02.433Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1918174271803095?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-06T15:05:58.536Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1918174271803095?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-06T15:35:37.947Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1918174271803095?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-06T16:08:35.745Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1918174271803095?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-06T16:35:33.533Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1918174271803095?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-06T17:05:33.729Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1918174271803095?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-06T18:05:34.067Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1146057718813207?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-06T18:35:35.228Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1146057718813207?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-06T19:05:35.483Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1146057718813207?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-06T19:35:35.473Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1146057718813207?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-06T20:05:35.213Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1146057718813207?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-06T20:35:35.102Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1918174271803095?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-06T21:05:35.905Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/290627785937141?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-06T22:05:36.080Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1146057718813207?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-06T22:35:36.768Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/290627785937141?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-06T23:05:37.699Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1146057718813207?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-06T23:35:37.631Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/290627785937141?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-07T00:05:37.966Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1918174271803095?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-07T00:35:37.521Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.waitForTimeout: Target page, context or browser has been closed
+    at /home/user/leadpilot/scraper/fb_scraper.js:62:20
+    at async scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:57:5)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-07T01:05:38.293Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1146057718813207?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-07T02:05:39.354Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.waitForTimeout: Target page, context or browser has been closed
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:55:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-07T02:35:38.385Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/290627785937141?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-07T04:08:41.902Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1918174271803095?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-07T04:44:05.635Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1146057718813207?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-07T05:05:39.859Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.waitForTimeout: Target page, context or browser has been closed
+    at /home/user/leadpilot/scraper/fb_scraper.js:62:20
+    at async scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:57:5)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-07T06:05:42.021Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1146057718813207?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-07T06:35:40.910Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.waitForTimeout: Target page, context or browser has been closed
+    at scrollToLoadPosts (/home/user/leadpilot/scraper/fb_scraper.js:40:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:59:9
+    at async scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:57:5)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-07T07:35:41.973Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.waitForTimeout: Target page, context or browser has been closed
+    at scrollToLoadPosts (/home/user/leadpilot/scraper/fb_scraper.js:40:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:59:9
+    at async scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:57:5)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-07T08:05:42.416Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.waitForTimeout: Target page, context or browser has been closed
+    at scrollToLoadPosts (/home/user/leadpilot/scraper/fb_scraper.js:40:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:59:9
+    at async scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:57:5)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-07T08:35:42.667Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/801784763175081?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-07T09:05:44.147Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1146057718813207?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-07T09:35:42.397Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1146057718813207?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-07T10:05:43.286Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1146057718813207?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-07T10:35:42.958Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1146057718813207?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-07T11:35:43.588Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.waitForTimeout: Target page, context or browser has been closed
+    at scrollToLoadPosts (/home/user/leadpilot/scraper/fb_scraper.js:40:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:59:9
+    at async scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:57:5)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-07T12:05:44.433Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.waitForTimeout: Target page, context or browser has been closed
+    at /home/user/leadpilot/scraper/fb_scraper.js:62:20
+    at async scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:57:5)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-07T12:38:46.875Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1918174271803095?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-07T13:22:08.484Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/457010468361601?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:95:19
+[2026-06-07T13:28:32.343Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.waitForTimeout: Target page, context or browser has been closed
+    at scrollToLoadPosts (/home/user/leadpilot/scraper/fb_scraper.js:40:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:59:9
+    at async scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:57:5)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:100:19
+node:events:497
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: write EPIPE
+    at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+    at writeGeneric (node:internal/stream_base_commons:150:3)
+    at Socket._writeGeneric (node:net:966:11)
+    at Socket._write (node:net:978:8)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at console.value (node:internal/console/constructor:303:16)
+    at console.log (node:internal/console/constructor:405:26)
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:45:11)
+Emitted 'error' event on Socket instance at:
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21) {
+  errno: -32,
+  code: 'EPIPE',
+  syscall: 'write'
+}
+
+Node.js v22.22.2
+[2026-06-07T15:36:46.527Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1918174271803095?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:100:19
+[2026-06-07T18:38:04.838Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.waitForTimeout: Target page, context or browser has been closed
+    at /home/user/leadpilot/scraper/fb_scraper.js:62:20
+    at async scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:57:5)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:100:19
+[2026-06-07T19:14:57.302Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1918174271803095?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:100:19
+node:events:497
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: write EPIPE
+    at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+    at writeGeneric (node:internal/stream_base_commons:150:3)
+    at Socket._writeGeneric (node:net:966:11)
+    at Socket._write (node:net:978:8)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at console.value (node:internal/console/constructor:303:16)
+    at console.log (node:internal/console/constructor:405:26)
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:45:11)
+Emitted 'error' event on Socket instance at:
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21) {
+  errno: -32,
+  code: 'EPIPE',
+  syscall: 'write'
+}
+
+Node.js v22.22.2
+[2026-06-07T20:09:51.159Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.waitForTimeout: Target page, context or browser has been closed
+    at /home/user/leadpilot/scraper/fb_scraper.js:62:20
+    at async scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:57:5)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:100:19
+node:events:497
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: write EPIPE
+    at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+    at writeGeneric (node:internal/stream_base_commons:150:3)
+    at Socket._writeGeneric (node:net:966:11)
+    at Socket._write (node:net:978:8)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at console.value (node:internal/console/constructor:303:16)
+    at console.log (node:internal/console/constructor:405:26)
+    at /home/user/leadpilot/scraper/fb_scraper.js:115:11
+Emitted 'error' event on Socket instance at:
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21) {
+  errno: -32,
+  code: 'EPIPE',
+  syscall: 'write'
+}
+
+Node.js v22.22.2
+node:events:497
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: write EPIPE
+    at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+    at writeGeneric (node:internal/stream_base_commons:150:3)
+    at Socket._writeGeneric (node:net:966:11)
+    at Socket._write (node:net:978:8)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at console.value (node:internal/console/constructor:303:16)
+    at console.log (node:internal/console/constructor:405:26)
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:45:11)
+Emitted 'error' event on Socket instance at:
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21) {
+  errno: -32,
+  code: 'EPIPE',
+  syscall: 'write'
+}
+
+Node.js v22.22.2
+[2026-06-08T02:06:51.644Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: net::ERR_ABORTED at https://www.facebook.com/groups/1918174271803095?sorting_setting=RECENT_ACTIVITY
+Call log:
+  - navigating to "https://www.facebook.com/groups/1918174271803095?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:100:19
+[2026-06-08T04:42:06.524Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.waitForTimeout: Target page, context or browser has been closed
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:55:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:100:19
+node:events:497
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: write EPIPE
+    at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+    at writeGeneric (node:internal/stream_base_commons:150:3)
+    at Socket._writeGeneric (node:net:966:11)
+    at Socket._write (node:net:978:8)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at console.value (node:internal/console/constructor:303:16)
+    at console.log (node:internal/console/constructor:405:26)
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:45:11)
+Emitted 'error' event on Socket instance at:
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21) {
+  errno: -32,
+  code: 'EPIPE',
+  syscall: 'write'
+}
+
+Node.js v22.22.2
+[2026-06-08T10:06:55.891Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1918174271803095?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:100:19
+node:events:497
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: write EPIPE
+    at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+    at writeGeneric (node:internal/stream_base_commons:150:3)
+    at Socket._writeGeneric (node:net:966:11)
+    at Socket._write (node:net:978:8)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at console.value (node:internal/console/constructor:303:16)
+    at console.log (node:internal/console/constructor:405:26)
+    at /home/user/leadpilot/scraper/fb_scraper.js:115:11
+Emitted 'error' event on Socket instance at:
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21) {
+  errno: -32,
+  code: 'EPIPE',
+  syscall: 'write'
+}
+
+Node.js v22.22.2
+node:events:497
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: write EPIPE
+    at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+    at writeGeneric (node:internal/stream_base_commons:150:3)
+    at Socket._writeGeneric (node:net:966:11)
+    at Socket._write (node:net:978:8)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at console.value (node:internal/console/constructor:303:16)
+    at console.log (node:internal/console/constructor:405:26)
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:45:11)
+Emitted 'error' event on Socket instance at:
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21) {
+  errno: -32,
+  code: 'EPIPE',
+  syscall: 'write'
+}
+
+Node.js v22.22.2
+[2026-06-08T17:14:47.188Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.waitForTimeout: Target page, context or browser has been closed
+    at /home/user/leadpilot/scraper/fb_scraper.js:62:20
+    at async scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:57:5)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:100:19
+node:events:497
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: write EPIPE
+    at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+    at writeGeneric (node:internal/stream_base_commons:150:3)
+    at Socket._writeGeneric (node:net:966:11)
+    at Socket._write (node:net:978:8)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at console.value (node:internal/console/constructor:303:16)
+    at console.log (node:internal/console/constructor:405:26)
+    at /home/user/leadpilot/scraper/fb_scraper.js:115:11
+Emitted 'error' event on Socket instance at:
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21) {
+  errno: -32,
+  code: 'EPIPE',
+  syscall: 'write'
+}
+
+Node.js v22.22.2
+[2026-06-08T21:36:23.019Z] [scraper/fb_scraper.js] [scrapeGroup] -> page.goto: Target page, context or browser has been closed
+Call log:
+  - navigating to "https://www.facebook.com/groups/1918174271803095?sorting_setting=RECENT_ACTIVITY", waiting until "domcontentloaded"
+
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:54:16)
+    at async /home/user/leadpilot/scraper/fb_scraper.js:100:19
+node:events:497
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: write EPIPE
+    at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+    at writeGeneric (node:internal/stream_base_commons:150:3)
+    at Socket._writeGeneric (node:net:966:11)
+    at Socket._write (node:net:978:8)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at console.value (node:internal/console/constructor:303:16)
+    at console.log (node:internal/console/constructor:405:26)
+    at scrapeGroup (/home/user/leadpilot/scraper/fb_scraper.js:45:11)
+Emitted 'error' event on Socket instance at:
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21) {
+  errno: -32,
+  code: 'EPIPE',
+  syscall: 'write'
+}
+
+Node.js v22.22.2

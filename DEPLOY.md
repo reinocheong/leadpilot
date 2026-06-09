@@ -189,13 +189,13 @@ Cron 每 30 分钟跑 `scripts/export_rentals_json.py`，仅导出到本地 `dat
 
 > 所有 cron 由 Hermes Agent 调度，统一入口 `~/.hermes/cron/jobs.json`。
 > `no_agent` 模式：纯脚本运行（零 LLM 费用），崩了自动告警。
-> 爬虫已切 **LLM 模式**：自动检查产出，< 3 条时尝试换 cookie，跑不通才告警。
+> 爬虫已退役 headless Playwright，改用 **Windows CDP** 真实 Chrome + 完整 cookie（含 datr/sb 等）。
 
 ### 数据采集管线
 
 | Job ID | 模式 | 时间 | 脚本/命令 | 职责 | 注意 |
 |--------|------|------|-----------|------|------|
-| `79a141939e36` | **LLM** 🧠 | 每30分 (:00/:30) | `timeout 300 node scraper/fb_scraper.js` → 解析器 → 导出 | ①抓取+②解析+📋导出一体 | 自动诊断空跑、换cookie |
+|| `79a141939e36` | no_agent | 每30分 (:00/:30) | `cron_cdp_scraper.sh` | ①CDP爬虫 → 解析 → 导出 | CDP需Chrome在线，离线跳过 |
 | `2093b59a898a` | no_agent | 每30分 (:03/:33) | `cron_fb_parser.sh` | ②解析入 Google Sheets | 爬虫的冗余备份 |
 
 ### 付款与订阅管理

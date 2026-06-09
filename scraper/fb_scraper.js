@@ -4,11 +4,22 @@ const { clickExpandButtons } = require('./lib/fb_expand');
 const { extractPosts } = require('./lib/fb_extract');
 const { launchBrowser, isBrowserDeadError } = require('./lib/browser');
 
-const COOKIES = [
+// Load cookies — prefer full session file; fall back to hardcoded minimal set
+let COOKIES = [
   { name: 'c_user', value: '61590420160900', domain: '.facebook.com', path: '/' },
   { name: 'xs', value: '30%3AKUUZA9NYF4t35g%3A2%3A1780738638%3A-1%3A-1%3A%3AAcwkapuq9tbXFIwZzHmqmNx_-MwiV14PiKqvp_nLXQ', domain: '.facebook.com', path: '/' },
-  { name: 'fr', value: '1d1VCzj8AxaP0PpYy.AWeChL9mMcE1FEDIo1FIRGn_vpvf7zzliFoPs7h_RhtJ2pMHiSM.BqJCWO..AAA.0.0.BqJClr.AWfuvYDy4q_xBBJPLpuKJqI0JXY', domain: '.facebook.com', path: '/' },
+  { name: 'fr', value: '1d1VCzj8AxaP0pPpYy.AWeChL9mMcE1FEDIo1FIRGn_vpvf7zzliFoPs7h_RhtJ2pMHiSM.BqJCWO..AAA.0.0.BqJClr.AWfuvYDy4q_xBBJPLpuKJqI0JXY', domain: '.facebook.com', path: '/' },
 ];
+try {
+  const cookieFile = '/home/user/fb_data/cookies_fresh.json';
+  if (fs.existsSync(cookieFile)) {
+    const loaded = JSON.parse(fs.readFileSync(cookieFile, 'utf8'));
+    if (loaded.fullCookieArray && loaded.fullCookieArray.length > 3) {
+      COOKIES = loaded.fullCookieArray;
+      console.log(`[scraper] 已加载 ${COOKIES.length} 个 cookie (来自文件)`);
+    }
+  }
+} catch (_) {}
 const GROUPS = [
   { id: '1467428250213843', name: 'JB新山租房与出租' },
   { id: '1729282070619968', name: 'Group2' },
@@ -20,8 +31,8 @@ const GROUPS = [
   { id: '1918174271803095', name: 'Group7' },
 ];
 const OUTPUT_JSON = '/home/user/fb_data/fb_posts_raw.json';
-const MAX_SCROLL_ATTEMPTS = 4;
-const SCROLL_WAIT_MS = 1500;
+const MAX_SCROLL_ATTEMPTS = 12;
+const SCROLL_WAIT_MS = 2000;
 
 /** Scroll until no new content loads (stops when page height stops growing). */
 async function scrollToLoadPosts(page) {

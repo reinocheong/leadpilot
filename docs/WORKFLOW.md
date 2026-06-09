@@ -56,7 +56,7 @@ node fb_scraper.js
 ```
 启动 Chromium (headless) → 注入 FB Cookies
     │
-    ├─ 逐个群组抓取（当前 6 个群组）
+    ├─ 逐个群组抓取（当前 5 个群组）
     │   ├─ 滚动加载帖子（10轮，无新帖早停）
     │   ├─ 展开前提取（保底数据）
     │   ├─ dispatchEvent 点击所有 "展开" 按钮（两轮）

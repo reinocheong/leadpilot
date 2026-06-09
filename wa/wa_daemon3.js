@@ -42,11 +42,51 @@ const server = http.createServer((req, res) => {
     });
     return;
   }
+  // Fetch latest messages from a WhatsApp Channel (newsletter)
+  // Usage: GET /fetch_channel?invite=0029Vb6p7Qq5Ejy68g8VCj1U
+  // Or:    POST /fetch_channel with JSON body {"invite": "0029Vb6p7Qq5Ejy68g8VCj1U"}
+  const channelMatch = req.url.match(/^\/fetch_channel(?:\?invite=([^&]+))?/);
+  if (channelMatch && (req.method === 'GET' || req.method === 'POST')) {
+    let invite = channelMatch[1] || '';
+    const respond = (code, data) => { res.statusCode = code; res.end(JSON.stringify(data)); };
+    if (req.method === 'POST' && !invite) {
+      let body = '';
+      req.on('data', chunk => body += chunk);
+      req.on('end', async () => {
+        try {
+          invite = JSON.parse(body).invite || '';
+          if (!invite) { respond(400, { ok: false, error: 'missing invite' }); return; }
+          await doFetchChannel(invite, respond);
+        } catch (e) { respond(500, { ok: false, error: e.message }); }
+      });
+      return;
+    }
+    if (!invite) { respond(400, { ok: false, error: 'missing ?invite=' }); return; }
+    doFetchChannel(invite, respond);
+    return;
+  }
+
   res.statusCode = 404;
   res.end(JSON.stringify({ ok: false }));
 });
 server.listen(3456);
 console.log('[wa_daemon] HTTP server on :3456');
+
+async function doFetchChannel(invite, respond) {
+  if (!sock) { respond(503, { ok: false, error: 'not connected' }); return; }
+  let inviteCode = invite;
+  const m = invite.match(/whatsapp\.com\/channel\/([a-zA-Z0-9_-]+)/);
+  if (m) inviteCode = m[1];
+  const meta = await sock.newsletterMetadata('invite', inviteCode);
+  if (!meta || !meta.id) { respond(404, { ok: false, error: 'channel not found' }); return; }
+  const jid = meta.id;
+  const name = meta.name?.text || meta.name || 'Unknown';
+  console.log(`[wa_daemon] 📰 Channel: ${name} (${jid})`);
+  await sock.newsletterFollow(jid);
+  console.log(`[wa_daemon] ✅ Followed: ${name}`);
+  try { await sock.subscribeNewsletterUpdates(jid); } catch(e) {}
+  respond(200, { ok: true, channel: { id: jid, name }, message: 'Subscribed. Will capture prices via live listener.' });
+}
 
 async function startSock() {
   const { state, saveCreds } = await useMultiFileAuthState(SESSION_DIR);
@@ -119,6 +159,27 @@ print("QR_IMAGE_SAVED")
   });
 
   sock.ev.on('creds.update', saveCreds);
+
+  // Listen for channel (newsletter) messages
+  sock.ev.on('messages.upsert', ({ messages, type }) => {
+    for (const msg of messages) {
+      const jid = msg.key?.remoteJid || '';
+      if (jid.endsWith('@newsletter')) {
+        const text = msg.message?.conversation || msg.message?.extendedTextMessage?.text || '';
+        if (text) {
+          console.log(`[wa_daemon] 📰 Channel msg from ${jid}: ${text.substring(0, 100)}`);
+          const outDir = path.resolve(__dirname, '..', '..', 'jbkitchen', 'site', 'data');
+          fs.mkdirSync(outDir, { recursive: true });
+          fs.writeFileSync(path.join(outDir, 'chan_raw.json'), JSON.stringify({
+            updated: new Date().toISOString(),
+            jid,
+            text,
+            full: msg
+          }, null, 2));
+        }
+      }
+    }
+  });
 }
 
 startSock().catch(e => {
