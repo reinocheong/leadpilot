@@ -98,11 +98,13 @@ tail -f .logs/wa_daemon.log
 # 3. 启动 daemon → 扫 QR 码
 ```
 
-### 2. FB 爬虫（已退役，由 cron 自动 CloakBrowser MCP）
+### 2. FB 爬虫（Hermes cron LLM 模式，30分钟自动）
 
-爬虫不再手动运行。cron `025c5513a4ac` 每 30 分钟自动通过 CloakBrowser MCP 抓取 8 个群组。
-旧 headless Playwright 脚本 `fb_scraper.js` 已退役。
+爬虫不再手动运行。Hermes cron `b469bac211e4` 每 30 分钟通过 CloakBrowser MCP `browser_run_code_unsafe` 自动抓取 8 个群组。
 
+**输出：** `/home/user/fb_data/fb_posts_raw.json`
+**效果：** 每群 20-30 条，约 150-200 条/轮
+**退役方案：** headless Playwright → CDP Chrome → cloakbrowser npm → 全部废弃
 > **迁移历史：** headless Playwright（每群1条）→ Windows CDP（119条，需Chrome）→ **CloakBrowser MCP（87条/群，全自动）**
 
 ### 3. 解析器（手动运行）
@@ -193,7 +195,7 @@ Cron 每 30 分钟跑 `scripts/export_rentals_json.py`，仅导出到本地 `dat
 
 | Job ID | 模式 | 时间 | 脚本/命令 | 职责 | 注意 |
 |--------|------|------|-----------|------|------|
-| `025c5513a4ac` | **LLM** 🧠 | 每30分 | CloakBrowser MCP 抓取 8 群 | ①爬虫+解析+导出一体 | 反检测 + 持久浏览器 |
+| `b469bac211e4` | LLM | 每30分 | CloakBrowser MCP | ①爬虫 | 抓 8 群 → fb_posts_raw.json |
 | `2093b59a898a` | no_agent | 每30分 (:03/:33) | `cron_fb_parser.sh` | ②解析入 Google Sheets | 爬虫的冗余备份 |
 
 ### 付款与订阅管理

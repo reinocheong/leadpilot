@@ -22,12 +22,13 @@
 - **原因：** 多个 Cron 任务同时尝试 `git push` 修改 `data/rentals.json`。
 - **对策：** 统一导出入口，确保同一时间只有一个脚本负责更新并推送数据。
 
-### 9. headless Playwright 退役 → CloakBrowser MCP (2026-06-09)
-- **现象：** headless Playwright 每群只抓 1 条（即使加了完整 cookie 含 datr/sb）。
-- **根因：** FB 对 headless 浏览器的反检测越来越严，跟 cookie 无关。
-- **修复：** 废弃 headless + CDP 方案，改用 **CloakBrowser MCP**（反检测浏览器服务）。
-- **方式：** cron 为 LLM 模式，直接调用 CloakBrowser MCP 工具抓取 8 群。
-- **效果：** 87 条/群（之前 1 条），**87 倍提升**。
+### 9. headless Playwright / CDP / npm cloakbrowser 退役 → CloakBrowser MCP cron (2026-06-09)
+- **问题演变：** headless Playwright 每群~1条 → CDP real Chrome 依赖用户窗口 → cloakbrowser npm 包也是~1条。
+- **根因：** FB 对 headless 浏览器的反检测越来越严，只有 CloakBrowser MCP（完整 Playwright MCP + 反检测层）能突破。
+- **修复：** 废弃 headless + CDP + cloakbrowser npm 全部方案，改用 **CloakBrowser MCP `browser_run_code_unsafe`**。
+- **cron：** Hermes LLM 模式 `b469bac211e4`，每30分。分批抓（每次2群防超时）。
+- **效果：** 20-30条/群，**稳定运行无需用户干预**。
+- **已删除：** `fb_scraper.js`, `cdp_scraper.js`, `cloak_standalone.mjs`, `cron_cloak_scraper.sh`, `cron_fb_scraper.sh`, `extract_cookies*.js`, `fb_cdp_post.js`, `fb_cdp_win.js`
 - **不需要用户保持 Chrome 开着，不需要任何手动操作。**
 - **坑：** CloakBrowser 独立脚本（`launch()` + `humanizeBrowser()`）没有 MCP 层的反检测效果，必须用 MCP 工具。
 - **现象：** 用户登录后，骨架屏闪现，然后页面跳回登录页。
