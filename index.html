@@ -86,7 +86,9 @@
   </script>
   <link rel="alternate" type="text/html" title="完整房源列表 892条" href="/crawler-listings.html">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QJ692DM3BS"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-QJ692DM3BS');</script>
   <style>
     :root {
       --bg: #020617;
@@ -521,69 +523,6 @@
       padding: 0.25rem 0.55rem; border-radius: 0.35rem;
       cursor: pointer; white-space: nowrap;
     }
-    .nav-link {
-      font-size: 0.62rem; color: var(--cyan); font-weight: 500;
-      text-decoration: none;
-      padding: 0.2rem 0.5rem; border-radius: 1rem;
-      background: rgba(34,211,238,0.08);
-      white-space: nowrap;
-    }
-
-    /* Preview bar */
-    .preview-bar {
-      display: flex; align-items: center; justify-content: center;
-      gap: 0.4rem; flex-wrap: wrap;
-      padding: 0.5rem 0.75rem;
-      background: rgba(245,158,11,0.08);
-      border-bottom: 1px solid rgba(245,158,11,0.12);
-      font-size: 0.68rem; color: var(--text-secondary);
-      cursor: pointer;
-      transition: background 0.15s;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .preview-bar:active { background: rgba(245,158,11,0.15); }
-    .preview-bar.hidden { display: none; }
-    .preview-bar .lock-icon { font-size: 0.8rem; }
-    .preview-bar .preview-action {
-      color: var(--accent); font-weight: 600;
-      white-space: nowrap;
-    }
-    .preview-bar .preview-count {
-      color: var(--text-muted);
-    }
-
-    /* ── Payment Overlay ── */
-    .pay-card {
-      width: 100%; max-width: 340px;
-      background: var(--card-bg);
-      border: 1px solid rgba(245,158,11,0.2);
-      border-radius: 1rem;
-      padding: 2rem 1.5rem;
-      text-align: center;
-    }
-    .pay-icon { font-size: 3rem; margin-bottom: 0.5rem; }
-    .pay-title { font-size: 1rem; font-weight: 600; margin-bottom: 0.3rem; }
-    .pay-desc { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 0.5rem; line-height: 1.6; }
-    .pay-price {
-      font-size: 1.8rem; font-weight: 700; color: var(--accent);
-      margin: 0.8rem 0;
-    }
-    .pay-price small { font-size: 0.7rem; color: var(--text-muted); font-weight: 400; }
-    .pay-btn {
-      display: block; width: 100%; padding: 0.75rem;
-      border-radius: 0.65rem; border: none;
-      background: var(--accent);
-      color: #0f172a;
-      font-size: 0.85rem; font-weight: 600;
-      cursor: pointer; text-decoration: none;
-      margin-top: 0.5rem;
-      transition: opacity 0.15s;
-    }
-    .pay-btn:active { opacity: 0.8; }
-    .pay-note {
-      margin-top: 1rem; font-size: 0.6rem; color: #334155;
-      line-height: 1.5;
-    }
   </style>
 </head>
 <body>
@@ -740,7 +679,7 @@
   <hr style="margin:1.5rem 0;border:none;border-top:1px solid #e2e8f0">
 </div>
 
-<div class="top-bar" style="display:none">
+<div class="top-bar">
   <div class="top-bar-inner">
     <div class="brand">
       <div class="brand-dot"></div>
@@ -758,577 +697,182 @@
   <div class="tag-row" id="tagRow"></div>
 </div>
 
-<!-- Preview bar — all listings visible, phone numbers locked -->
-<div class="preview-bar hidden" id="previewBar" onclick="showLoginFromPreview()">
-  <span class="lock-icon">🔒</span>
-  <span>预览</span>
-  <span class="preview-count" id="previewCount">15 套房源</span>
-  <span class="preview-action">订阅查看联系方式 →</span>
-</div>
-
-<!-- Login overlay -->
-<div class="login-overlay" id="loginOverlay" style="display:none">
-  <div class="login-scroll">
-    <!-- Hero -->
-    <div class="landing-hero">
-      <svg class="logo-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="20" cy="20" r="15" stroke="#34d399" stroke-width="1.2" opacity="0.25"/>
-        <circle cx="20" cy="20" r="10" stroke="#34d399" stroke-width="1.2" opacity="0.45"/>
-        <circle cx="20" cy="20" r="5" fill="#34d399" opacity="0.8"/>
-        <path d="M20 5A15 15 0 0 1 35 20" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
-        <path d="M20 3v4M20 33v4M3 20h4M33 20h4" stroke="#34d399" stroke-width="0.8" opacity="0.3"/>
-        <circle cx="27" cy="13" r="1.5" fill="#34d399" opacity="0.35"/>
-        <circle cx="30" cy="24" r="1" fill="#34d399" opacity="0.25"/>
-      </svg>
-      <div class="landing-title">Smart Tenancy Pro</div>
-      <div class="landing-sub">JB 租房数据雷达</div>
-      <div class="landing-desc">
-        <span class="highlight">5 个 FB 群组</span>实时扫描 · 每日自动更新<br>
-        搜楼盘名，<span class="highlight">5 秒找到谁在卖</span> → 直接 WhatsApp 谈 cobroke
-      </div>
-    </div>
-
-    <!-- Features -->
-    <div class="landing-features">
-      <div class="lfeat">
-        <svg class="lfeat-icon" viewBox="0 0 26 26" fill="none" stroke="#f59e0b" stroke-width="1.6" stroke-linecap="round">
-          <circle cx="11" cy="11" r="6.5"/>
-          <path d="M16 16l6 6"/>
-          <path d="M11 5v2M11 15v2M5 11h2M15 11h2" opacity="0.5"/>
-        </svg>
-        <div class="lfeat-pain">FB 群帖子一刷就淹</div>
-        <div class="lfeat-solve">5 群自动抓取，一条不漏</div>
-      </div>
-      <div class="lfeat">
-        <svg class="lfeat-icon" viewBox="0 0 26 26" fill="none" stroke="#34d399" stroke-width="1.6" stroke-linecap="round">
-          <path d="M6 4h2.5l1.2 3.2-1.6 1.6A12 12 0 0 0 15 18l1.6-1.6 3.2 1.2V20a2 2 0 0 1-2 2A14 14 0 0 1 4 8a2 2 0 0 1 2-2z"/>
-        </svg>
-        <div class="lfeat-pain">找人 cobroke 要翻半天</div>
-        <div class="lfeat-solve">搜楼盘名，5 秒出电话</div>
-      </div>
-      <div class="lfeat">
-        <svg class="lfeat-icon" viewBox="0 0 26 26" fill="none" stroke="#22d3ee" stroke-width="1.6" stroke-linecap="round">
-          <path d="M13 3a10 10 0 1 1-7.07 2.93"/>
-          <path d="M13 1v5H8"/>
-        </svg>
-        <div class="lfeat-pain">好盘晚看到已被抢</div>
-        <div class="lfeat-solve">每 30 分钟自动更新</div>
-      </div>
-    </div>
-
-    <!-- Login card -->
-    <div class="login-card">
-      <div class="login-title">免费试用 3 天</div>
-      <div class="login-sub">Google 登录即开，不用填表</div>
-      <div id="googleBtn"></div>
-      <div class="login-loading hidden" id="loginLoading">
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="label">验证中...</span>
-      </div>
-      <div class="login-error" id="loginError"></div>
-    </div>
-
-    <!-- Cross-promo -->
-    <div class="landing-promo">
-      需要做租约合同？试试<br>
-      <a href="https://t.me/smarttenancy_bot" target="_blank" style="color:var(--cyan);font-weight:600;">@smarttenancy_bot →</a>
-    </div>
-
-    <div class="login-foot">有问题？smarttenancypro@gmail.com</div>
-  </div>
-</div>
-
-<!-- Payment overlay -->
-<div class="login-overlay" id="payOverlay" style="display:none">
-  <div class="pay-card">
-    <div class="pay-icon">😢</div>
-    <div class="pay-title">试用已到期</div>
-    <div class="pay-desc">订阅继续查看最新房源<br>每天更新 JB 租房 agent 数据</div>
-    <div class="pay-price">RM 9.90 <small>/ 月</small></div>
-    <a class="pay-btn" id="payLink" href="https://buy.stripe.com/7sY3cu2GOa5u9rp0cI7bW02" target="_blank">
-      💳 订阅续费
-    </a>
-    <div class="pay-note">
-      付款后自动开通，无需等待<br>
-      有问题联系 smarttenancypro@gmail.com
-    </div>
-  </div>
-</div>
-
-<div class="listings" id="listings" style="display:none">
-  <div class="skeleton"><div class="sk-line"></div><div class="sk-line w3"></div><div class="sk-line w2"></div></div>
+<!-- ── listings ── -->
+<div class="listings" id="listings">
   <div class="skeleton"><div class="sk-line"></div><div class="sk-line w3"></div><div class="sk-line w2"></div></div>
   <div class="skeleton"><div class="sk-line"></div><div class="sk-line w3"></div><div class="sk-line w2"></div></div>
 </div>
 <div id="sentinel" style="height:1px"></div>
 <div id="loadMoreIndicator" style="display:none;text-align:center;padding:0.8rem 0.5rem;color:#64748b;font-size:0.7rem">⏳ 加载更多...</div>
 
-<p class="footnote">每 30 分钟自动更新 · 数据只读不写 Sheets · <a href="#" onclick="doLogout()" style="color:var(--text-muted)">退出登录</a></p>
+<p class="footnote">每 30 分钟自动更新 · 数据来源于 FB 群组</p>
 
 <script>
-// ── Auth Config ───────────────────────────────────────────
-const AUTH_URL='https://auth.smart-tenancy-pro.org';
-const GOOGLE_CLIENT_ID = '788231638010-v1k56qso1brtia2u9ddqghbbpes4pkm9.apps.googleusercontent.com';
-const TOKEN_KEY = 'jb_rentals_token';
-const NAME_KEY = 'jb_rentals_name';
+const AUTH_URL = 'https://auth.smart-tenancy-pro.org';
+const PAGE_SIZE = 50;
 
-// ── Data ──────────────────────────────────────────────────
 let DATA = { total: 0, today_new: 0, listings: [], top_properties: [] };
 let activeTag = '';
 
-// Preview pagination state
-const PAGE_SIZE = 50;
-let previewState = {
-  listings: [],
-  total: 0,
-  hasMore: true,
-  loading: false,
-  offset: 0,
-  searchQuery: '',
-  isSearching: false,
-  observer: null,
-  _fetchGen: 0,
-};
+let state = { listings: [], total: 0, hasMore: true, loading: false, offset: 0,
+  searchQuery: '', isSearching: false, observer: null, _fetchGen: 0 };
 
-// ── Auth ──────────────────────────────────────────────────
-function getToken() { return localStorage.getItem(TOKEN_KEY); }
-function saveAuth(token, name) {
-  localStorage.setItem(TOKEN_KEY, token);
-  localStorage.setItem(NAME_KEY, name);
-}
-function clearAuth() {
-  localStorage.removeItem(TOKEN_KEY);
-  localStorage.removeItem(NAME_KEY);
-}
-
-// ── Login Transition ──────────────────────────────────────
-function showLogin() {
-  document.getElementById('loginOverlay').style.display = 'flex';
-  document.getElementById('payOverlay').style.display = 'none';
-  document.querySelector('.top-bar').style.display = 'none';
-  document.getElementById('listings').style.display = 'none';
-  document.querySelector('.footnote').style.display = 'none';
-  // Reset opacity for next transition
-  document.getElementById('loginOverlay').style.opacity = '1';
-  document.getElementById('loginOverlay').style.transition = '';
-}
-
-function showPayWall() {
-  document.getElementById('loginOverlay').style.display = 'none';
-  document.getElementById('payOverlay').style.display = 'flex';
-  document.querySelector('.top-bar').style.display = 'none';
-  document.getElementById('listings').style.display = 'none';
-}
-
-// ── Preview mode (paginated) ──────────────────────────────
-async function loadPreview() {
-  // Reset pagination state
-  previewState = { ...previewState, listings: [], total: 0, hasMore: true, loading: false, offset: 0, searchQuery: '', isSearching: false };
-  await loadMorePreviews();
-  // Show listing dashboard
-  document.querySelector('.top-bar').style.display = '';
-  document.getElementById('listings').style.display = '';
-  document.getElementById('previewCount').textContent = previewState.total + ' 套房源';
-  // Setup infinite scroll
+async function main() {
+  await loadPage();
   setupInfiniteScroll();
 }
 
-async function loadMorePreviews() {
-  if (previewState.loading || !previewState.hasMore) return;
-  previewState.loading = true;
-  const myGen = previewState._fetchGen;
+async function loadPage() {
+  if (state.loading || !state.hasMore) return;
+  state.loading = true; const gen = state._fetchGen;
   document.getElementById('loadMoreIndicator').style.display = '';
-
-  let url;
-  if (previewState.isSearching) {
-    url = AUTH_URL + '/preview/search?q=' + encodeURIComponent(previewState.searchQuery)
-      + '&limit=' + PAGE_SIZE + '&offset=' + previewState.offset;
-  } else {
-    url = AUTH_URL + '/preview?limit=' + PAGE_SIZE + '&offset=' + previewState.offset;
-  }
-
+  let url = AUTH_URL + '/preview?limit=' + PAGE_SIZE + '&offset=' + state.offset;
+  if (state.isSearching)
+    url = AUTH_URL + '/preview/search?q=' + encodeURIComponent(state.searchQuery)
+      + '&limit=' + PAGE_SIZE + '&offset=' + state.offset;
   try {
-    const r = await fetch(url);
-    const data = await r.json();
+    const r = await fetch(url); const data = await r.json();
     if (data.error) throw new Error(data.error);
-    // Discard if a newer search has superseded this fetch
-    if (myGen !== previewState._fetchGen) {
-      previewState.loading = false;
-      document.getElementById('loadMoreIndicator').style.display = 'none';
-      return;
-    }
-
-    previewState.total = data.total || 0;
-    previewState.hasMore = data.has_more || false;
-    previewState.offset = (data.pagination && data.pagination.next_offset) || previewState.offset;
-    DATA.total = previewState.total;
-    DATA.today_new = 0;
+    if (gen !== state._fetchGen) { state.loading = false;
+      document.getElementById('loadMoreIndicator').style.display = 'none'; return; }
+    state.total = data.total || 0; state.hasMore = data.has_more || false;
+    state.offset = (data.pagination && data.pagination.next_offset) || state.offset;
+    DATA.total = state.total; DATA.today_new = 0;
     DATA.top_properties = data.top_properties || [];
-
-    if (previewState.offset === PAGE_SIZE) {
-      // First page — replace
-      DATA.preview = true;
-      previewState.listings = data.listings || [];
-      DATA.listings = previewState.listings;
-      renderStats();
-      renderTags();
-      renderListings();
+    if (state.offset === PAGE_SIZE) {
+      state.listings = data.listings || []; DATA.listings = state.listings;
+      renderStats(); renderTags(); renderListings();
     } else {
-      // Subsequent pages — append
-      const newItems = data.listings || [];
-      previewState.listings = previewState.listings.concat(newItems);
-      DATA.listings = previewState.listings;
-      appendListings(newItems);
+      const items = data.listings || []; state.listings = state.listings.concat(items);
+      DATA.listings = state.listings; appendListings(items);
     }
-
-    if (!previewState.hasMore) {
-      document.getElementById('loadMoreIndicator').textContent = '— 已加载全部 ' + previewState.total + ' 条 —';
-      if (previewState.observer) previewState.observer.disconnect();
+    if (!state.hasMore) {
+      document.getElementById('loadMoreIndicator').textContent = '— 已加载全部 ' + state.total + ' 条 —';
+      if (state.observer) state.observer.disconnect();
     }
-  } catch(e) {
-    document.getElementById('loadMoreIndicator').textContent = '⚠ 加载失败';
-  } finally {
-    previewState.loading = false;
-    if (!previewState.hasMore) return;
+  } catch(e) { document.getElementById('loadMoreIndicator').textContent = '⚠ 加载失败'; }
+  finally {
+    state.loading = false; if (!state.hasMore) return;
     document.getElementById('loadMoreIndicator').style.display = 'none';
   }
 }
 
+function resetSearch() {
+  state._fetchGen++; state.listings = []; state.offset = 0;
+  state.hasMore = true; state.isSearching = !!state.searchQuery; loadPage();
+}
+
 function setupInfiniteScroll() {
-  const sentinel = document.getElementById('sentinel');
-  if (!sentinel) return;
-  if (previewState.observer) previewState.observer.disconnect();
-  previewState.observer = new IntersectionObserver(entries => {
-    if (entries[0].isIntersecting && previewState.hasMore && !previewState.loading) {
-      loadMorePreviews();
-    }
+  const el = document.getElementById('sentinel'); if (!el) return;
+  if (state.observer) state.observer.disconnect();
+  state.observer = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && state.hasMore && !state.loading) loadPage();
   }, { rootMargin: '400px' });
-  previewState.observer.observe(sentinel);
+  state.observer.observe(el);
 }
 
-function resetPreviewSearch() {
-  previewState._fetchGen++;
-  previewState.listings = [];
-  previewState.offset = 0;
-  previewState.hasMore = true;
-  previewState.isSearching = !!previewState.searchQuery;
-  loadMorePreviews();
-}
-
-function showLoginFromPreview() {
-  document.getElementById('previewBar').classList.add('hidden');
-  document.getElementById('loginOverlay').style.display = 'flex';
-  document.getElementById('loginOverlay').style.opacity = '1';
-  initGoogleSignIn();
-}
-
-function doLogout() {
-  if (window.google && google.accounts) google.accounts.id.disableAutoSelect();
-  clearAuth();
-  showLogin();
-  initGoogleSignIn();
-}
-
-// ── Google Sign-In ────────────────────────────────────────
-function initGoogleSignIn() {
-  const btnEl = document.getElementById('googleBtn');
-  if (!btnEl) return;
-  if (!window.google) { setTimeout(initGoogleSignIn, 500); return; }
-  btnEl.innerHTML = '';
-  google.accounts.id.initialize({
-    client_id: GOOGLE_CLIENT_ID,
-    callback: handleGoogleLogin,
-    auto_select: false,
-    use_fedcm_for_button: true,
-  });
-  google.accounts.id.renderButton(btnEl, {
-    type: 'standard', theme: 'outline', size: 'large',
-    text: 'signin_with', shape: 'rectangular',
-    width: btnEl.parentElement.offsetWidth - 48 || 280,
-  });
-}
-
-async function handleGoogleLogin(response) {
-  const errEl = document.getElementById('loginError');
-  const loadingEl = document.getElementById('loginLoading');
-  errEl.textContent = '';
-  loadingEl.classList.remove('hidden');
-  loadingEl.querySelector('.label').textContent = '验证中...';
-
-  try {
-    const r = await fetch(AUTH_URL + '/google-auth', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({google_token: response.credential})
-    });
-    const data = await r.json();
-    if (data.error) {
-      loadingEl.classList.add('hidden');
-      errEl.textContent = data.error;
-      return;
+function filter() {
+  const q = document.getElementById('search').value.toLowerCase().trim();
+  clearTimeout(window._srch);
+  window._srch = setTimeout(() => {
+    if (q !== state.searchQuery || (!q && state.isSearching)) {
+      state.searchQuery = q; state.isSearching = !!q; resetSearch();
     }
-
-    saveAuth(data.token, data.name);
-
-    if (data.status === 'expired') {
-      loadingEl.classList.add('hidden');
-      document.getElementById('loginOverlay').style.display = 'none';
-      document.getElementById('payOverlay').style.display = 'flex';
-      return;
-    }
-
-    // Phase 2: loading data — stay on login page
-    loadingEl.querySelector('.label').textContent = '加载数据中...';
-
-    try {
-      await load();
-    } catch(e) {
-      loadingEl.classList.add('hidden');
-      errEl.textContent = '数据加载失败，请重试';
-      return;
-    }
-
-    // Hide preview bar if user logged in from preview
-    document.getElementById('previewBar').classList.add('hidden');
-
-    // All done — fade login out, show main view
-    loadingEl.classList.add('hidden');
-    const overlay = document.getElementById('loginOverlay');
-    overlay.style.transition = 'opacity 0.15s ease';
-    overlay.style.opacity = '0';
-    await new Promise(r => setTimeout(r, 180));
-    overlay.style.display = 'none';
-    document.querySelector('.top-bar').style.display = '';
-    document.getElementById('listings').style.display = '';
-    document.querySelector('.footnote').style.display = '';
-  } catch(e) {
-    loadingEl.classList.add('hidden');
-    errEl.textContent = '网络错误，请重试';
-  }
-}
-
-// ── Data Loading ──────────────────────────────────────────
-async function load() {
-  const token = getToken();
-  if (!token) { showLogin(); return; }
-  const r = await fetch(AUTH_URL + '/data?token=' + encodeURIComponent(token));
-  if (r.status === 401) { clearAuth(); throw new Error('会话已过期'); }
-  DATA = await r.json();
-  if (DATA.error) throw new Error(DATA.error);
-  // Show app UI — hides by default to prevent FOUC
-  document.querySelector('.top-bar').style.display = '';
-  document.getElementById('listings').style.display = '';
-  document.querySelector('.footnote').style.display = '';
-  renderStats();
-  renderTags();
-  filter();
+  }, 350);
 }
 
 function renderStats() {
-  const name = localStorage.getItem(NAME_KEY) || '';
-  const previewTag = DATA.preview ? '<span class="stat-pill" style="color:var(--accent)">🔓 预览</span>' : '';
   document.getElementById('statPills').innerHTML =
     `<a class="nav-link" href="https://t.me/smarttenancy_bot" target="_blank">📄 合同Bot</a>` +
     `<span class="stat-pill"><b>${DATA.total}</b> 套房源</span>` +
-    `<span class="stat-pill">🆕 <b>${DATA.today_new || 0}</b> 今日</span>` +
-    previewTag +
-    (name ? `<button class="logout-btn" onclick="doLogout()">👤 ${esc(name)}</button>` : '');
+    `<span class="stat-pill">🆕 <b>${DATA.today_new || 0}</b> 今日</span>`;
 }
 
 function renderTags() {
   const row = document.getElementById('tagRow');
   row.innerHTML = '<span class="tag active" onclick="selectTag(\'\', this)">全部</span>';
   (DATA.top_properties || []).slice(0, 10).forEach(p => {
-    const s = document.createElement('span');
-    s.className = 'tag'; s.textContent = p;
-    s.onclick = () => selectTag(p, s);
-    row.appendChild(s);
+    const s = document.createElement('span'); s.className = 'tag'; s.textContent = p;
+    s.onclick = () => selectTag(p, s); row.appendChild(s);
   });
 }
 
 function selectTag(tag, el) {
-  if (activeTag === tag) { activeTag = ''; } else { activeTag = tag; }
+  if (activeTag === tag) activeTag = ''; else activeTag = tag;
   document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
   if (activeTag) el?.classList.add('active');
   else document.querySelector('.tag').classList.add('active');
-  filter();
 }
 
-let searchDebounce = null;
-
-function filter() {
-  const q = document.getElementById('search').value.toLowerCase().trim();
-  
-  if (DATA.preview) {
-    clearTimeout(searchDebounce);
-    searchDebounce = setTimeout(() => {
-      if (q !== previewState.searchQuery || (!q && previewState.isSearching)) {
-        previewState.searchQuery = q;
-        previewState.isSearching = !!q;
-        resetPreviewSearch();
-      }
-    }, 350);
-    return;
-  }
-  
-  // Authenticated mode — client-side search (fast, data already loaded)
-  renderListings(q);
-}
-
-function timeAgo(ts) {
-  if (!ts) return '';
-  const d = new Date(ts), now = new Date();
-  const min = Math.floor((now - d) / 60000);
-  if (min < 1) return '刚刚';
-  if (min < 60) return min + ' 分钟前';
-  if (min < 1440) return Math.floor(min/60) + ' 小时前';
-  return Math.floor(min/1440) + ' 天前';
-}
-
-function fmtRent(r) {
-  if (!r) return '';
-  const n = parseInt(String(r).replace(/[^0-9]/g, ''));
-  if (isNaN(n)) return '';
-  if (n >= 1000) return 'RM' + (n/1000).toFixed(1).replace(/\.0$/, '') + 'k';
-  return 'RM' + n;
-}
-
-function isToday(ts) {
-  if (!ts) return false;
-  const d = new Date(ts), now = new Date();
-  return d.toDateString() === now.toDateString();
-}
-
-function accentClass(type) {
-  if (!type) return 'accent-default';
-  const t = type.toLowerCase();
-  if (t.includes('condo') || t.includes('apartment') || t.includes('studio')) return 'accent-condo';
-  if (t.includes('landed') || t.includes('terrace') || t.includes('bungalow') || t.includes('semi')) return 'accent-landed';
-  if (t.includes('room')) return 'accent-room';
-  return 'accent-default';
-}
-
-function renderListings(q) {
-  let items = DATA.listings || [];
-  if (!DATA.preview && activeTag) {
-    items = items.filter(l => (l.property || '').includes(activeTag));
-  }
-  if (q && !DATA.preview) {
-    // Client-side search (authenticated mode)
-    items = items.filter(l => {
-      const blob = [l.property, l.agent, l.property_type, l.type, l.remark, l.furnishing, l.post_text].join('|').toLowerCase();
-      return blob.includes(q);
-    });
-  }
-
-  if (!items.length) {
-    document.getElementById('listings').innerHTML = '<div class="empty">没有匹配的房源</div>';
-    return;
-  }
-
-  document.getElementById('listings').innerHTML = items.map(cardHtml).join('');
-}
-
-function appendListings(newItems) {
-  if (!newItems || !newItems.length) return;
+function renderListings() {
+  let items = state.listings || [];
   const el = document.getElementById('listings');
-  el.insertAdjacentHTML('beforeend', newItems.map(cardHtml).join(''));
+  if (!items.length) { el.innerHTML = '<div class="empty">没有匹配的房源</div>'; return; }
+  el.innerHTML = items.map(cardHtml).join('');
+}
+
+function appendListings(items) {
+  if (!items || !items.length) return;
+  document.getElementById('listings').insertAdjacentHTML('beforeend', items.map(cardHtml).join(''));
 }
 
 function cardHtml(l) {
-  const isNew = isToday(l.scraped_at);
-  const postText = l.post_text || '';
-  const short = postText.length <= 80;
-  let postCls = short ? '' : 'collapsed';
-  let postClick = short ? '' : ' onclick="togglePost(this)"';
-
+  const isNew = isToday(l.scraped_at), pt = l.post_text || '', short = pt.length <= 80;
   let chips = [];
   if (l.type) chips.push(`<span class="chip type-chip">${esc(l.type)}</span>`);
   if (l.property_type) chips.push(`<span class="chip">${esc(l.property_type)}</span>`);
   if (l.rooms) chips.push(`<span class="chip">${esc(l.rooms)}</span>`);
   if (l.furnishing) chips.push(`<span class="chip furnish-chip">${esc(l.furnishing)}</span>`);
   if (l.remark) chips.push(`<span class="chip">${esc(l.remark)}</span>`);
-
   const rent = l.rent ? fmtRent(l.rent) : '';
-
   const initial = (l.agent || '?')[0];
   let agentHtml = '';
   if (l.agent || l.phone) {
-    const phoneHtml = DATA.preview
-      ? '<span class="agent-phone agent-phone-locked" onclick="showLoginFromPreview()">🔒 <span>' + esc(l.phone) + '</span></span>'
-      : (l.phone ? '<a class="agent-phone" href="tel:' + esc(l.phone) + '">📞 ' + esc(l.phone) + '</a>' : '');
     agentHtml = '<div class="agent-row">' +
       '<span class="agent-avatar">' + esc(initial) + '</span>' +
       (l.agent ? '<span>' + esc(l.agent) + '</span>' : '') +
-      phoneHtml +
+      (l.phone ? '<a class="agent-phone" href="tel:' + esc(l.phone) + '">📞 ' + esc(l.phone) + '</a>' : '') +
       '</div>';
   }
-
-  let postHtml = '';
-  if (postText) {
-    postHtml = '<div class="post-block ' + postCls + '"' + postClick + '>' + esc(postText) + '</div>';
-  }
-
   const accent = accentClass(l.property_type || l.type);
-
-  return `
-    <div class="card ${accent}">
-      <div class="card-body">
-        <div class="card-name">
-          ${isNew ? '<span class="badge-new">NEW</span>' : ''}
-          ${esc(l.property || '(未识别)')}
-          ${rent ? '<span class="rent-tag">' + esc(rent) + '</span>' : ''}
-        </div>
-        ${chips.length ? '<div class="info-chips">' + chips.join('') + '</div>' : ''}
-        ${agentHtml}
-        ${postHtml}
-        <div class="card-foot">
-          <span class="time">${timeAgo(l.scraped_at)}</span>
-          ${!DATA.preview && l.link ? '<a class="fb-link" href="' + esc(l.link) + '" target="_blank">FB 原文 ↗</a>' : '<span></span>'}
-        </div>
-      </div>
-    </div>`;
+  return `<div class="card ${accent}"><div class="card-body">
+    <div class="card-name">${isNew ? '<span class="badge-new">NEW</span>' : ''}
+      ${esc(l.property || '(未识别)')}
+      ${rent ? '<span class="rent-tag">' + esc(rent) + '</span>' : ''}
+    </div>
+    ${chips.length ? '<div class="info-chips">' + chips.join('') + '</div>' : ''}
+    ${agentHtml}
+    ${pt ? '<div class="post-block ' + (short ? '' : 'collapsed') + '"' + (short ? '' : ' onclick="togglePost(this)") + '>' + esc(pt) + '</div>' : ''}
+    <div class="card-foot">
+      <span class="time">${timeAgo(l.scraped_at)}</span>
+      ${l.link ? '<a class="fb-link" href="' + esc(l.link) + '" target="_blank">FB 原文 ↗</a>' : '<span></span>'}
+    </div></div></div>`;
 }
 
-function esc(s) {
-  const d = document.createElement('div');
-  d.textContent = (s || '');
-  return d.innerHTML;
+function esc(s) { const d = document.createElement('div'); d.textContent = (s || ''); return d.innerHTML; }
+function togglePost(el) { el.classList.toggle('collapsed'); el.classList.toggle('expanded'); }
+function timeAgo(ts) {
+  if (!ts) return '';
+  const min = Math.floor((new Date() - new Date(ts)) / 60000);
+  if (min < 1) return '刚刚'; if (min < 60) return min + ' 分钟前';
+  if (min < 1440) return Math.floor(min/60) + ' 小时前';
+  return Math.floor(min/1440) + ' 天前';
+}
+function fmtRent(r) {
+  if (!r) return ''; const n = parseInt(String(r).replace(/[^0-9]/g, ''));
+  if (isNaN(n)) return '';
+  if (n >= 1000) return 'RM' + (n/1000).toFixed(1).replace(/\.0$/, '') + 'k';
+  return 'RM' + n;
+}
+function isToday(ts) { if (!ts) return false; return new Date(ts).toDateString() === new Date().toDateString(); }
+function accentClass(type) {
+  if (!type) return 'accent-default'; const t = type.toLowerCase();
+  if (t.includes('condo') || t.includes('apartment') || t.includes('studio')) return 'accent-condo';
+  if (t.includes('landed') || t.includes('terrace') || t.includes('bungalow') || t.includes('semi')) return 'accent-landed';
+  if (t.includes('room')) return 'accent-room'; return 'accent-default';
 }
 
-function togglePost(el) {
-  if (el.classList.contains('collapsed')) {
-    el.classList.remove('collapsed'); el.classList.add('expanded');
-  } else {
-    el.classList.remove('expanded'); el.classList.add('collapsed');
-  }
-}
-
-// ── Init ──────────────────────────────────────────────────
-(async function init() {
-  const token = getToken();
-  if (token) {
-    try {
-      await load();
-      return;
-    } catch(e) {
-      clearAuth();
-    }
-  }
-  // No token — show preview listings immediately
-  try {
-    await loadPreview();
-    document.getElementById('previewBar').classList.remove('hidden');
-    document.getElementById('previewCount').textContent = DATA.total + ' 套房源';
-    return;
-  } catch(e) {
-    // Preview unavailable — fallback to login page
-  }
-  showLogin();
-  initGoogleSignIn();
-})();
+main();
 </script>
 </body>
 </html>
