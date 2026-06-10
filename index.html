@@ -410,242 +410,31 @@
 <p class="footnote">每 30 分钟自动更新 · 数据来源于 FB 群组</p>
 
 <script>
-window.addEventListener('error', function(e) { document.title = 'JS_ERR:' + e.message; });
-try {
-const AUTH_URL = 'https://apisheet.smart-tenancy-pro.org';
-const PAGE_SIZE = 50;
-
-let DATA = { total: 0, today_new: 0, listings: [], top_properties: [] };
-let state = { listings: [], total: 0, hasMore: true, loading: false, offset: 0,
-  searchQuery: '', isSearching: false, observer: null, _fetchGen: 0, allListings: [] };
-
-// ── Filters ──
-const FILTERS = {
-  price: { label: '租金', items: [
-    { id: '', label: '全部' },
-    { id: 'lt500', label: '< RM500', test: l => parseInt(l.rent||0) > 0 && parseInt(l.rent||0) < 500 },
-    { id: '500-1k', label: 'RM500-1k', test: l => { const r = parseInt(l.rent||0); return r >= 500 && r < 1000; } },
-    { id: '1k-1.5k', label: 'RM1k-1.5k', test: l => { const r = parseInt(l.rent||0); return r >= 1000 && r < 1500; } },
-    { id: '1.5k-2k', label: 'RM1.5k-2k', test: l => { const r = parseInt(l.rent||0); return r >= 1500 && r < 2000; } },
-    { id: '2k-3k', label: 'RM2k-3k', test: l => { const r = parseInt(l.rent||0); return r >= 2000 && r < 3000; } },
-    { id: 'gt3k', label: 'RM3k+', test: l => { const r = parseInt(l.rent||0); return r >= 3000; } },
-  ]},
-  type: { label: '类型', items: [
-    { id: '', label: '全部' },
-    { id: 'room', label: '房间', test: l => (l.property_type||'').includes('房间') || (l.rooms||'').includes('房间') },
-    { id: 'studio', label: 'Studio', test: l => (l.property_type||'').toLowerCase().includes('studio') },
-    { id: 'condo', label: '公寓/Condo', test: l => (l.property_type||'').toLowerCase().includes('公寓') || (l.property_type||'').toLowerCase().includes('condo') || (l.type||'').toLowerCase().includes('公寓') },
-    { id: 'terrace', label: '排屋', test: l => (l.property_type||'').includes('排屋') || (l.property_type||'').includes('terrace') },
-    { id: '整间', label: '整间', test: l => !(l.property_type||'').includes('房间') && !(l.rooms||'').includes('房间') },
-  ]},
-  area: { label: '区域', items: [] },
-};
-let activeFilters = { price: '', type: '', area: '' };
-
-function buildAreaFilter() {
-  const areas = new Set();
-  state.allListings.forEach(l => {
-    const p = (l.property || '').trim();
-    if (p) areas.add(p);
-  });
-  FILTERS.area.items = [{ id: '', label: '全部' }];
-  [...areas].sort().slice(0, 20).forEach(a => {
-    FILTERS.area.items.push({ id: a, label: a, test: l => (l.property||'').includes(a) });
-  });
-}
-
-function renderFilters() {
-  const bar = document.getElementById('filterBar');
-  let html = '';
-  for (const [key, f] of Object.entries(FILTERS)) {
-    const active = activeFilters[key];
-    const label = active ? f.items.find(i => i.id === active)?.label : f.label;
-    html += `<button class="filter-btn${active ? ' active' : ''}" onclick="toggleFilter('${key}')">${label}</button>`;
-  }
-  bar.innerHTML = html;
-}
-
-function toggleFilter(key) {
-  const f = FILTERS[key];
-  const current = activeFilters[key];
-  const items = f.items;
-  const idx = items.findIndex(i => i.id === current);
-  const next = items[(idx + 1) % items.length];
-  activeFilters[key] = next.id;
-  renderFilters();
-  applyFilters();
-}
-
-function applyFilters() {
-  let items = state.allListings;
-  for (const [key, val] of Object.entries(activeFilters)) {
-    if (!val) continue;
-    const f = FILTERS[key];
-    const item = f.items.find(i => i.id === val);
-    if (item && item.test) items = items.filter(item.test);
-  }
-  state.listings = items;
-  DATA.listings = items;
-  renderListings();
-  // Update stats
-  document.getElementById('statPills').innerHTML =
-    `<a class="nav-link" href="https://t.me/smarttenancy_bot" target="_blank">📄 合同Bot</a>` +
-    `<span class="stat-pill"><b>${items.length}</b> 套房源</span>` +
-    `<span class="stat-pill">🆕 <b>${DATA.today_new || 0}</b> 今日</span>`;
-}
-
-// ── Main ──
-async function main() {
-  await loadPage();
-  setupInfiniteScroll();
-}
-
-async function loadPage() {
-  if (state.loading || !state.hasMore) return;
-  state.loading = true; const gen = state._fetchGen;
-  document.getElementById('loadMoreIndicator').style.display = '';
-  let url = AUTH_URL + '/preview?limit=' + PAGE_SIZE + '&offset=' + state.offset;
-  if (state.isSearching)
-    url = AUTH_URL + '/preview/search?q=' + encodeURIComponent(state.searchQuery)
-      + '&limit=' + PAGE_SIZE + '&offset=' + state.offset;
-  try {
-    const r = await fetch(url); const data = await r.json();
-    if (data.error) throw new Error(data.error);
-    if (gen !== state._fetchGen) { state.loading = false;
-      document.getElementById('loadMoreIndicator').style.display = 'none'; return; }
-    state.total = data.total || 0; state.hasMore = data.has_more || false;
-    state.offset = (data.pagination && data.pagination.next_offset) || state.offset;
-    DATA.total = state.total; DATA.today_new = 0;
-    DATA.top_properties = data.top_properties || [];
-    if (state.offset === PAGE_SIZE) {
-      state.allListings = data.listings || [];
-      state.listings = state.allListings;
-      DATA.listings = state.listings;
-      buildAreaFilter();
-      renderFilters();
-      renderStats();
-      renderTags();
-      renderListings();
-    } else {
-      const items = data.listings || [];
-      state.allListings = state.allListings.concat(items);
-      state.listings = state.allListings;
-      DATA.listings = state.listings;
-      appendListings(items);
-    }
-    if (!state.hasMore) {
-      document.getElementById('loadMoreIndicator').textContent = '— 已加载全部 ' + state.total + ' 条 —';
-      if (state.observer) state.observer.disconnect();
-    }
-  } catch(e) { document.getElementById('loadMoreIndicator').textContent = '⚠ 加载失败'; }
-  finally {
-    state.loading = false; if (!state.hasMore) return;
-    document.getElementById('loadMoreIndicator').style.display = 'none';
-  }
-}
-
-function resetSearch() {
-  state._fetchGen++; state.allListings = []; state.listings = []; state.offset = 0;
-  state.hasMore = true; state.isSearching = !!state.searchQuery; loadPage();
-}
-
-function setupInfiniteScroll() {
-  const el = document.getElementById('sentinel'); if (!el) return;
-  if (state.observer) state.observer.disconnect();
-  state.observer = new IntersectionObserver(entries => {
-    if (entries[0].isIntersecting && state.hasMore && !state.loading) loadPage();
-  }, { rootMargin: '400px' });
-  state.observer.observe(el);
-}
-
-function filter() {
-  const q = document.getElementById('search').value.toLowerCase().trim();
-  clearTimeout(window._srch);
-  window._srch = setTimeout(() => {
-    if (q !== state.searchQuery || (!q && state.isSearching)) {
-      state.searchQuery = q; state.isSearching = !!q; resetSearch();
-    }
-  }, 350);
-}
-
-function renderStats() {
-  document.getElementById('statPills').innerHTML =
-    `<a class="nav-link" href="https://t.me/smarttenancy_bot" target="_blank">📄 合同Bot</a>` +
-    `<span class="stat-pill"><b>${DATA.total}</b> 套房源</span>` +
-    `<span class="stat-pill">🆕 <b>${DATA.today_new || 0}</b> 今日</span>`;
-}
-
-function renderTags() {
-  const row = document.getElementById('tagRow');
-  row.innerHTML = '';
-  (DATA.top_properties || []).slice(0, 10).forEach(p => {
-    const s = document.createElement('span'); s.className = 'tag'; s.textContent = p;
-    row.appendChild(s);
-  });
-}
-
-function renderListings() {
-  const items = state.listings || [];
-  const el = document.getElementById('listings');
-  if (!items.length) { el.innerHTML = '<div class="empty">没有匹配的房源</div>'; return; }
-  el.innerHTML = items.map(cardHtml).join('');
-}
-
-function appendListings(items) {
-  if (!items || !items.length) return;
-  document.getElementById('listings').insertAdjacentHTML('beforeend', items.map(cardHtml).join(''));
-}
-
-function cardHtml(l) {
-  const isNew = isToday(l.scraped_at), pt = l.post_text || '', short = pt.length <= 80;
-  const rent = l.rent ? fmtRent(l.rent) : '';
-  const initial = (l.agent || '?')[0];
-  const chips = [l.type, l.property_type, l.rooms, l.furnishing].filter(Boolean);
-  const meta = chips.join(' · ') + (l.remark ? (' · ' + l.remark.replace(/\[.*?\]/g,'').trim()) : '');
-  return `<div class="card ${accentClass(l.property_type || l.type)}"><div class="card-body">
-    <div class="agent-row">
-      <span class="agent-avatar">${esc(initial)}</span>
-      <span class="agent-name">${esc(l.agent || 'Agent')}</span>
-      ${l.phone ? '<a class="agent-phone" href="tel:' + esc(l.phone) + '">📞 ' + esc(l.phone) + '</a>' : ''}
-    </div>
-    <div class="card-name">
-      ${isNew ? '<span class="badge-new">NEW</span>' : ''}
-      ${esc(l.property || '(未识别)')}
-      ${rent ? '<span class="rent-tag">' + esc(rent) + '</span>' : ''}
-    </div>
-    ${meta ? '<div class="meta-row">' + esc(meta) + '</div>' : ''}
-    ${pt ? '<div class="post-block ' + (short ? '' : 'collapsed') + '"' + (short ? '' : ' onclick="togglePost(this)") + '>' + esc(pt) + '</div>' : ''}
-    <div class="card-foot">
-      <span class="time">${timeAgo(l.scraped_at)}</span>
-      ${l.link ? '<a class="fb-link" href="' + esc(l.link) + '" target="_blank">FB 原文 ↗</a>' : '<span></span>'}
-    </div></div></div>`;
-}
-
-function esc(s) { const d = document.createElement('div'); d.textContent = (s || ''); return d.innerHTML; }
-function togglePost(el) { el.classList.toggle('collapsed'); el.classList.toggle('expanded'); }
-function timeAgo(ts) {
-  if (!ts) return '';
-  const min = Math.floor((new Date() - new Date(ts)) / 60000);
-  if (min < 1) return '刚刚'; if (min < 60) return min + ' 分钟前';
-  if (min < 1440) return Math.floor(min/60) + ' 小时前';
-  return Math.floor(min/1440) + ' 天前';
-}
-function fmtRent(r) {
-  if (!r) return ''; const n = parseInt(String(r).replace(/[^0-9]/g, ''));
-  if (isNaN(n) || n === 0) return '';
-  if (n >= 1000) return 'RM' + (n/1000).toFixed(1).replace(/\.0$/, '') + 'k';
-  return 'RM' + n;
-}
-function isToday(ts) { if (!ts) return false; return new Date(ts).toDateString() === new Date().toDateString(); }
-function accentClass(type) {
-  if (!type) return 'accent-default'; const t = type.toLowerCase();
-  if (t.includes('condo') || t.includes('apartment') || t.includes('studio')) return 'accent-condo';
-  if (t.includes('landed') || t.includes('terrace') || t.includes('bungalow') || t.includes('semi')) return 'accent-landed';
-  if (t.includes('room')) return 'accent-room'; return 'accent-default';
-}
-
-main();
-} catch(e) { document.title='JS_ERR:'+e.message; }
+// LeadPilot data loader - using XHR for max compatibility
+(function(){
+var AUTH_URL='https://apisheet.smart-tenancy-pro.org';
+var PS=50,st={listings:[],total:0,hasMore:true,loading:false,offset:0,searchQuery:'',isSearching:false,allListings:[]};
+var D={total:0,today_new:0,listings:[],top_properties:[]};
+var FL={price:{label:'租金',items:[{id:'',label:'全部'},{id:'lt500',label:'<RM500',test:function(l){return parseInt(l.rent||0)>0&&parseInt(l.rent||0)<500;}},{id:'500-1k',label:'RM500-1k',test:function(l){var r=parseInt(l.rent||0);return r>=500&&r<1000;}},{id:'1k-1.5k',label:'RM1k-1.5k',test:function(l){var r=parseInt(l.rent||0);return r>=1000&&r<1500;}},{id:'1.5k-2k',label:'RM1.5k-2k',test:function(l){var r=parseInt(l.rent||0);return r>=1500&&r<2000;}},{id:'2k-3k',label:'RM2k-3k',test:function(l){var r=parseInt(l.rent||0);return r>=2000&&r<3000;}},{id:'gt3k',label:'RM3k+',test:function(l){var r=parseInt(l.rent||0);return r>=3000;}}]},
+type:{label:'类型',items:[{id:'',label:'全部'},{id:'room',label:'房间',test:function(l){return(l.property_type||'').includes('房间')||(l.rooms||'').includes('房间');}},{id:'studio',label:'Studio',test:function(l){return(l.property_type||'').toLowerCase().includes('studio');}},{id:'condo',label:'Condo',test:function(l){return(l.property_type||'').toLowerCase().includes('公寓')||(l.property_type||'').includes('condo');}},{id:'terrace',label:'排屋',test:function(l){return(l.property_type||'').includes('排屋')||(l.property_type||'').includes('terrace');}}]},
+area:{label:'区域',items:[{id:'',label:'全部'}]}};
+var af={price:'',type:'',area:''};
+function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function ta(ts){if(!ts)return'';var m=Math.floor((new Date()-new Date(ts))/60000);if(m<1)return'刚刚';if(m<60)return m+'分钟前';if(m<1440)return Math.floor(m/60)+'小时前';return Math.floor(m/1440)+'天前';}
+function fr(r){if(!r)return'';var n=parseInt(String(r).replace(/[^0-9]/g,''));if(isNaN(n)||n===0)return'';if(n>=1000)return'RM'+(n/1000).toFixed(1).replace(/\.0$/,'')+'k';return'RM'+n;}
+function it(ts){if(!ts)return false;return new Date(ts).toDateString()===new Date().toDateString();}
+function ac(t){if(!t)return'accent-default';var n=t.toLowerCase();if(n.includes('condo')||n.includes('apartment')||n.includes('studio'))return'accent-condo';if(n.includes('landed')||n.includes('terrace')||n.includes('bungalow'))return'accent-landed';if(n.includes('room'))return'accent-room';return'accent-default';}
+function ba(){var a=new Set();st.allListings.forEach(function(l){var p=(l.property||'').trim();if(p)a.add(p);});FL.area.items=[{id:'',label:'全部'}];[...a].sort().slice(0,20).forEach(function(x){FL.area.items.push({id:x,label:x,test:function(l){return(l.property||'').includes(x);}});});}
+function rs(){var e=document.getElementById('statPills');if(!e)return;e.innerHTML='<a class="nav-link" href="https://t.me/smarttenancy_bot" target="_blank">📄合同Bot</a><span class="stat-pill"><b>'+D.total+'</b> 套房源</span><span class="stat-pill">🆕<b>'+(D.today_new||0)+'</b> 今日</span>';}
+function rtag(){var r=document.getElementById('tagRow');if(!r)return;r.innerHTML='';(D.top_properties||[]).slice(0,10).forEach(function(p){var s=document.createElement('span');s.className='tag';s.textContent=p;r.appendChild(s);});}
+function rf(){var b=document.getElementById('filterBar');if(!b)return;var h='';for(var k in FL){var f=FL[k],a=af[k],l=a?(f.items||[]).find(function(i){return i.id===a;}):f.label;h+='<button class="filter-btn'+(a?' active':'')+'" onclick="tf(\''+k+'\')">'+l+'</button>';}b.innerHTML=h;}
+window.tf=function(k){var it=FL[k].items,idx=it.findIndex(function(i){return i.id===af[k];});af[k]=it[(idx+1)%it.length].id;rf();afn();}
+function afn(){var i=st.allListings;for(var k in af){if(!af[k])continue;var it=(FL[k].items||[]).find(function(x){return x.id===af[k];});if(it&&it.test)i=i.filter(it.test);}st.listings=i;D.listings=i;rl();rs();}
+function ch(l){var n=it(l.scraped_at),pt=l.post_text||'',sh=pt.length<=80,rt=l.rent?fr(l.rent):'',ni=(l.agent||'?')[0],c=[l.type,l.property_type,l.rooms,l.furnishing].filter(function(x){return x;}),m=c.join(' · ')+(l.remark?(' · '+l.remark.replace(/\[.*?\]/g,'').trim()):'');return '<div class="card '+ac(l.property_type||l.type)+'"><div class="card-body"><div class="agent-row"><span class="agent-avatar">'+esc(ni)+'</span><span class="agent-name">'+esc(l.agent||'Agent')+'</span>'+(l.phone?'<a class="agent-phone" href="tel:'+esc(l.phone)+'">📞 '+esc(l.phone)+'</a>':'')+'</div><div class="card-name">'+(n?'<span class="badge-new">NEW</span>':'')+esc(l.property||'(未识别)')+(rt?'<span class="rent-tag">'+esc(rt)+'</span>':'')+'</div>'+(m?'<div class="meta-row">'+esc(m)+'</div>':'')+(pt?'<div class="post-block '+(sh?'':'collapsed')+'"'+(sh?'':' onclick="this.classList.toggle(\'collapsed\');this.classList.toggle(\'expanded\');"')+'>'+esc(pt)+'</div>':'')+'<div class="card-foot"><span class="time">'+ta(l.scraped_at)+'</span>'+(l.link?'<a class="fb-link" href="'+esc(l.link)+'" target="_blank">FB ↗</a>':'<span></span>')+'</div></div></div>';}
+function rl(){var i=st.listings||[],e=document.getElementById('listings');if(!e)return;if(!i.length){e.innerHTML='<div class="empty">没有匹配的房源</div>';return;}e.innerHTML=i.map(ch).join('');}
+function ld(){var x=new XMLHttpRequest();x.open('GET','https://apisheet.smart-tenancy-pro.org/preview?limit=50&offset=0',true);x.onload=function(){try{var d=JSON.parse(x.responseText);if(!d||!d.listings)return;st.allListings=d.listings;st.listings=d.listings;st.total=d.total||0;D.total=st.total;D.today_new=d.today_new||0;D.top_properties=d.top_properties||[];ba();rf();rl();rs();rtag();}catch(e){}};x.onerror=function(){};x.send();}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ld);else ld();
+})();
 </script>
 </body>
 </html>
