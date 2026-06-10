@@ -143,7 +143,7 @@
     .brand h1 { font-size: 1rem; font-weight: 600; letter-spacing: -0.01em; }
     .brand-sub { font-size: 0.65rem; color: var(--text-muted); font-weight: 400; }
 
-    .stat-pills { display: flex; gap: 0.4rem; }
+    .stat-pills { display: flex; gap: 0.4rem; align-items: center; }
     .stat-pill {
       font-size: 0.62rem; font-weight: 500;
       padding: 0.2rem 0.5rem; border-radius: 1rem;
@@ -153,11 +153,14 @@
     }
     .stat-pill b { color: var(--text-secondary); font-weight: 600; }
 
-    /* Search */
-    .search-wrap {
-      position: relative;
-      margin-bottom: 0.5rem;
+    .nav-link {
+      font-size: 0.62rem; color: var(--cyan); font-weight: 500;
+      text-decoration: none; padding: 0.2rem 0.5rem; border-radius: 1rem;
+      background: rgba(34,211,238,0.08); white-space: nowrap;
     }
+
+    /* Search */
+    .search-wrap { position: relative; }
     .search-wrap svg {
       position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%);
       width: 16px; height: 16px; color: var(--text-muted); pointer-events: none;
@@ -179,11 +182,11 @@
       box-shadow: 0 0 0 3px var(--accent-glow);
     }
 
-    /* Tags — wrap, no scroll */
+    /* Tags */
     .tag-row {
       display: flex; flex-wrap: wrap;
       gap: 0.35rem;
-      padding-bottom: 0.65rem;
+      padding-bottom: 0.3rem;
     }
     .tag {
       padding: 0.28rem 0.6rem;
@@ -200,8 +203,31 @@
       color: var(--accent);
     }
 
+    /* ── Filter bar ── */
+    .filter-bar {
+      display: flex; gap: 0.4rem; overflow-x: auto;
+      padding: 0.3rem 0 0.65rem; -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .filter-bar::-webkit-scrollbar { display: none; }
+    .filter-btn {
+      flex-shrink: 0; padding: 0.3rem 0.65rem;
+      border-radius: 0.5rem; font-size: 0.67rem; font-weight: 500;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      color: var(--text-muted); cursor: pointer;
+      white-space: nowrap; transition: all 0.15s;
+    }
+    .filter-btn.active {
+      background: var(--accent-glow);
+      border-color: rgba(245,158,11,0.3);
+      color: var(--accent);
+    }
+    .filter-btn:hover { border-color: rgba(255,255,255,0.12); }
+    .filter-btn .badge { font-size: 0.58rem; opacity: 0.6; margin-left: 0.15rem; }
+
     /* ── Listings ── */
-    .listings { padding: 0.5rem 0.85rem; }
+    .listings { padding: 0 0.85rem 0.5rem; }
 
     .card {
       background: var(--card-bg);
@@ -213,98 +239,73 @@
       position: relative;
     }
     .card:active { transform: scale(0.985); }
-
-    /* Type accent bar */
     .card.accent-condo  { border-left: 3px solid #f59e0b; }
     .card.accent-landed { border-left: 3px solid #34d399; }
     .card.accent-room   { border-left: 3px solid #38bdf8; }
     .card.accent-default { border-left: 3px solid #6366f1; }
 
-    .card-body { padding: 0.7rem 0.75rem; }
+    .card-body { padding: 0.6rem 0.75rem; }
 
-    /* New badge */
-    .badge-new {
-      display: inline-block;
-      font-size: 0.58rem; font-weight: 600; letter-spacing: 0.03em;
-      padding: 0.12rem 0.4rem; border-radius: 0.25rem;
-      background: var(--new-bg); color: var(--new-text);
-      margin-right: 0.4rem; vertical-align: middle;
-    }
-
-    .card-name {
-      font-size: 0.92rem; font-weight: 600;
-      line-height: 1.35; margin-bottom: 0.35rem;
-      color: var(--text-primary);
-      display: flex; align-items: center; gap: 0.4rem;
-    }
-    .card-name .rent-tag {
-      flex-shrink: 0;
-      font-size: 0.75rem; font-weight: 700;
-      color: #fbbf24;
-      background: rgba(251,191,36,0.08);
-      padding: 0.15rem 0.45rem; border-radius: 0.35rem;
-      margin-left: auto;
-    }
-
-    /* Info chips */
-    .info-chips {
-      display: flex; flex-wrap: wrap; gap: 0.3rem;
-      margin-bottom: 0.4rem;
-    }
-    .chip {
-      font-size: 0.65rem; font-weight: 500;
-      padding: 0.18rem 0.45rem; border-radius: 0.3rem;
-      background: rgba(255,255,255,0.04);
-      color: #cbd5e1;
-    }
-    .chip.type-chip { background: rgba(99,102,241,0.1); color: #a5b4fc; }
-    .chip.furnish-chip { background: rgba(52,211,153,0.08); color: #6ee7b7; }
-
-    /* Agent row */
+    /* Agent row at TOP */
     .agent-row {
-      display: flex; align-items: center; gap: 0.5rem;
-      font-size: 0.7rem; color: var(--text-secondary);
+      display: flex; align-items: center; gap: 0.4rem;
+      font-size: 0.68rem; color: var(--text-secondary);
       margin-bottom: 0.35rem;
-      padding: 0.35rem 0.5rem;
-      border-radius: 0.4rem;
-      background: rgba(255,255,255,0.02);
     }
     .agent-avatar {
-      width: 22px; height: 22px; flex-shrink: 0;
+      width: 20px; height: 20px; flex-shrink: 0;
       border-radius: 50%;
       background: linear-gradient(135deg, #6366f1, #a855f7);
       display: flex; align-items: center; justify-content: center;
-      font-size: 0.58rem; font-weight: 600; color: white;
+      font-size: 0.55rem; font-weight: 600; color: white;
     }
+    .agent-name { font-weight: 500; color: #cbd5e1; }
     .agent-phone {
-      color: var(--cyan); font-weight: 500; margin-left: auto;
-      text-decoration: none;
-      font-size: 0.68rem;
-    }
-    .agent-phone-locked {
-      color: var(--text-muted); cursor: pointer;
-      opacity: 0.6;
-    }
-    .agent-phone-locked span {
-      letter-spacing: 2px;
-      filter: blur(2px);
-      user-select: none;
+      margin-left: auto;
+      color: var(--cyan); font-weight: 600;
+      text-decoration: none; font-size: 0.68rem;
+      padding: 0.15rem 0.4rem; border-radius: 0.3rem;
+      background: rgba(34,211,238,0.08);
     }
 
-    /* Post preview */
+    .card-name {
+      font-size: 0.9rem; font-weight: 600;
+      line-height: 1.3; margin-bottom: 0.25rem;
+      color: var(--text-primary);
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .badge-new {
+      font-size: 0.55rem; font-weight: 600; letter-spacing: 0.03em;
+      padding: 0.1rem 0.35rem; border-radius: 0.25rem;
+      background: var(--new-bg); color: var(--new-text);
+    }
+    .rent-tag {
+      flex-shrink: 0;
+      font-size: 0.78rem; font-weight: 700;
+      color: #fbbf24;
+      background: rgba(251,191,36,0.08);
+      padding: 0.1rem 0.4rem; border-radius: 0.35rem;
+      margin-left: auto;
+    }
+
+    .meta-row {
+      display: flex; flex-wrap: wrap; gap: 0.25rem 0.4rem;
+      font-size: 0.62rem; color: var(--text-muted);
+      margin-bottom: 0.2rem;
+    }
+    .meta-row .dot { color: #334155; }
+
     .post-block {
-      margin-top: 0.3rem;
-      padding: 0.45rem 0.55rem;
+      margin-top: 0.25rem;
+      padding: 0.4rem 0.5rem;
       border-radius: 0.4rem;
-      background: rgba(0,0,0,0.25);
-      font-size: 0.68rem; color: var(--text-muted);
-      line-height: 1.55;
+      background: rgba(0,0,0,0.2);
+      font-size: 0.66rem; color: var(--text-muted);
+      line-height: 1.5;
       position: relative;
       white-space: pre-line; word-break: break-word;
     }
-    .post-block.collapsed {
-      max-height: 4em; overflow: hidden;
-    }
+    .post-block.collapsed { max-height: 3.5em; overflow: hidden; }
     .post-block.collapsed::after {
       content: '展开全文';
       position: absolute; bottom: 0; right: 0;
@@ -316,14 +317,13 @@
       content: '收起';
       display: block; text-align: center;
       color: var(--cyan); font-size: 0.62rem; font-weight: 500;
-      margin-top: 0.35rem; padding-top: 0.25rem;
+      margin-top: 0.25rem; padding-top: 0.25rem;
       border-top: 1px solid rgba(255,255,255,0.05);
     }
 
-    /* Card footer */
     .card-foot {
       display: flex; justify-content: space-between; align-items: center;
-      margin-top: 0.4rem; padding-top: 0.35rem;
+      margin-top: 0.3rem; padding-top: 0.3rem;
       border-top: 1px solid var(--border);
       font-size: 0.6rem;
     }
@@ -349,333 +349,35 @@
     .sk-line.w2 { width: 60%; }
     .sk-line.w3 { width: 80%; }
 
-    /* Empty */
     .empty { text-align: center; padding: 3rem 1rem; color: var(--text-muted); font-size: 0.8rem; }
 
     .footnote {
-      display: none;
-      text-align: center; padding: 1.5rem 0.5rem 1rem;
+      text-align: center; padding: 1rem 0.5rem 0.5rem;
       font-size: 0.6rem; color: #334155;
-    }
-
-    /* ── Login Overlay ── */
-    .login-overlay {
-      position: fixed; inset: 0; z-index: 100;
-      background: linear-gradient(180deg, #020617 0%, #0b1628 60%, #0f172a 100%);
-      display: flex; align-items: flex-start; justify-content: center;
-      overflow-y: auto; -webkit-overflow-scrolling: touch;
-      padding: 0;
-    }
-    .login-overlay::before {
-      content: '';
-      position: fixed; inset: 0; z-index: -1;
-      background: radial-gradient(ellipse 70% 35% at 50% -5%, rgba(245,158,11,0.1) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .login-scroll {
-      width: 100%; max-width: 380px;
-      padding: 1.5rem 1rem 2rem;
-      display: flex; flex-direction: column; align-items: center;
-    }
-    #googleBtn {
-      margin: 0 auto;
-      display: flex; justify-content: center;
-    }
-
-    /* ── Landing page elements ── */
-    .landing-hero {
-      text-align: center; padding: 0.8rem 0 0.2rem;
-      animation: fadeUp 0.5s ease both;
-    }
-    .landing-hero .logo-svg {
-      width: 40px; height: 40px;
-      margin: 0 auto 0.6rem;
-      display: block;
-      animation: pulseGlow 3s ease-in-out infinite;
-    }
-    @keyframes pulseGlow {
-      0%,100% { filter: drop-shadow(0 0 6px rgba(52,211,153,0.3)); }
-      50% { filter: drop-shadow(0 0 14px rgba(52,211,153,0.6)); }
-    }
-    .landing-title {
-      font-size: 1.4rem; font-weight: 700; letter-spacing: 0.02em;
-      margin-bottom: 0.25rem;
-      background: linear-gradient(135deg, #f1f5f9 40%, #fbbf24 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .landing-hero .landing-sub {
-      font-size: 0.75rem; color: var(--accent); font-weight: 500;
-      margin-bottom: 0.7rem;
-    }
-    .landing-desc {
-      font-size: 0.68rem; color: var(--text-muted);
-      line-height: 1.65;
-      max-width: 300px; margin: 0 auto;
-    }
-    .landing-desc .highlight {
-      color: #5eead4; font-weight: 500;
-    }
-    .landing-features {
-      display: flex; gap: 0.5rem;
-      margin: 1rem 0 0.5rem;
-      animation: fadeUp 0.5s ease 0.15s both;
-    }
-    .lfeat {
-      flex: 1; text-align: center;
-      padding: 0.6rem 0.25rem 0.55rem;
-      border-radius: 0.6rem;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.06);
-      min-height: 92px;
-      display: flex; flex-direction: column; align-items: center;
-      justify-content: center;
-      transition: transform 0.15s, box-shadow 0.15s;
-    }
-    .lfeat:active { transform: scale(0.96); }
-    /* Colored top accent per card */
-    .lfeat:nth-child(1) { border-top: 2px solid rgba(245,158,11,0.35); }
-    .lfeat:nth-child(2) { border-top: 2px solid rgba(52,211,153,0.35); }
-    .lfeat:nth-child(3) { border-top: 2px solid rgba(34,211,238,0.35); }
-    .lfeat-icon {
-      width: 26px; height: 26px; margin-bottom: 0.35rem;
-    }
-    .lfeat-pain {
-      font-size: 0.58rem; color: var(--text-muted); font-weight: 400;
-      line-height: 1.3; margin-bottom: 0.15rem;
-    }
-    .lfeat-solve {
-      font-size: 0.62rem; color: #fbbf24; font-weight: 500;
-      line-height: 1.3;
-    }
-    .lfeat:nth-child(2) .lfeat-solve { color: #6ee7b7; }
-    .lfeat:nth-child(3) .lfeat-solve { color: #67e8f9; }
-    .landing-promo {
-      text-align: center; margin-top: 1rem;
-      font-size: 0.62rem; color: #334155;
-      line-height: 1.6;
-      animation: fadeUp 0.5s ease 0.45s both;
-    }
-    .login-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
-    .login-card {
-      width: 100%; max-width: 340px;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      background: rgba(15,23,42,0.55);
-      border: 1px solid rgba(245,158,11,0.12);
-      border-radius: 1rem;
-      padding: 1.5rem 1.2rem 1.3rem;
-      text-align: center;
-      margin-top: 0.5rem;
-      box-shadow: 0 0 30px rgba(245,158,11,0.04);
-      animation: fadeUp 0.5s ease 0.3s both;
-    }
-    .login-title {
-      font-size: 1.1rem; font-weight: 600; margin-bottom: 0.3rem;
-      color: var(--accent);
-    }
-    .login-sub {
-      font-size: 0.7rem; color: var(--text-muted); margin-bottom: 1.2rem;
-    }
-    .login-error {
-      font-size: 0.68rem; color: #f87171;
-      margin-top: 0.5rem; min-height: 1.2em;
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Loading indicator */
-    .login-loading {
-      display: flex; align-items: center; justify-content: center;
-      gap: 0.35rem; margin-top: 1rem; min-height: 1.5rem;
-      transition: opacity 0.2s;
-    }
-    .login-loading.hidden { display: none; }
-    .login-loading .dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--accent);
-      animation: loadBounce 1.2s ease-in-out infinite;
-    }
-    .login-loading .dot:nth-child(2) { animation-delay: 0.2s; }
-    .login-loading .dot:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes loadBounce {
-      0%,80%,100% { opacity: 0.25; transform: scale(0.8); }
-      40% { opacity: 1; transform: scale(1.2); }
-    }
-    .login-loading .label {
-      font-size: 0.72rem; color: var(--text-muted);
-      margin-left: 0.2rem;
-    }
-    .login-foot {
-      margin-top: 1.2rem;
-      font-size: 0.62rem; color: #334155;
-    }
-    .logout-btn {
-      font-size: 0.62rem; color: var(--text-muted);
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--border);
-      padding: 0.25rem 0.55rem; border-radius: 0.35rem;
-      cursor: pointer; white-space: nowrap;
     }
   </style>
 </head>
 <body>
 
-<!-- 
-  ═══════════════════════════════════════════════════
-  ⚡ 爬虫静态数据 — AI搜索引擎无需JS即可读取实际房源
-  925条完整数据见 /crawler-listings.html
-  ═══════════════════════════════════════════════════
--->
+<!-- SEO crawler data -->
 <div id="crawler-samples" style="display:none;max-width:900px;margin:2rem auto;padding:1.5rem;font-family:-apple-system,BlinkMacSystemFont,sans-serif;color:#1a1a1a">
   <h2 style="font-size:1.3rem;margin-bottom:0.3rem">JB Rental Data — 925 Listings</h2>
-  <p style="font-size:0.85rem;color:#555;margin-bottom:1rem">
-    From 5 Facebook groups · Updated every 30 min · Phone numbers masked · <a href="/crawler-listings.html" style="color:#2563eb">View all 925 →</a>
-  </p>
-
-  <!-- Market Overview -->
+  <p style="font-size:0.85rem;color:#555;margin-bottom:1rem">From 5 Facebook groups · Updated every 30 min · <a href="/crawler-listings.html" style="color:#2563eb">View all 925 →</a></p>
   <div style="display:flex;flex-wrap:wrap;gap:0.8rem;margin-bottom:1.5rem;font-size:0.8rem">
-    <div style="background:#f0f9ff;border-radius:8px;padding:0.6rem 1rem;flex:1;min-width:120px;text-align:center">
-      <div style="font-size:1.2rem;font-weight:700;color:#0369a1">925</div>
-      <div style="color:#64748b">Total Listings</div>
-    </div>
-    <div style="background:#f0fdf4;border-radius:8px;padding:0.6rem 1rem;flex:1;min-width:120px;text-align:center">
-      <div style="font-size:1.2rem;font-weight:700;color:#15803d">RM450 - RM7,000</div>
-      <div style="color:#64748b">Price Range /mo</div>
-    </div>
-    <div style="background:#fefce8;border-radius:8px;padding:0.6rem 1rem;flex:1;min-width:120px;text-align:center">
-      <div style="font-size:1.2rem;font-weight:700;color:#a16207">RM1,900</div>
-      <div style="color:#64748b">Median Price</div>
-    </div>
-    <div style="background:#fff1f2;border-radius:8px;padding:0.6rem 1rem;flex:1;min-width:140px;text-align:center">
-      <div style="font-size:1.2rem;font-weight:700;color:#be123c">10+ Areas</div>
-      <div style="color:#64748b">Bukit Indah · Mount Austin · JB Town</div>
-    </div>
+    <div style="background:#f0f9ff;border-radius:8px;padding:0.6rem 1rem;flex:1;min-width:120px;text-align:center"><div style="font-size:1.2rem;font-weight:700;color:#0369a1">925</div><div style="color:#64748b">Total Listings</div></div>
+    <div style="background:#f0fdf4;border-radius:8px;padding:0.6rem 1rem;flex:1;min-width:120px;text-align:center"><div style="font-size:1.2rem;font-weight:700;color:#15803d">RM450 - RM7,000</div><div style="color:#64748b">Price Range /mo</div></div>
+    <div style="background:#fefce8;border-radius:8px;padding:0.6rem 1rem;flex:1;min-width:120px;text-align:center"><div style="font-size:1.2rem;font-weight:700;color:#a16207">RM1,900</div><div style="color:#64748b">Median Price</div></div>
+    <div style="background:#fff1f2;border-radius:8px;padding:0.6rem 1rem;flex:1;min-width:140px;text-align:center"><div style="font-size:1.2rem;font-weight:700;color:#be123c">10+ Areas</div><div style="color:#64748b">Bukit Indah · Mount Austin · JB Town</div></div>
   </div>
-
-  <!-- Property Type Distribution -->
-  <div style="font-size:0.8rem;color:#555;margin-bottom:1rem">
-    <strong>Property Types:</strong> 房间(209) · 公寓(159) · 双层排屋(142) · 单层排屋(63) · Studio(48) · 中房(33) · 排屋(27) · Flat(21)
-  </div>
-
+  <div style="font-size:0.8rem;color:#555;margin-bottom:1rem"><strong>Property Types:</strong> 房间(209) · 公寓(159) · 双层排屋(142) · 单层排屋(63) · Studio(48) · 中房(33) · 排屋(27) · Flat(21)</div>
   <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:0.6rem">
-    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
-      <div style="font-weight:600;font-size:0.85rem">R&F Princess Cove</div>
-      <div style="color:#dc2626;font-weight:600">RM3,000/m <span style="font-weight:400;color:#666;font-size:0.75rem">房间 · 全家私</span></div>
-      <div style="font-size:0.75rem;color:#888;margin-top:2px">近CIQ · 有停车位</div>
-    </div>
-    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
-      <div style="font-weight:600;font-size:0.85rem">Bukit Indah 房间</div>
-      <div style="color:#dc2626;font-weight:600">RM2,000/m <span style="font-weight:400;color:#666;font-size:0.75rem">房间</span></div>
-      <div style="font-size:0.75rem;color:#888;margin-top:2px">屋主自租 · 有冷气 · 可煮</div>
-    </div>
-    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
-      <div style="font-weight:600;font-size:0.85rem">Meridin Medini 房间</div>
-      <div style="color:#dc2626;font-weight:600">RM2,300/m <span style="font-weight:400;color:#666;font-size:0.75rem">房间</span></div>
-      <div style="font-size:0.75rem;color:#888;margin-top:2px">有停车位</div>
-    </div>
-    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
-      <div style="font-weight:600;font-size:0.85rem">R&F Princess Cove 2房1厕</div>
-      <div style="color:#dc2626;font-weight:600">RM2,700/m <span style="font-weight:400;color:#666;font-size:0.75rem">全装</span></div>
-      <div style="font-size:0.75rem;color:#888;margin-top:2px">Phase 1 · 873sqft</div>
-    </div>
-    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
-      <div style="font-weight:600;font-size:0.85rem">Taman Sentosa 房间</div>
-      <div style="color:#dc2626;font-weight:600">RM800/m <span style="font-weight:400;color:#666;font-size:0.75rem">房间</span></div>
-      <div style="font-size:0.75rem;color:#888;margin-top:2px">近CIQ · 包水电 · 有冷气</div>
-    </div>
-    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
-      <div style="font-weight:600;font-size:0.85rem">Taman Megah Ria 双层排屋</div>
-      <div style="color:#dc2626;font-weight:600">RM2,500/m <span style="font-weight:400;color:#666;font-size:0.75rem">4房3厕</span></div>
-      <div style="font-size:0.75rem;color:#888;margin-top:2px">半家私 · 22x70</div>
-    </div>
-    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
-      <div style="font-weight:600;font-size:0.85rem">KSL Residence 单层排屋</div>
-      <div style="color:#dc2626;font-weight:600">RM2,600/m</div>
-      <div style="font-size:0.75rem;color:#888;margin-top:2px">近班兰华小</div>
-    </div>
-    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
-      <div style="font-weight:600;font-size:0.85rem">Twin Tower</div>
-      <div style="color:#dc2626;font-weight:600">RM500/m <span style="font-weight:400;color:#666;font-size:0.75rem">近CIQ</span></div>
-    </div>
-    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
-      <div style="font-weight:600;font-size:0.85rem">The Tate 双层排屋</div>
-      <div style="color:#dc2626;font-weight:600">RM4,000/m <span style="font-weight:400;color:#666;font-size:0.75rem">有冷气</span></div>
-      <div style="font-size:0.75rem;color:#888;margin-top:2px">Eco Botani 2 · 4房</div>
-    </div>
-    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
-      <div style="font-weight:600;font-size:0.85rem">Taman Pelangi 双层排屋</div>
-      <div style="color:#dc2626;font-weight:600">RM2,800/m</div>
-    </div>
-    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
-      <div style="font-weight:600;font-size:0.85rem">Park Avenue Apartment</div>
-      <div style="color:#dc2626;font-weight:600">RM2,000/m <span style="font-weight:400;color:#666;font-size:0.75rem">3房全装</span></div>
-      <div style="font-size:0.75rem;color:#888;margin-top:2px">有停车位</div>
-    </div>
-    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
-      <div style="font-weight:600;font-size:0.85rem">Taman Daya</div>
-      <div style="color:#dc2626;font-weight:600">RM? <span style="font-weight:400;color:#666;font-size:0.75rem">双排 · 全装</span></div>
-      <div style="font-size:0.75rem;color:#888;margin-top:2px">屋主自租 · 近Mount Austin</div>
-    </div>
-    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
-      <div style="font-weight:600;font-size:0.85rem">Tiram 中房</div>
-      <div style="color:#dc2626;font-weight:600">RM450/m <span style="font-weight:400;color:#666;font-size:0.75rem">中房</span></div>
-      <div style="font-size:0.75rem;color:#888;margin-top:2px">有冷气 · 洗衣机 · 冰箱</div>
-    </div>
-    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
-      <div style="font-weight:600;font-size:0.85rem">Tebrau 公寓</div>
-      <div style="font-size:0.75rem;color:#888;margin-top:2px">近Aeon Tebrau</div>
-    </div>
-    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
-      <div style="font-weight:600;font-size:0.85rem">Veranda Residence 公寓</div>
-      <div style="color:#dc2626;font-weight:600">RM490k sale <span style="font-weight:400;color:#666;font-size:0.75rem">1房</span></div>
-      <div style="font-size:0.75rem;color:#888;margin-top:2px">近CIQ · RTS · 有停车位</div>
-    </div>
-    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
-      <div style="font-weight:600;font-size:0.85rem">Gelang Patah 双层排屋</div>
-      <div style="color:#dc2626;font-weight:600">RM600k sale <span style="font-weight:400;color:#666;font-size:0.75rem">4房3厕</span></div>
-      <div style="font-size:0.75rem;color:#888;margin-top:2px">近Second Link</div>
-    </div>
-    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
-      <div style="font-weight:600;font-size:0.85rem">Taman Johor Jaya 中房</div>
-      <div style="font-size:0.75rem;color:#888;margin-top:2px">双排楼中房/主人房出租</div>
-    </div>
-    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
-      <div style="font-weight:600;font-size:0.85rem">Linda Chua Crescent Bay</div>
-      <div style="color:#dc2626;font-weight:600">RM1,800/m <span style="font-weight:400;color:#666;font-size:0.75rem">Studio</span></div>
-      <div style="font-size:0.75rem;color:#888;margin-top:2px">有冰箱 · 洗衣机</div>
-    </div>
-    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
-      <div style="font-weight:600;font-size:0.85rem">Mount Austin 公寓</div>
-      <div style="font-size:0.75rem;color:#888;margin-top:2px">Austin Suites · 有车位</div>
-    </div>
-    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
-      <div style="font-weight:600;font-size:0.85rem">Taman Tasek</div>
-      <div style="color:#dc2626;font-weight:600">RM800/m <span style="font-weight:400;color:#666;font-size:0.75rem">包水电冷气</span></div>
-    </div>
-    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
-      <div style="font-weight:600;font-size:0.85rem">Trellis Residence</div>
-      <div style="font-size:0.75rem;color:#888;margin-top:2px">大房出租</div>
-    </div>
-    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
-      <div style="font-weight:600;font-size:0.85rem">Pasir Gudang Flat</div>
-      <div style="color:#dc2626;font-weight:600">RM160k sale <span style="font-weight:400;color:#666;font-size:0.75rem">3房</span></div>
-      <div style="font-size:0.75rem;color:#888;margin-top:2px">Leasehold · 570sqft</div>
-    </div>
-    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa">
-      <div style="font-weight:600;font-size:0.85rem">Johor Bahru 房间</div>
-      <div style="font-size:0.75rem;color:#888;margin-top:2px">4房2厕 · 近CIQ</div>
-    </div>
+    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa"><div style="font-weight:600;font-size:0.85rem">R&F Princess Cove</div><div style="color:#dc2626;font-weight:600">RM3,000/m <span style="font-weight:400;color:#666;font-size:0.75rem">房间 · 全家私</span></div><div style="font-size:0.75rem;color:#888;margin-top:2px">近CIQ · 有停车位</div></div>
+    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa"><div style="font-weight:600;font-size:0.85rem">Bukit Indah 房间</div><div style="color:#dc2626;font-weight:600">RM2,000/m <span style="font-weight:400;color:#666;font-size:0.75rem">房间</span></div><div style="font-size:0.75rem;color:#888;margin-top:2px">屋主自租 · 有冷气 · 可煮</div></div>
+    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa"><div style="font-weight:600;font-size:0.85rem">Meridin Medini 房间</div><div style="color:#dc2626;font-weight:600">RM2,300/m <span style="font-weight:400;color:#666;font-size:0.75rem">房间</span></div><div style="font-size:0.75rem;color:#888;margin-top:2px">有停车位</div></div>
+    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa"><div style="font-weight:600;font-size:0.85rem">R&F Princess Cove 2房1厕</div><div style="color:#dc2626;font-weight:600">RM2,700/m <span style="font-weight:400;color:#666;font-size:0.75rem">全装</span></div><div style="font-size:0.75rem;color:#888;margin-top:2px">Phase 1 · 873sqft</div></div>
+    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa"><div style="font-weight:600;font-size:0.85rem">Taman Sentosa 房间</div><div style="color:#dc2626;font-weight:600">RM800/m <span style="font-weight:400;color:#666;font-size:0.75rem">房间</span></div><div style="font-size:0.75rem;color:#888;margin-top:2px">近CIQ · 包水电 · 有冷气</div></div>
+    <div style="border:1px solid #e2e8f0;border-radius:8px;padding:0.7rem;background:#fafafa"><div style="font-weight:600;font-size:0.85rem">Taman Megah Ria 双层排屋</div><div style="color:#dc2626;font-weight:600">RM2,500/m <span style="font-weight:400;color:#666;font-size:0.75rem">4房3厕</span></div><div style="font-size:0.75rem;color:#888;margin-top:2px">半家私 · 22x70</div></div>
   </div>
-  <p style="font-size:0.75rem;color:#999;margin-top:1rem;text-align:center">
-    📞 Phone numbers visible after login → <a href="https://leadpilot.smart-tenancy-pro.org" style="color:#2563eb">leadpilot.smart-tenancy-pro.org</a>
-  </p>
   <hr style="margin:1.5rem 0;border:none;border-top:1px solid #e2e8f0">
 </div>
 
@@ -685,7 +387,7 @@
       <div class="brand-dot"></div>
       <div>
         <h1>JB Rentals</h1>
-        <div class="brand-sub">Smart Tenancy Pro</div>
+        <div class="brand-sub">LeadPilot</div>
       </div>
     </div>
     <div class="stat-pills" id="statPills"></div>
@@ -695,9 +397,9 @@
     <input class="search-input" type="text" placeholder="搜楼盘 / agent / 房型 / 备注…" oninput="filter()" id="search">
   </div>
   <div class="tag-row" id="tagRow"></div>
+  <div class="filter-bar" id="filterBar"></div>
 </div>
 
-<!-- ── listings ── -->
 <div class="listings" id="listings">
   <div class="skeleton"><div class="sk-line"></div><div class="sk-line w3"></div><div class="sk-line w2"></div></div>
   <div class="skeleton"><div class="sk-line"></div><div class="sk-line w3"></div><div class="sk-line w2"></div></div>
@@ -712,11 +414,85 @@ const AUTH_URL = 'https://auth.smart-tenancy-pro.org';
 const PAGE_SIZE = 50;
 
 let DATA = { total: 0, today_new: 0, listings: [], top_properties: [] };
-let activeTag = '';
-
 let state = { listings: [], total: 0, hasMore: true, loading: false, offset: 0,
-  searchQuery: '', isSearching: false, observer: null, _fetchGen: 0 };
+  searchQuery: '', isSearching: false, observer: null, _fetchGen: 0, allListings: [] };
 
+// ── Filters ──
+const FILTERS = {
+  price: { label: '租金', items: [
+    { id: '', label: '全部' },
+    { id: 'lt500', label: '< RM500', test: l => parseInt(l.rent||0) > 0 && parseInt(l.rent||0) < 500 },
+    { id: '500-1k', label: 'RM500-1k', test: l => { const r = parseInt(l.rent||0); return r >= 500 && r < 1000; } },
+    { id: '1k-1.5k', label: 'RM1k-1.5k', test: l => { const r = parseInt(l.rent||0); return r >= 1000 && r < 1500; } },
+    { id: '1.5k-2k', label: 'RM1.5k-2k', test: l => { const r = parseInt(l.rent||0); return r >= 1500 && r < 2000; } },
+    { id: '2k-3k', label: 'RM2k-3k', test: l => { const r = parseInt(l.rent||0); return r >= 2000 && r < 3000; } },
+    { id: 'gt3k', label: 'RM3k+', test: l => { const r = parseInt(l.rent||0); return r >= 3000; } },
+  ]},
+  type: { label: '类型', items: [
+    { id: '', label: '全部' },
+    { id: 'room', label: '房间', test: l => (l.property_type||'').includes('房间') || (l.rooms||'').includes('房间') },
+    { id: 'studio', label: 'Studio', test: l => (l.property_type||'').toLowerCase().includes('studio') },
+    { id: 'condo', label: '公寓/Condo', test: l => (l.property_type||'').toLowerCase().includes('公寓') || (l.property_type||'').toLowerCase().includes('condo') || (l.type||'').toLowerCase().includes('公寓') },
+    { id: 'terrace', label: '排屋', test: l => (l.property_type||'').includes('排屋') || (l.property_type||'').includes('terrace') },
+    { id: '整间', label: '整间', test: l => !(l.property_type||'').includes('房间') && !(l.rooms||'').includes('房间') },
+  ]},
+  area: { label: '区域', items: [] },
+};
+let activeFilters = { price: '', type: '', area: '' };
+
+function buildAreaFilter() {
+  const areas = new Set();
+  state.allListings.forEach(l => {
+    const p = (l.property || '').trim();
+    if (p) areas.add(p);
+  });
+  FILTERS.area.items = [{ id: '', label: '全部' }];
+  [...areas].sort().slice(0, 20).forEach(a => {
+    FILTERS.area.items.push({ id: a, label: a, test: l => (l.property||'').includes(a) });
+  });
+}
+
+function renderFilters() {
+  const bar = document.getElementById('filterBar');
+  let html = '';
+  for (const [key, f] of Object.entries(FILTERS)) {
+    const active = activeFilters[key];
+    const label = active ? f.items.find(i => i.id === active)?.label : f.label;
+    html += `<button class="filter-btn${active ? ' active' : ''}" onclick="toggleFilter('${key}')">${label}</button>`;
+  }
+  bar.innerHTML = html;
+}
+
+function toggleFilter(key) {
+  const f = FILTERS[key];
+  const current = activeFilters[key];
+  const items = f.items;
+  const idx = items.findIndex(i => i.id === current);
+  const next = items[(idx + 1) % items.length];
+  activeFilters[key] = next.id;
+  renderFilters();
+  applyFilters();
+}
+
+function applyFilters() {
+  let items = state.allListings;
+  for (const [key, val] of Object.entries(activeFilters)) {
+    if (!val) continue;
+    const f = FILTERS[key];
+    const item = f.items.find(i => i.id === val);
+    if (item && item.test) items = items.filter(item.test);
+  }
+  state.listings = items;
+  DATA.listings = items;
+  renderListings();
+  // Update stats
+  document.getElementById('statPills').innerHTML =
+    `<a class="nav-link" href="https://t.me/smarttenancy_bot" target="_blank">📄 合同Bot</a>` +
+    `<span class="stat-pill"><b>${items.length}</b> 套房源</span>` +
+    `<span class="stat-pill">🆕 <b>${DATA.today_new || 0}</b> 今日</span>`;
+}
+
+// ── Main ──
 async function main() {
   await loadPage();
   setupInfiniteScroll();
@@ -740,11 +516,20 @@ async function loadPage() {
     DATA.total = state.total; DATA.today_new = 0;
     DATA.top_properties = data.top_properties || [];
     if (state.offset === PAGE_SIZE) {
-      state.listings = data.listings || []; DATA.listings = state.listings;
-      renderStats(); renderTags(); renderListings();
+      state.allListings = data.listings || [];
+      state.listings = state.allListings;
+      DATA.listings = state.listings;
+      buildAreaFilter();
+      renderFilters();
+      renderStats();
+      renderTags();
+      renderListings();
     } else {
-      const items = data.listings || []; state.listings = state.listings.concat(items);
-      DATA.listings = state.listings; appendListings(items);
+      const items = data.listings || [];
+      state.allListings = state.allListings.concat(items);
+      state.listings = state.allListings;
+      DATA.listings = state.listings;
+      appendListings(items);
     }
     if (!state.hasMore) {
       document.getElementById('loadMoreIndicator').textContent = '— 已加载全部 ' + state.total + ' 条 —';
@@ -758,7 +543,7 @@ async function loadPage() {
 }
 
 function resetSearch() {
-  state._fetchGen++; state.listings = []; state.offset = 0;
+  state._fetchGen++; state.allListings = []; state.listings = []; state.offset = 0;
   state.hasMore = true; state.isSearching = !!state.searchQuery; loadPage();
 }
 
@@ -790,22 +575,15 @@ function renderStats() {
 
 function renderTags() {
   const row = document.getElementById('tagRow');
-  row.innerHTML = '<span class="tag active" onclick="selectTag(\'\', this)">全部</span>';
+  row.innerHTML = '';
   (DATA.top_properties || []).slice(0, 10).forEach(p => {
     const s = document.createElement('span'); s.className = 'tag'; s.textContent = p;
-    s.onclick = () => selectTag(p, s); row.appendChild(s);
+    row.appendChild(s);
   });
 }
 
-function selectTag(tag, el) {
-  if (activeTag === tag) activeTag = ''; else activeTag = tag;
-  document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
-  if (activeTag) el?.classList.add('active');
-  else document.querySelector('.tag').classList.add('active');
-}
-
 function renderListings() {
-  let items = state.listings || [];
+  const items = state.listings || [];
   const el = document.getElementById('listings');
   if (!items.length) { el.innerHTML = '<div class="empty">没有匹配的房源</div>'; return; }
   el.innerHTML = items.map(cardHtml).join('');
@@ -818,30 +596,22 @@ function appendListings(items) {
 
 function cardHtml(l) {
   const isNew = isToday(l.scraped_at), pt = l.post_text || '', short = pt.length <= 80;
-  let chips = [];
-  if (l.type) chips.push(`<span class="chip type-chip">${esc(l.type)}</span>`);
-  if (l.property_type) chips.push(`<span class="chip">${esc(l.property_type)}</span>`);
-  if (l.rooms) chips.push(`<span class="chip">${esc(l.rooms)}</span>`);
-  if (l.furnishing) chips.push(`<span class="chip furnish-chip">${esc(l.furnishing)}</span>`);
-  if (l.remark) chips.push(`<span class="chip">${esc(l.remark)}</span>`);
   const rent = l.rent ? fmtRent(l.rent) : '';
   const initial = (l.agent || '?')[0];
-  let agentHtml = '';
-  if (l.agent || l.phone) {
-    agentHtml = '<div class="agent-row">' +
-      '<span class="agent-avatar">' + esc(initial) + '</span>' +
-      (l.agent ? '<span>' + esc(l.agent) + '</span>' : '') +
-      (l.phone ? '<a class="agent-phone" href="tel:' + esc(l.phone) + '">📞 ' + esc(l.phone) + '</a>' : '') +
-      '</div>';
-  }
-  const accent = accentClass(l.property_type || l.type);
-  return `<div class="card ${accent}"><div class="card-body">
-    <div class="card-name">${isNew ? '<span class="badge-new">NEW</span>' : ''}
+  const chips = [l.type, l.property_type, l.rooms, l.furnishing].filter(Boolean);
+  const meta = chips.join(' · ') + (l.remark ? (' · ' + l.remark.replace(/\[.*?\]/g,'').trim()) : '');
+  return `<div class="card ${accentClass(l.property_type || l.type)}"><div class="card-body">
+    <div class="agent-row">
+      <span class="agent-avatar">${esc(initial)}</span>
+      <span class="agent-name">${esc(l.agent || 'Agent')}</span>
+      ${l.phone ? '<a class="agent-phone" href="tel:' + esc(l.phone) + '">📞 ' + esc(l.phone) + '</a>' : ''}
+    </div>
+    <div class="card-name">
+      ${isNew ? '<span class="badge-new">NEW</span>' : ''}
       ${esc(l.property || '(未识别)')}
       ${rent ? '<span class="rent-tag">' + esc(rent) + '</span>' : ''}
     </div>
-    ${chips.length ? '<div class="info-chips">' + chips.join('') + '</div>' : ''}
-    ${agentHtml}
+    ${meta ? '<div class="meta-row">' + esc(meta) + '</div>' : ''}
     ${pt ? '<div class="post-block ' + (short ? '' : 'collapsed') + '"' + (short ? '' : ' onclick="togglePost(this)") + '>' + esc(pt) + '</div>' : ''}
     <div class="card-foot">
       <span class="time">${timeAgo(l.scraped_at)}</span>
@@ -860,7 +630,7 @@ function timeAgo(ts) {
 }
 function fmtRent(r) {
   if (!r) return ''; const n = parseInt(String(r).replace(/[^0-9]/g, ''));
-  if (isNaN(n)) return '';
+  if (isNaN(n) || n === 0) return '';
   if (n >= 1000) return 'RM' + (n/1000).toFixed(1).replace(/\.0$/, '') + 'k';
   return 'RM' + n;
 }
