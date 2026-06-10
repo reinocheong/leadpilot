@@ -12,10 +12,11 @@
 - **原因：** 命令行缺少 `--send` 参数，脚本默认进入 Dry-run 模式。
 - **对策：** 在所有 Cron 配置中显式加上 `--send`。
 
-### 3. 数据解析噪音过载
-- **现象：** Post Text 列充斥着「火速回复」、「赞评论分享」等冗余信息。
-- **原因：** 简单提取 textContent 会带入所有 UI 文本。
-- **对策：** 使用 15 条强力正则进行清洗，确保数据纯净。
+### 3. 数据解析噪音过载 (已废弃 — 改用 AI 提取)
+- ~~**现象：** Post Text 列充斥着「火速回复」、「赞评论分享」等冗余信息。~~
+- ~~**原因：** 简单提取 textContent 会带入所有 UI 文本。~~
+- ~~**对策：** 使用 15 条强力正则进行清洗，确保数据纯净。~~
+- **现状（2026-06-10）：** 不再需要。爬虫只抓 raw text，AI 语义提取自动忽略 UI 噪音。
 
 ### 4. Git 提交冲突
 - **现象：** `[remote rejected] cannot lock ref`。
@@ -83,12 +84,14 @@
 - **多路交叉验证 DNS**：系统 DNS + Google DNS API + Cloudflare DNS API，三路一致才算确认。
 - **多因素渐进排查**（2026-05-28 QR 配对教训）：一个问题可能有多个独立根因。不要锁定一个理论就加倍下注。逐一排查：①进程活着吗？②端口可用吗？③依赖/数据干净吗？④输出格式对吗？⑤还有没其他因素？每个都要验，验一个划掉一个，直到找到全部原因。
 
-### 1. 正则 vs LLM 提取
-- **决策：** 核心字段（电话、价格、楼盘）优先使用本地正则匹配。
-- **理由：** 零成本、零延迟、易于调试。仅在正则无法覆盖的极端复杂场景考虑 LLM。
+### 1. ~~正则 vs LLM 提取~~ (2026-06-10 已推翻)
+- **旧决策：** 核心字段（电话、价格、楼盘）优先使用本地正则匹配。理由：零成本、零延迟、易于调试。
+- **推翻原因：** 正则提取有 4 类无法根治的顽疾 — 楼盘名抓垃圾、卖盘/租盘混淆、售价当租金、英文/中文混合表达漏信息。647 行正则越写越复杂，准确率仍然不达标。
+- **新决策：** **全部使用 AI 语义提取**。爬虫只负责抓 raw text，结构化提取由 Hermes AI 理解完成。代价是 token 费和稍慢，但准确率大幅提升。
+- **质量门禁：** 提取后必须人工对齐确认才写 Sheet，脏数据不入库。
 
 ### 2. 推广配额限制
-- **决策：** 每天仅推广 5-10 人，且分 5 个时段。
+- **决策：** 每天仅推广 5 人，且分 5 个时段。
 - **理由：** 马来西亚 WhatsApp 账号成本高，安全第一，牺牲速度换取账号持久度。
 
 ### 3. 隧道 URL 自动同步（已廢除 2026-05-31）
@@ -99,23 +102,24 @@
 ### 11. WA error 463 — 账号级限制 (2026-05-28，已解决)
 - **现象：** daemon 连接正常、`/send` 正常，但每条消息报 `error 463: account restricted or missing tctoken for contact`，用户 WhatsApp 看不到消息发出。
 - **根因：** 05-26 的 403 封禁后，账号被 WhatsApp 限制「禁止向陌生联系人发起新对话」。重新扫码配对恢复了连接，但没有解除限制。
-- **验证线索：** daemon 每次 `sock.sendMessage()` 不抛异常、返回 `{"ok":true}`，但 Baileys 异步收到 `error 463`。恢复机制（issuePrivacyTokens）也因账号限制失败。所有发送 `+601****5678` 等测试号均 463，即使同一号码重复发。
+- **验证线索：** daemon 每次 `sock.sendMessage()` 不抛异常、返回 `{\"ok\":true}`，但 Baileys 异步收到 `error 463`。恢复机制（issuePrivacyTokens）也因账号限制失败。所有发送 `+601****5678` 等测试号均 463，即使同一号码重复发。
 - **之前发送成功（05-12~05-19）：** 当时账号未受限，原 wa_daemon.js 正常投递。
 - **冷却过程：** 05-28 暂停推广 → 05-29 复查仍 463 → **06-01 复查 463 已消失，恢复正常发送** → 冷却有效，无需换号
 - **教训：** WhatsApp 的 403/463 是账号级限制，重新扫码配对只能恢复连接不能恢复发送权限。冷却时间不确定，本次 ~4 天（05-28→06-01）恢复。若 7 天仍 463 才需换号。
 
 ## 🤖 AI 行为约束
-- **Git push 必須用 Windows Git**：WSL 沒有 GitHub credential helper（`fatal: could not read Username`），必須透過 `/mnt/c/Program\ Files/Git/bin/git.exe push` 使用 Windows 端儲存的憑證。
+- **Git push 必須用 Windows Git**：WSL 沒有 GitHub credential helper（`fatal: could not read Username`），必須透過 `/mnt/c/Program\\ Files/Git/bin/git.exe push` 使用 Windows 端儲存的憑證。
 - **严禁静默重构：** 任何涉及模块拆分或核心逻辑变更的操作，必须先输出 `Proposed Changes`。
 - **双日志制度：** 必须同时向 Console 和 `.logs/error.log` 输出结构化日志。
 - **数据优先原则（核心教训 2026-05-29）：** 访客打开网站应直接看到房源数据，不是登录页。登录应发生在「用户需要电话」时才触发。这个项目不是「登录才能看数据」，而是「数据全公开，电话要登录」。SSOT 文档必须明确记录这个设计原则，任何修改都必须从 SSOT 文档开始核验。
+- **AI 提取质量门禁（2026-06-10）：** 提取后必须对齐确认才写 Sheet。不自动写 Sheet，不跳过人工确认环节。
 
 ### 12. FB cookie 过期 — 静默空跑 (2026-05-31，已修复)
 - **现象：** 爬虫 cron `last_status=ok` 但 5 个群全部 0 条，`fb_posts_raw.json` 仅 7KB/8条，备份 212KB/283条，最后更新 12 小时前
 - **根因：** FB cookie 中 `xs` 会话 token 过期，Playwright 加载群组被重定向到登录页但不报错
 - **诊断：** 手动跑爬虫全部显示「抓取到 0 条」无报错；浏览器打开群组 URL 显示登录页
 - **修复：** 用 Windows Chrome Control 提取新 cookie → 更新 `scraper/fb_scraper.js` 中 `xs` 和 `fr` 值
-- **自动化：** `C:\Users\User\Desktop\fb-cookie-extract\get_cookies.js`（Playwright + CDP 连接真实 Chrome 取 cookie）
+- **自动化：** `C:\\Users\\User\\Desktop\\fb-cookie-extract\\get_cookies.js`（Playwright + CDP 连接真实 Chrome 取 cookie）
 - **防护：** 爬虫 cron 切为 LLM 模式，产出 < 3 条自动告警
 - **教训：** no_agent 模式无法检测「脚本没崩但产出异常」。静默空跑是最隐蔽的故障。
 
@@ -126,4 +130,14 @@
   1. 代码：`main()` 函数改为 `while True` + `try/except Exception`，崩了 3s 内自重启
   2. 系统：创建 systemd user service（`leadpilot-auth.service`），`Restart=always` + 开机自启
 - **教训：** Python `http.server` 不适合线上使用。`BrokenPipeError` 是常见但隐蔽的崩溃源（进程死但无 traceback 写到日志文件）。生产服务需要（1）代码层自恢复循环（2）系统层守护双重防护。
-  
+
+### 14. Regex → AI 语义提取迁移 (2026-06-10)
+- **决策：** 废弃 647 行 regex 解析器 `fb_parser.py`，改为 Hermes AI 逐条理解提取
+- **理由：** 正则提取有 4 类无法根治的顽疾：
+  1. 楼盘名抓垃圾 — `- Sjk`（学校名）、`40'X80'`（土地尺寸）、地区名当楼盘名
+  2. 卖盘误判为出租 — `AVAILABLE FOR SALE` 读成出租，售价 RM1.1mil 当租金 `1100`
+  3. 售价当租金 — RM450k、RM1.1m、RM3.5mil 被提取为租金
+  4. 英文/混合表达漏信息 — `4 room 2 bath` 漏抓房型
+- **优势：** AI 理解语义，能区分售价/租金/管理费、识别正确楼盘名、看懂中英文混合表达
+- **代价：** 需要 token 费，不能全自动 cron 跑（需人工对齐确认），但数据质量大幅提升
+- **质量门禁：** 提取后展示给 Reino 确认，才写入 Sheet。**严禁自动写 Sheet。**

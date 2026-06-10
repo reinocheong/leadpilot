@@ -5,17 +5,17 @@
 ```mermaid
 graph TD
     %% 外部数据源
-    FB[(Facebook Groups)] -- "① 采集" --> Scraper[scraper/fb_scraper.js]
+    FB[(Facebook Groups)] -- "① 采集" --> ScraperCron[FB CloakBrowser 爬虫 cron]
 
     %% 第一阶段：采集
     subgraph Stage1 [Phase 1: Scraping]
-        Scraper -->|提取文本/号码| RawJSON[(fb_posts_raw.json)]
+        ScraperCron -->|提取文本/号码| RawJSON[(fb_posts_raw.json)]
     end
 
-    %% 第二阶段：解析
-    subgraph Stage2 [Phase 2: Processing]
-        RawJSON -- "② 解析" --> Parser[processors/fb_parser.py]
-        Parser -->|结构化字段| Sheets[(Google Sheets: JB Rentals)]
+    %% 第二阶段：AI 提取
+    subgraph Stage2 [Phase 2: AI Extraction]
+        RawJSON -- "② AI 提取" --> HermesAI[Hermes AI 逐条提取]
+        HermesAI -->|人工对齐确认| Sheets[(Google Sheets: JB Rentals)]
     end
 
     %% 第三阶段：推广
@@ -43,8 +43,8 @@ graph TD
 
     %% 日志监控
     LogService[.logs/error.log]
-    Scraper -.-> LogService
-    Parser -.-> LogService
+    ScraperCron -.-> LogService
+    HermesAI -.-> LogService
     Engine -.-> LogService
     AuthServer -.-> LogService
 
@@ -59,18 +59,18 @@ graph TD
 ```mermaid
 sequenceDiagram
     participant FB as FB 群组
-    participant Scraper as 爬虫 (Node.js)
-    participant Parser as 解析器 (Python)
+    participant Scraper as 爬虫 (CloakBrowser MCP cron)
+    participant AI as Hermes AI 提取
     participant Sheets as Google Sheets
     participant Web as 网页 (index.html)
     participant Auth as 认证服务 (auth_server)
     participant User as 访客/用户
 
     FB->>Scraper: 滚动抓取帖子文本
-    Scraper->>Scraper: 提取电话 (Regex)
-    Scraper->>Parser: 写入原始 JSON
-    Parser->>Parser: 清洗噪音/识别楼盘
-    Parser->>Sheets: 更新 JB Rentals 表
+    Scraper->>Scraper: 提取电话+链接
+    Scraper->>AI: 写入原始 JSON (fb_posts_raw.json)
+    AI->>AI: AI 语义理解提取全部字段
+    AI->>Sheets: 对齐确认后写入 JB Rentals 表
 
     Note over Web,Auth: ⭐ 数据优先流程
     User->>Web: 访问 leadpilot.smart-tenancy-pro.org
@@ -103,7 +103,7 @@ sequenceDiagram
     - `AUTH_URL`: `auth.smart-tenancy-pro.org`（CNAME → hermes-webui tunnel，稳定不变）。
 - **Local State (局部状态):**
     - `wa_session/`: WhatsApp 认证会话。
-    - `fb_posts_raw.json`: 采集阶段的中间缓存。
+    - `fb_posts_raw.json`: 采集阶段的中间缓存（**唯一数据源**）。
     - `sessions`（内存）: auth_server 的登录会话（重启丢失）。
 
 ## 🎯 认证与数据访问规则
@@ -119,5 +119,5 @@ sequenceDiagram
 
 ## 🚨 日志与异常边界
 
-- 所有的核心服务 (Auth, Scraper, Parser, outreach) 必须捕获异常并写入 `.logs/error.log`。
+- 所有的核心服务 (Auth, Scraper, AI, outreach) 必须捕获异常并写入 `.logs/error.log`。
 - 调用深度严禁超过 4 层（例如：Engine -> Sender -> Notify -> Daemon ✅）。

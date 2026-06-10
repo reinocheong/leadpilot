@@ -1,15 +1,15 @@
 # LeadPilot — JB 房产数据 SaaS
 
-> 从 FB 抓取房源 + Agent 号码 → 数据全公开（电话遮罩）→ Google 登录解锁电话 → WhatsApp 自动推广 → Stripe 付费续费，全链路自动化。
+> 从 FB 抓取房源 → AI 提取结构化数据 → 人工确认后入 Sheets → 数据全公开（电话遮罩）→ Google 登录解锁电话 → WhatsApp 自动推广 → Stripe 付费续费，全链路自动化。
 
 ---
 
 ## 🏗️ 架构概览
 
-本项目遵循 [`AI_ARCHITECT_PROTOCOL.md`](AI_ARCHITECT_PROTOCOL.md) 规范，采用高度模块化的架构，单文件行数严格控制在 150 行以内。
+本项目遵循 [`AI_ARCHITECT_PROTOCOL.md`](AI_ARCHITECT_PROTOCOL.md) 规范，采用高度模块化的架构。
 
 ```
-|/home/user/leadpilot/          ← ★ 项目根目录
+/home/user/leadpilot/          ← ★ 项目根目录
 │
 ├── 📄 核心 SSOT 文档
 │   ├── USER.md                      ← 用户画像与业务价值
@@ -18,24 +18,12 @@
 │   ├── MEMORY.md                    ← 避坑指南与技术决策
 │   ├── TODO.md                      ← 颗粒化进度追踪
 │   ├── README.md                    ← 本文档
-│   └── DEPLOY.md                    ← 部署与 Cron 配置
+│   └── DEPLOY.md                    ← 部署与环境手册
 │
-├── 🔧 scraper/                      ← 阶段①：FB 爬虫 (CloakBrowser MCP)
-│   ├── fb_scraper.js                # (退役) 旧 headless Playwright
-│   ├── cloak_scraper.mjs            # CloakBrowser 独立脚本(备选)
-│   └── lib/
-│       ├── browser.js               # 浏览器实例管理
-│       ├── fb_phone.js              # 电话提取
-│       ├── fb_expand.js             # UI 交互
-│       └── fb_extract.js            # 数据抓取 (postLink过滤+7套正则)
-│
-├── 🔧 processors/                   ← 阶段②：数据解析
-│   ├── fb_parser.py                 # 主入口 (流程编排)
-│   └── lib/
-│       ├── field_extractor.py       # 字段提取核心
-│       ├── filters.py               # 垃圾帖过滤
-│       ├── text_cleaner.py          # UI 噪音清洗
-│       └── sheet_writer.py          # Google Sheets 交互
+├── 📄 开发文档
+│   ├── DEVELOPMENT.md               ← ★ 新工作流（SSOT）
+│   ├── WORKFLOW.md                  ← (已过时，参考 DEVELOPMENT.md)
+│   └── SHEETS.md                    ← Sheet 清单
 │
 ├── 🚀 outreach/                     ← 阶段③：推广引擎
 │   ├── outreach_engine.py           # 主入口 (配额分配)
@@ -55,7 +43,7 @@
 │   └── lib/sheet_ops.py            # Sheets 读取封装
 │
 ├── 📊 scripts/                      ← 辅助脚本
-│   ├── export_rentals_json.py       # 导出房源 JSON (975+条)
+│   ├── export_rentals_json.py       # 导出房源 JSON
 │   ├── gen_crawler_page.py          # AI 爬虫友好页面
 │   ├── gen_sitemap.py               # SEO sitemap
 │   ├── summary_report.py            # 状态汇总
@@ -67,14 +55,10 @@
 │       └── message_router.js        # 消息分发路由
 │
 ├── 🌐 index.html                    ← 房源浏览页 (数据优先，电话遮罩)
-├── 📄 crawler-listings.html         ← AI 爬虫友好版 (974条预渲染)
-├── 📄 sitemap.xml                   ← SEO (977 URLs)
+├── 📄 crawler-listings.html         ← AI 爬虫友好版
+├── 📄 sitemap.xml                   ← SEO
 ├── 💾 data/rentals.json             ← 房源缓存 (自动更新)
 ├── 📂 .logs/error.log               ← 错误日志
-├── 📂 docs/                         ← 开发文档
-│   ├── ARCHITECTURE.md / SHEETS.md / WORKFLOW.md / TODO.md
-│   ├── 推广文案.md / 推广计划.md
-│   └── architecture.html
 ├── 💳 stripe_checker.py             ← Stripe 付款检测
 ├── 📋 notify_subscribers.py         ← 订阅推送
 ├── 💾 subscribers.db                ← SQLite 订阅数据
@@ -90,20 +74,21 @@
 | **数据优先** | 访客打开网站即看到全部房源数据（统计、筛选、卡片），无需登录 |
 | **电话遮罩** | 所有电话号码显示为 `+601*******`，CSS 模糊 + 🔒 锁定 |
 | **点击解锁** | 用户点击遮罩电话才触发 Google 登录，而非一开始就弹登录页 |
-| **预览条引导** | 底部固定条提示「🔒 预览 · X 套房源 · 订阅查看联系方式 →」|
+| **AI 提取** | 爬虫只负责抓 raw text，结构化提取由 Hermes AI 语义理解完成 |
+| **对齐门禁** | 提取后必须人工确认才写入 Sheet，脏数据不进库 |
 | **登录即用** | Google 一键登录后立即解锁电话，3 天试用自动开通 |
 
 ## 🛠️ 快速执行
 
-| 阶段 | 任务 | 执行命令 | 说明 |
+| 阶段 | 任务 | 执行方式 | 说明 |
 |:---:|---|---|---|
-|| ① | 抓取(CloakBrowser) | cron `025c5513a4ac` 每30分自动跑 | 反检测 MCP，8群 |
-| ② | 解析 | `cd /home/user/leadpilot && timeout 120 python3 processors/fb_parser.py` | 入 Google Sheets |
-| ③ | 推广(干跑) | `cd /home/user/leadpilot && python3 outreach/outreach_engine.py` | 不加--send=预览模式 |
-| ③ | 推广(发送) | `cd /home/user/leadpilot && python3 outreach/outreach_engine.py --send --slot 1 --total-slots 5` | 发1人 |
-| ④ | 订阅管理 | `cd /home/user/leadpilot && python3 sub_mgr.py list` | 查看订阅者 |
-| 🔐 | 登录服务 | `cd /home/user/leadpilot && python3 auth/auth_server.py &` | 8777端口 |
-| 📊 | 报告 | `cd /home/user/leadpilot && python3 scripts/summary_report.py` | 状态汇总 |
+| ① | 爬虫 | cron `b469bac211e4` 每30分自动跑 | CloakBrowser MCP，8群 |
+| ② | AI 提取 | Telegram 通知 Hermes 处理 | 理解语义提取，非 regex |
+| ③ | 推广(干跑) | `cd ~/leadpilot && python3 outreach/outreach_engine.py` | 不加--send=预览模式 |
+| ③ | 推广(发送) | `cd ~/leadpilot && python3 outreach/outreach_engine.py --send --slot 1 --total-slots 5` | 发1人 |
+| ④ | 订阅管理 | `cd ~/leadpilot && python3 sub_mgr.py list` | 查看订阅者 |
+| 🔐 | 登录服务 | `cd ~/leadpilot && python3 auth/auth_server.py &` | 8777端口 |
+| 📊 | 报告 | `cd ~/leadpilot && python3 scripts/summary_report.py` | 状态汇总 |
 
 ## 🚨 日志与监控
 
@@ -111,4 +96,6 @@
 - **物理文件：** 核心错误记录在 [`.logs/error.log`](.logs/error.log)。
 
 ---
+
 > ⚠️ **开发约束：** 修改任何代码前，请务必阅读 [`AI_ARCHITECT_PROTOCOL.md`](AI_ARCHITECT_PROTOCOL.md) 并参考 SSOT 文档。
+> ⚠️ **数据提取已从 regex 切换为 AI 语义提取** — 不再使用 `fb_parser.py`。

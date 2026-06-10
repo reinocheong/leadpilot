@@ -120,7 +120,7 @@
   - **修复**：`sock` 改为模块级 `let sock = null;`，`startSock()` 内 `sock = makeWASocket(...)`（去掉 const）
   - **Bug 2 — 批量发送**：每个 cron slot 一次发出 4 条消息（daily_quota=20 ÷ 5 slots），违反用户「五分钟一条」的要求
   - **修复**：每个 slot 只发 1 条消息（slot 改为 `[:1]`），1 小时间隔的 cron 本身提供自然节奏
-  - ✅ 测试：`curl POST /send` 返回 `{"ok":true}`，`outreach_engine.py --send` 成功发送 1 条
+  - ✅ 测试：`curl POST /send` 返回 `{\"ok\":true}`，`outreach_engine.py --send` 成功发送 1 条
 
 - **2026-05-28 11:00 [AI] (WA error 463 — 账号限制检测)**
   - 用户反馈 WhatsApp 看不到发出的消息
@@ -139,7 +139,7 @@
   - OAuth 白名单、SSOT 文档全部对齐
 
 ##### 2026-05-27 [会话 20260527-leadpilot-domain-migration]
-- **推送到 GitHub Pages**：WSL git push 失敗（無憑證），改用 `/mnt/c/Program\ Files/Git/bin/git.exe push` 成功推送
+- **推送到 GitHub Pages**：WSL git push 失敗（無憑證），改用 `/mnt/c/Program\\ Files/Git/bin/git.exe push` 成功推送
 - **確認 auth 隧道活著**：`localhost:8777` 返回 974 條房源 ✅，trycloudflare 隧道（`savings-feeling-tips-sellers`）也活著 ✅
 - **網站狀態**：用戶可訪問網站但未見到房源列表（可能 GitHub Pages 部署延遲或瀏覽器快取）
 - **Tunnel URL 更新**：index.html 中 AUTH_URL=`https://savings-feeling-tips-sellers.trycloudflare.com`
@@ -147,7 +147,7 @@
 #### 2026-05-31 [AI] (cookie 过期修复 + 提取逻辑重构 + cron 切 LLM 模式)
 - **故障：** FB cookie 过期导致爬虫静默空跑 12+ 小时（cron last_status=ok 但 5 群 0 条）
 - **修复：** 用 Windows Chrome Control 提取新 cookie（xs+fr 更新）
-- **Windows Chrome Control 流程自动化：** 脚本 `C:\Users\User\Desktop\fb-cookie-extract\get_cookies.js`，连接用户真实 Chrome 提取 FB cookie
+- **Windows Chrome Control 流程自动化：** 脚本 `C:\\Users\\User\\Desktop\\fb-cookie-extract\\get_cookies.js`，连接用户真实 Chrome 提取 FB cookie
 - **fb_extract.js 重构：**
   - 新增 postLink 过滤：跳过无真实帖子链接的 UI 元素（赞评论、发消息等）
   - 7 套正则策略提取 agent 名，准确率从 ~30% → 86%
@@ -171,7 +171,7 @@
 
 #### 2026-06-01 [AI] (WA 463 解除 + 恢复推广)
 - **WA 463 已解除（冷却 4 天有效）：** 05-28→06-01，账号恢复正常，可发送消息
-- **确认 daemon 状态：** PID 455，connected=true，`curl POST /send` 返回 `{"ok":true}`
+- **确认 daemon 状态：** PID 455，connected=true，`curl POST /send` 返回 `{\"ok\":true}`
 - **恢复 5 个推广 cron**（时段①~⑤ 10:30-14:30，每个 slot 发 1 人）
 - **取消 2 个 463 复查 cron**（#2 06-01、#3 06-04 无需再跑）
 - **SSOT 同步：** MEMORY.md / TODO.md 更新 463 解决状态
@@ -195,7 +195,7 @@
     - ❌ 之前错误地将登录页作为默认入口，房源数据隐藏（`display:none`）
     - ✅ 正确设计：访客看到全部房源（电话遮罩），登录仅用于解锁电话
     - 恢复 `loadPreview()` 渲染房源卡片 + 显示 dashboard
-    - 电话遮罩加 `onclick="showLoginFromPreview()"` → 点击触发登录
+    - 电话遮罩加 `onclick=\"showLoginFromPreview()\"` → 点击触发登录
     - `#crawler-samples` SEO 数据区隐藏（`display:none`，爬虫照读 DOM）
     - 更新 Cloudflare Tunnel URL → `authorization-alpha-etc-searched.trycloudflare.com`
     - **七文档SSOT同步**：USER/README/ARCHITECTURE/DEPLOY/TODO/JOURNAL/MEMORY 全部对齐
@@ -217,3 +217,14 @@
 - **问题：** Google Search Console 显示 893 条「已发现 - 尚未索引」
 - **根因：** `gen_sitemap.py` 给 1067 个 `?id=N` 参数链接提 sitemap（全是同一个 SPA 页面），Google 发现大量重复内容 → 全不索引，浪费抓取配额
 - **修复：** 删掉 `?id=N` 批量生成，sitemap 只保留 2 个真实页面（`/` 和 `/crawler-listings.html`）
+
+## 2026-06
+
+#### 2026-06-10 [AI] (提取方式革命 — regex → AI 语义提取)
+- **变更：** 废弃 `fb_parser.py`（647 行正则提取），改为 Hermes AI 语义理解提取
+- **原因：** regex 提取有 4 类顽疾 — ①楼盘名抓垃圾（`- Sjk` / `40'X80'`） ②卖盘误判为出租 ③售价当租金 ④英文房型漏抓
+- **新流程：** CloakBrowser 爬帖子原始 text → fb_posts_raw.json → Hermes AI 逐条理解提取 → 对齐确认 → 写入 Sheet
+- **删除旧文件：** fb_parser.py, fb_rental_posts.json, fb_debug*.mjs, fb_batch.mjs, fb_merge*.mjs, fb_save.mjs, fb_list_tools.mjs, fb_page_viewer.js, fb_scraper.js (symlink), 以及 fb_data/ 内 ~40 个废弃实验脚本
+- **删除旧 cron：** `2093b59a898a` (JB Rentals Parser), `d3a9238b6184` (LeadPilot Pipeline)
+- **SSOT 同步：** 7 份文档全部对齐（ARCHITECTURE/README/TODO/JOURNAL/MEMORY/DEPLOY/USER）+ WORKFLOW.md + DEVELOPMENT.md
+- **关键质量门禁：** 提取后必须对齐确认才写 Sheet，脏数据不入库

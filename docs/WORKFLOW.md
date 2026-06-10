@@ -1,3 +1,12 @@
+# WORKFLOW.md — ⚠️ 已过时，参考 DEVELOPMENT.md
+
+> **注意：** 本文档描述的 regex 解析流程已于 2026-06-10 废弃。
+> 新工作流请参照 **[DEVELOPMENT.md](DEVELOPMENT.md)**。
+>
+> 核心变更：`fb_parser.py(regex)` → `Hermes AI(语义提取)`，且必须对齐确认后才写 Sheet。
+
+---
+
 # WORKFLOW.md — 完整业务自动化工作流
 
 > Smart Tenancy Pro — 从 FB 抓取 → WhatsApp 推广 → 试用 → 付费 → 续费，全链路自动化。  

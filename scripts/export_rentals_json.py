@@ -70,8 +70,7 @@ def main():
         d = dict(zip(headers, r))
 
         phone = d.get("phone", "").strip()
-        if not phone or len(phone) < 7:
-            continue
+        # 不再过滤——无电话的房源也展示给用户查看
 
         scraped = d.get("scraped at", "").strip()
         try:
