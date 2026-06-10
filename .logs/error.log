@@ -1059,3 +1059,4 @@ Emitted 'error' event on Socket instance at:
 }
 
 Node.js v22.22.2
+[2026-06-09T14:34:47.803Z] [cloak] Group7 -> page.waitForTimeout: Target page, context or browser has been closed

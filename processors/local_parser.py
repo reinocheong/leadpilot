@@ -18,11 +18,30 @@ from lib.extractors import (
 RAW_JSON = "/home/user/fb_data/fb_posts_raw.json"
 OUT_JSON = "/home/user/fb_data/fb_posts_parsed.json"
 
+def extract_phone_from_text(text: str) -> str:
+    """Extract first valid Malaysian/SG phone number from text."""
+    if not text:
+        return ""
+    # Try various patterns: +60XXXXXXXXX, 01XXXXXXXXX, with/without hyphen/space
+    patterns = [
+        r'(\+?6?0[1-9][0-9])[\s\-]?([0-9]{3,4})[\s\-]?([0-9]{4})',
+        r'(\+?65)[\s\-]?([0-9]{4})[\s\-]?([0-9]{4})',
+        r'\b(01[0-9])[\s\-]?([0-9]{3,4})[\s\-]?([0-9]{4})\b',
+    ]
+    for pat in patterns:
+        m = re.search(pat, text)
+        if m:
+            raw = ''.join(m.groups())
+            return normalize_phone(raw)
+    return ""
+
 def parse_post(post):
     raw_text = post.get("text", "")
     text = clean_post_text(raw_text)
     agent = post.get("agent_name", "")
     phone = normalize_phone(post.get("phone", ""))
+    if not phone:
+        phone = extract_phone_from_text(raw_text)
     link = post.get("link", "")
     scraped_at = post.get("scraped_at", "")
     group_name = post.get("group_name", "")
